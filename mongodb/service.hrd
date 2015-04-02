@@ -1,0 +1,28 @@
+
+process.1=
+    cmd:'rm -f /opt/jumpscale7/var/mongodb/main/mongod.lock;export LC_ALL=C;/opt/mongodb/bin/mongod --dbpath $(system.paths.var)/mongodb/$(service.instance)/ --smallfiles --rest --httpinterface',
+    args:,
+    prio:5,
+    env:,
+    cwd:'/opt/mongodb/bin',
+    timeout_start:60,
+    timeout_stop:10,
+    ports:27017;28017,
+    startupmanager:tmux,
+    filterstr:'bin/mongod'
+
+#base of repo where code or files are e.g. http://git.aydo.com/binary/base
+git.url='http://git.aydo.com/binary/mongodb'
+#dict where key is source in repo, 
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
+git.export.1=
+    url:$(git.url),
+    source:'mongodb/bin',
+    dest:'/opt/mongodb/bin',
+    link:True,
+
+platform.supported=linux64,
+
+#how many instances can be installed of this package, if 1 the instance name is always 'main'
+instances.maxnr=1
+

@@ -1,0 +1,26 @@
+base='/opt/influxdb/'
+
+process.1=
+    name:'$(service.name)__$(service.instance)',
+    cmd:'./influxdb -config=../cfg/influxdb/config.toml',
+    args:,
+    prio:5,
+    cwd:'$(service.base)/influxdb',
+    timeout_start:10,
+    timeout_stop:10,
+    ports:8086;8083;8090,
+    startupmanager:tmux,
+    filterstr:'influxdb',
+
+git.url='http://git.aydo.com/binary/influxdb'
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
+git.export.1=
+    url:$(service.git.url),
+    source:,
+    dest:'$(service.base)',
+    link:False,
+
+
+platform.supported=linux64,
+
+
