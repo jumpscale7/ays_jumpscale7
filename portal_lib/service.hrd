@@ -1,0 +1,18 @@
+param.base='$(system.paths.base)/lib'
+
+#source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
+git.url='http://git.aydo.com/binary/web_python'
+git.export.1=
+    url:$(git.url),
+    source:'root/lib/*',
+    dest:'$(param.base)/',
+    overwrite:False,
+    link:False,
+
+git.export.2=
+    url:$(git.url),
+    source:'root/jslib/*',
+    dest:'$(system.paths.base)/apps/portals/jslib/',
+    link:False,
+
+
