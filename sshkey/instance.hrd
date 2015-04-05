@@ -1,0 +1,6 @@
+
+key.pub = 
+key.priv = @ASK descr:'SSHKEY: private ssh key, leave empty if you want to generate one.' type:multiline
+
+
+

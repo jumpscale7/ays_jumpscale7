@@ -1,0 +1,2 @@
+ip=@ASK descr:'Machine  IP'
+ssh.port=@ASK default:22 descr:'SSH port'

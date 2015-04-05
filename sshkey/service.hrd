@@ -1,0 +1,7 @@
+
+link.1=
+    name:'node.ssh.key',
+    action:'ssh',
+    descr:'provide sshkey to access node',
+    nr.min:0,
+    nr.max:24,
