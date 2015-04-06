@@ -1,0 +1,4 @@
+
+description='location is an aggregation element'
+
+parent= 'location'
