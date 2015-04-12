@@ -1,0 +1,5 @@
+portal.instance=@ASK descr:'GRIDPORTAL: Instance name' default:'main'
+
+
+
+
