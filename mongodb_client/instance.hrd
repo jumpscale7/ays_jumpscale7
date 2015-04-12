@@ -1,6 +1,6 @@
-addr=@ASK default:localhost descr:'MONGODB CLIENT: Server address'
-port=@ASK default:27017 descr:'MONGODB CLIENT: Server port'
-login=@ASK default: descr:'MONGODB CLIENT: Server username'
-passwd=@ASK default: descr:'MONGODB CLIENT: Server password'
-ssl=
-replicaSet= descr:'MONGODB CLIENT: relicaset'
+param.addr=@ASK default:localhost descr:'MONGODB CLIENT: Server address'
+param.port=@ASK default:27017 descr:'MONGODB CLIENT: Server port'
+param.login=@ASK default: descr:'MONGODB CLIENT: Server username'
+param.passwd=@ASK default: descr:'MONGODB CLIENT: Server password'
+param.ssl=
+param.replicaSet= descr:'MONGODB CLIENT: relicaset'

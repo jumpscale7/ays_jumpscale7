@@ -1,0 +1,19 @@
+
+# Installation root of the project
+base=/opt/heka-master
+
+bin.git.url = 'http://git.aydo.com/binary/heka'
+
+git.export.1= url:$(bin.git.url), source:'bin', dest:'$(service.base)/bin', link:True,
+git.export.2= url:$(bin.git.url), source:'share', dest:'$(service.base)/share', link:True,
+git.export.3= url:$(bin.git.url), source:'master-configs', dest:'$(service.base)/master-configs', link:False,
+git.export.4= url:$(bin.git.url), source:'testing.toml', dest:'$(service.base)/testing.toml', link:False,
+
+process.1= 
+    name:'$(service.instance)_$(service.name)', 
+    cmd:'$(service.base)/bin/hekad -config="$(service.base)/master-configs"', 
+    filterstr:'$(service.base)/master-configs',
+    ports:8325,
+
+dependencies.1 = name:'influxdb_client',
+
