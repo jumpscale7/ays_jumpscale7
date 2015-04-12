@@ -21,8 +21,8 @@ class Actions(ActionsBase):
         """
         import JumpScale.baselib.redis
         appendonly=False
-        if "$(instance.disk)".lower().strip()=="true" or "$(instance.disk)".strip()=="1":
+        if "$(instance.param.disk)".lower().strip()=="true" or "$(instance.param.disk)".strip()=="1":
             appendonly=True
-        passwd = "$(instance.passwd)".strip() or None
-        j.clients.redis.configureInstance(serviceobject.instance,port="$(instance.port)",maxram="$(instance.mem)",appendonly=appendonly, passwd=passwd, unixsocket="$(instance.unixsocket)")
+        passwd = "$(instance.param.passwd)".strip() or None
+        j.clients.redis.configureInstance(serviceobject.instance,port="$(instance.param.port)",maxram="$(instance.param.mem)",appendonly=appendonly, passwd=passwd, unixsocket="$(instance.param.unixsocket)")
         return True

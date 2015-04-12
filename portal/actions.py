@@ -34,7 +34,7 @@ class Actions(ActionsBase):
         """
         cmd='jsuser delete -ul admin'
         j.do.execute(cmd, dieOnNonZeroExitCode=False)
-        cmd='jsuser add -d admin:$(param.portal.rootpasswd):admin:fakeemail.test.com:jumpscale'
+        cmd='jsuser add -d admin:$(instance.param.portal.rootpasswd):admin:fakeemail.test.com:jumpscale'
         j.do.execute(cmd, dieOnNonZeroExitCode=False)
         # ini.write()
         return True
