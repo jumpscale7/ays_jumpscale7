@@ -1,5 +1,4 @@
 from JumpScale import j
-from JumpScale.baselib.atyourservice.ActionsBase import remote
 ActionsBase=j.atyourservice.getActionsBaseClass()
 
 
@@ -11,20 +10,26 @@ class Actions(ActionsBase):
         """
         will install a node over ssh
         """
+        cl = self._getSSHClient(serviceObj)
         def update():
-            j.do.execute("apt-get update")
+            cl.run("apt-get update")
+            # j.do.execute("apt-get update")
         j.actions.start(name="update",description='update', action=update, stdOutput=True, serviceObj=serviceObj)
 
         def upgrade():
-            j.do.execute("apt-get upgrade -y")
+            cl.run("apt-get upgrade -y")
+            # j.do.execute("apt-get upgrade -y")
         j.actions.start( name="upgrade",description='upgrade', action=upgrade, stdOutput=True, serviceObj=serviceObj)
         def extra():
-            j.do.execute("apt-get install byobu curl -y")
+            cl.run("apt-get install byobu curl -y")
+            # j.do.execute("apt-get install byobu curl -y")
         j.actions.start(name="extra",description='extra', action=extra, stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
-            j.do.execute("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
-            j.do.execute("sh /tmp/installjs.sh")
+            cl.run("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
+            cl.run("sh /tmp/installjs.sh")
+            # j.do.execute("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
+            # j.do.execute("sh /tmp/installjs.sh")
         j.actions.start(name="jumpscale",description='install jumpscale', action=jumpscale, stdOutput=True, serviceObj=serviceObj)
 
         return True
@@ -39,20 +44,7 @@ class Actions(ActionsBase):
         return True
 
     def execute(self,serviceObj,cmd):
-        # j.do.execute(cmd)
-        # ip = serviceObj.hrd.get("instance.machine.ssh.ip")
-        # port = serviceObj.hrd.get("instance.machine.ssh.port")
-        # keyname =  serviceObj.hrd.get('instance.ssh.key.name') if serviceObj.hrd.exists('instance.ssh.key.name') else None
-        # login = serviceObj.hrd.get('instance.ssh.user') if serviceObj.hrd.exists('instance.ssh.user') else None
-        # password = serviceObj.hrd.get('instance.ssh.pwd') if serviceObj.hrd.exists('instance.ssh.pwd') else None
-        # keyHRD = j.application.getAppInstanceHRD("sshkey",keyname) if keyname != None else None
-        sshkey = self._getSSHKey(serviceObj)
-        ip = serviceObj.hrd.get("instance.ip")
-        port = serviceObj.hrd.get("instance.ssh.port")
-
-        c = j.remote.cuisine
-        c.fabric.env["key"] = sshkey
-        cl = c.connect(ip,port)
+        cl = self._getSSHClient(serviceObj)
         cl.run(cmd)
 
 
@@ -73,7 +65,14 @@ class Actions(ActionsBase):
         self._rsync(source,dest,sshkey,port)
 
     def _getSSHKey(self,serviceObj):
-        keyname = serviceObj.hrd.get("link.sshkey.instance")
+        keyname = serviceObj.hrd.get("instance.sshkey")
         sshkeyHRD = j.application.getAppInstanceHRD("sshkey",keyname)
-        sshkey = sshkeyHRD.get("instance.key.priv")
-        return sshkey
+        return sshkeyHRD.get("instance.key.priv")
+
+    def _getSSHClient(self,serviceObj):
+        ip = serviceObj.hrd.get('instance.ip')
+        port = serviceObj.hrd.get('instance.ssh.port')
+        sshkey = self._getSSHKey(serviceObj)
+        c = j.remote.cuisine
+        c.fabric.env["key"] = sshkey
+        return c.connect(ip,port)
