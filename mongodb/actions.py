@@ -1,5 +1,5 @@
 from JumpScale import j
-
+from JumpScale.baselib.atyourservice.ActionsBase import remote
 ActionsBase=j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
@@ -19,6 +19,7 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
+    @remote
     def prepare(self,serviceobject):
         """
         this gets executed before the files are downloaded & installed on approprate spots
