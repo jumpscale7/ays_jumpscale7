@@ -1,4 +1,0 @@
-ip=@ASK descr:'Machine  IP'
-ssh.port=@ASK default:22 descr:'SSH port'
-sshkey=@ASK descr:'instance name of the sshkey to use for connection to the node'
-host='node.ssh.key'

@@ -10,7 +10,26 @@ class Actions(ActionsBase):
         """
         will install a node over ssh
         """
+
         cl = self._getSSHClient(serviceObj)
+        def pushkey():
+            """
+            will install the key on the node if not already present
+            """
+            priv,pub = self._getSSHKey(serviceObj)
+            if priv and pub:
+                try:
+                    cl.run('')
+                    result = cl.run('cat ~/.ssh/authorized_keys | grep "%s" '%pub)
+                except:
+                    result = ""
+                if result == "":
+                    # the key is not present yet, push it
+                    cl.run("echo '%s' >> ~/.ssh/authorized_keys" % pub)
+
+        j.actions.start(name="pushkey",description='pushkey', action=pushkey, stdOutput=True, serviceObj=serviceObj)
+
+
         def update():
             cl.run("apt-get update")
             # j.do.execute("apt-get update")
@@ -49,7 +68,7 @@ class Actions(ActionsBase):
 
 
     def upload(self, serviceObj,source,dest):
-        sshkey = self._getSSHKey(serviceObj)
+        sshkey,_ = self._getSSHKey(serviceObj)
 
         ip = serviceObj.hrd.get("instance.ip")
         port = serviceObj.hrd.get("instance.ssh.port")
@@ -57,7 +76,7 @@ class Actions(ActionsBase):
         self._rsync(source,dest,sshkey,port)
 
     def download(self, serviceObj,source,dest):
-        sshkey = self._getSSHKey(serviceObj)
+        sshkey,_ = self._getSSHKey(serviceObj)
 
         ip = serviceObj.hrd.get("instance.ip")
         port = serviceObj.hrd.get("instance.ssh.port")
@@ -66,13 +85,23 @@ class Actions(ActionsBase):
 
     def _getSSHKey(self,serviceObj):
         keyname = serviceObj.hrd.get("instance.sshkey")
-        sshkeyHRD = j.application.getAppInstanceHRD("sshkey",keyname)
-        return sshkeyHRD.get("instance.key.priv")
+        if keyname != "":
+            sshkeyHRD = j.application.getAppInstanceHRD("sshkey",keyname)
+            return (sshkeyHRD.get("instance.key.priv"),sshkeyHRD.get("instance.key.pub"))
+        else:
+            return (None,None)
 
     def _getSSHClient(self,serviceObj):
+        c = j.remote.cuisine
+
         ip = serviceObj.hrd.get('instance.ip')
         port = serviceObj.hrd.get('instance.ssh.port')
-        sshkey = self._getSSHKey(serviceObj)
-        c = j.remote.cuisine
-        c.fabric.env["key"] = sshkey
-        return c.connect(ip,port)
+        login = serviceObj.hrd.get('instance.login', default='')
+        password = serviceObj.hrd.get('instance.password', default='')
+        priv,_ = self._getSSHKey(serviceObj)
+        if priv:
+            c.fabric.env["key"] = priv
+
+        if password == "" and priv == None:
+            raise RuntimeError("can't connect to the node, should provide or password or a key to connect")
+        return c.connect(ip,port,passwd=password)
