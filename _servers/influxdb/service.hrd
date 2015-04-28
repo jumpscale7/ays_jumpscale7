@@ -1,11 +1,11 @@
-base='/opt/influxdb/'
+param.base='/opt/influxdb/'
 
 process.1=
-    name:'$(service.name)__$(service.instance)',
+    name:'$(jp.name)__$(jp.instance)',
     cmd:'./influxdb -config=../cfg/influxdb/config.toml',
     args:,
     prio:5,
-    cwd:'$(service.base)/influxdb',
+    cwd:'$(param.base)/influxdb',
     timeout_start:10,
     timeout_stop:10,
     ports:8086;8083;8090,
@@ -15,9 +15,9 @@ process.1=
 git.url='http://git.aydo.com/binary/influxdb'
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
 git.export.1=
-    url:$(service.git.url),
+    url:$(git.url),
     source:,
-    dest:'$(service.base)',
+    dest:'$(param.base)',
     link:False,
 
 
