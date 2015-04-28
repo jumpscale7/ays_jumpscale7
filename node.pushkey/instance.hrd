@@ -1,0 +1,5 @@
+ip=@ASK descr:'Machine  IP'
+ssh.port=@ASK default:22 descr:'SSH port'
+login=@ASK descr:'login to connect to the node' default:'root'
+password=@ASK descr:'password to connect to the node'
+sshkey=@ASK descr:'instance name of the sshkey to push on the node'

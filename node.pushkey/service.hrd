@@ -1,0 +1,7 @@
+description='service that push a ssh key to a node'
+
+#optional category of service, default = app
+category=node
+
+#optional parent on wich this service is deployed e.g. app on top of node, portforward rule on top of firewall
+parents=

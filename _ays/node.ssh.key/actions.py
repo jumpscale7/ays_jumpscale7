@@ -26,7 +26,7 @@ class Actions(ActionsBase):
         j.actions.start(name="extra",description='extra', action=extra, stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
-            cl.run("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
+            cl.run("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/@ys/install/install_python_web.sh > /tmp/installjs.sh")
             cl.run("sh /tmp/installjs.sh")
             # j.do.execute("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
             # j.do.execute("sh /tmp/installjs.sh")
