@@ -9,13 +9,13 @@ ActionsBase = j.packages.getActionsBaseClass()
 class Actions(ActionsBase):
     
 
-    def configure(self, **args):
+    def configure(self, serviceObj):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        influx_instance = self.jp_instance.hrd.get('param.influxdb.connection')
+        influx_instance = serviceObj.hrd.get('param.influxdb.connection')
         hrd = j.application.getAppInstanceHRD('influxdb_client', influx_instance)
         template = {
             'host' : hrd.get('param.influxdb.client.address'),

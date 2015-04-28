@@ -19,10 +19,10 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
-    def prepare(self,**args):
+    def prepare(self,serviceObj):
         j.do.createDir("/var/weedfs")
 
-    def configure(self,**args):
+    def configure(self,serviceObj):
 
         if not j.system.fs.exists("$(param.storagelocation)"):
             j.system.fs.createDir("$(param.storagelocation)")
@@ -33,10 +33,10 @@ class Actions(ActionsBase):
             pd["ports"]=[9333+counter]
             pd["cmd"]="'./weed volume -port=%s -dir=%s -max=5 -ip=127.0.0.1 -ip.bind=127.0.0.1 -whiteList=127.0.0.1 -mserver=localhost:9333'"%(9333+counter,storloc)
 
-            self.jp_instance.hrd.set("process.%s"%(counter+1),pd,ttype="dict")
+            serviceObj.hrd.set("process.%s"%(counter+1),pd,ttype="dict")
 
 
-    def build(self,**args):
+    def build(self,serviceObj):
         """
         instructions how to build the package
         build to /opt/luajit
@@ -49,7 +49,7 @@ cd /opt/go/myproj
 go get github.com/chrislusf/weed-fs/go/weed
 """
         print cmd
-        j.action.start(retry=1, name="weedfsbuild",description='', cmds=cmd, action=None, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, jp=self.jp_instance)
+        j.actions.start(retry=1, name="weedfsbuild",description='', cmds=cmd, action=None, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj)
 
         source="/opt/go/myproj/bin/weed"
         j.do.createDir("/opt/weedfs")

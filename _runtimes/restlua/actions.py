@@ -20,36 +20,36 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
-    def prepare(self,**args):
+    def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on appropriate spots
         """
         return True
 
-    def configure(self,**args):
+    def configure(self,serviceObj):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        dest=j.system.fs.joinPaths("$(system.paths.base)/apps/restlua/",self.jp_instance.instance)
+        dest=j.system.fs.joinPaths("$(system.paths.base)/apps/restlua/",serviceObj.instance)
 
         def createServerAndClient():
             j.system.fs.createDir(dest)
             server = j.system.fs.joinPaths(dest, 'server.lua')
             client = j.system.fs.joinPaths(dest, 'client.spore')
-            spec = self.jp_instance.hrd.get('param.spec')
+            spec = serviceObj.hrd.get('param.spec')
             j.tools.swaggerGen.loadSpec(spec)
             j.tools.swaggerGen.generate("$(param.baseurl)",server,client)
-            self.jp_instance.hrd.set('param.port',j.tools.swaggerGen.server['port'])
+            serviceObj.hrd.set('param.port',j.tools.swaggerGen.server['port'])
 
-        j.action.start(retry=1, name="createServerAndClient",description='createServerAndClient', cmds='', action=createServerAndClient, \
-            actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, jp=self.jp_instance)
+        j.actions.start(retry=1, name="createServerAndClient",description='createServerAndClient', cmds='', action=createServerAndClient, \
+            actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj)
 
     def removedata(self):
         j.system.fs.removeDirTree(dest)
 
-    # def start(self,**args):
+    # def start(self,serviceObj):
     #     #start mysql in background
     #     if j.system.net.tcpPortConnectionTest("localhost",3306):
     #         return
@@ -65,7 +65,7 @@ class Actions(ActionsBase):
     #     if res==False:
     #         j.events.inputerror_critical("mariadb did not become active, check in byobu","jpackage.install.mariadb.startup")
 
-    # def stop(self,**args):
+    # def stop(self,serviceObj):
     #     """
     #     if you want a gracefull shutdown implement this method
     #     a uptime check will be done afterwards (local)
@@ -80,48 +80,48 @@ class Actions(ActionsBase):
     #     else:
     #         j.events.opserror_critical("Cannot stop %s."%self.jp,"jpackage.stop")
 
-    # def halt(self,**args):
+    # def halt(self,serviceObj):
     #     """
     #     hard kill the app, std a linux kill is used, you can use this method to do something next to the std behaviour
     #     """
     #     return True
 
-    # def check_uptime_local(self,**args):
+    # def check_uptime_local(self,serviceObj):
     #     """
     #     do checks to see if process(es) is (are) running.
     #     this happens on system where process is
     #     """
     #     return True
 
-    # def check_requirements(self,**args):
+    # def check_requirements(self,serviceObj):
     #     """
     #     do checks if requirements are met to install this app
     #     e.g. can we connect to database, is this the right platform, ...
     #     """
     #     return True
 
-    # def monitor_local(self,**args):
+    # def monitor_local(self,serviceObj):
     #     """
     #     do checks to see if all is ok locally to do with this package
     #     this happens on system where process is
     #     """
     #     return True
 
-    # def monitor_remote(self,**args):
+    # def monitor_remote(self,serviceObj):
     #     """
     #     do checks to see if all is ok from remote to do with this package
     #     this happens on system from which we install or monitor (unless if defined otherwise in hrd)
     #     """
     #     return True
 
-    # def cleanup(self,**args):
+    # def cleanup(self,serviceObj):
     #     """
     #     regular cleanup of env e.g. remove logfiles, ...
     #     is just to keep the system healthy
     #     """
     #     return True
 
-    # def data_export(self,**args):
+    # def data_export(self,serviceObj):
     #     """
     #     export data of app to a central location (configured in hrd under whatever chosen params)
     #     return the location where to restore from (so that the restore action knows how to restore)
@@ -129,14 +129,14 @@ class Actions(ActionsBase):
     #     """
     #     return False
 
-    # def data_import(self,id,hrd,**args):
+    # def data_import(self,id,hrd,serviceObj):
     #     """
     #     import data of app to local location
     #     if specifies which retore to do, id corresponds with line item in the $name.export file
     #     """
     #     return False
 
-    # def uninstall(self,**args):
+    # def uninstall(self,serviceObj):
     #     """
     #     uninstall the apps, remove relevant files
     #     """

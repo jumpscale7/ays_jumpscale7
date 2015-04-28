@@ -4,7 +4,7 @@ ActionsBase=j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
 
-    def prepare(self,serviceobject):
+    def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on appropriate spots
         """

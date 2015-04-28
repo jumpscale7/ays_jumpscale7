@@ -5,15 +5,15 @@ ActionsBase=j.atyourservice.getActionsBaseClass()
 class Actions(ActionsBase):
 
 
-    def prepare(self,serviceobject):
+    def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on approprate spots
         """
         import JumpScale.baselib.redis
-        j.clients.redis.deleteInstance(serviceobject.instance)
+        j.clients.redis.deleteInstance(serviceObj.instance)
         return True
         
-    def configure(self,serviceobject):
+    def configure(self,serviceObj):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
@@ -24,5 +24,5 @@ class Actions(ActionsBase):
         if "$(instance.param.disk)".lower().strip()=="true" or "$(instance.param.disk)".strip()=="1":
             appendonly=True
         passwd = "$(instance.param.passwd)".strip() or None
-        j.clients.redis.configureInstance(serviceobject.instance,port="$(instance.param.port)",maxram="$(instance.param.mem)",appendonly=appendonly, passwd=passwd, unixsocket="$(instance.param.unixsocket)")
+        j.clients.redis.configureInstance(serviceObj.instance,port="$(instance.param.port)",maxram="$(instance.param.mem)",appendonly=appendonly, passwd=passwd, unixsocket="$(instance.param.unixsocket)")
         return True

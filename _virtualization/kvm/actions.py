@@ -19,7 +19,7 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
-    def prepare(self,**args):
+    def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on approprate spots
         """
@@ -33,7 +33,7 @@ class Actions(ActionsBase):
         #         cmd="apt-get install qemu-kvm qemu python-libvirt virt-viewer libvirt-bin bridge-utils lrzip -y"
         #         rc,out,err=j.do.execute( cmd, outputStdout=True, outputStderr=True, useShell=True, log=True, cwd=None, timeout=360, captureout=True, dieOnNonZeroExitCode=False)
 
-        # j.action.start(retry=2, name="deps",description='install deps', cmds='', action=deps, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, jp=self.jp_instance) 
+        # j.actions.start(retry=2, name="deps",description='install deps', cmds='', action=deps, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj) 
 
 
         C="""
@@ -46,7 +46,7 @@ mkdir -p /mnt/vmstor/kvm/images
 rsync -arv --partial --progress /mnt/ftp/images/openwrt/ /mnt/vmstor/kvm/images/openwrt/
 """
 
-        j.action.start(retry=2, name="getimages",description='get ubuntu & openwrt images (can take a while)', cmds=C, action=None, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, jp=self.jp_instance) 
+        j.actions.start(retry=2, name="getimages",description='get ubuntu & openwrt images (can take a while)', cmds=C, action=None, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj) 
 
         def unpack():
             for item in j.system.fs.listFilesInDir( "/mnt/vmstor/kvm/images/", recursive=True, filter="*.lrz", followSymlinks=True, listSymlinks=False):
@@ -57,19 +57,19 @@ rsync -arv --partial --progress /mnt/ftp/images/openwrt/ /mnt/vmstor/kvm/images/
         unpack()
 
 
-    def configure(self, **args):
+    def configure(self, serviceObj):
 
         def setnetwork():
             import JumpScale.lib.kvm
             j.system.platform.kvm.initPhysicalBridges()
             # j.system.platform.kvm.initLibvirtNetwork()
 
-        j.action.start(retry=2, name="setnetwork",description='setnetwork', cmds='', action=setnetwork, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, jp=self.jp_instance) 
+        j.actions.start(retry=2, name="setnetwork",description='setnetwork', cmds='', action=setnetwork, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj) 
 
-    def removedata(self, **args):
+    def removedata(self, serviceObj):
         pass
 
-    def build(self, **args):
+    def build(self, serviceObj):
         def prepare_build():
             j.system.platform.ubuntu.checkInstall(["cmake"], "cmake")
 
@@ -77,7 +77,7 @@ rsync -arv --partial --progress /mnt/ftp/images/openwrt/ /mnt/vmstor/kvm/images/
             j.do.executeInteractive(cmd)
 
 
-        j.action.start(retry=2, name="prepare_build",description='', cmds='', action=prepare_build, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, jp=self.jp_instance)
+        j.actions.start(retry=2, name="prepare_build",description='', cmds='', action=prepare_build, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj)
         
         cmd = """
 set -e
@@ -88,8 +88,8 @@ make DESTDIR="/opt/code/git/binary/kvm/root" install
 mv /opt/code/git/binary/kvm/root/opt/jumpscale7/apps /opt/code/git/binary/kvm/root/
 rm -rf /opt/code/git/binary/kvm/root/opt
 """
-        j.action.start(retry=1, name="qemu-ledis",description='compile qemu ledis', cmds=cmd, action=None, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, jp=self.jp_instance)
+        j.actions.start(retry=1, name="qemu-ledis",description='compile qemu ledis', cmds=cmd, action=None, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj)
 
 
-    def cleanup(self, **args):
+    def cleanup(self, serviceObj):
         pass

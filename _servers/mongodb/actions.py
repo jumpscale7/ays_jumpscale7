@@ -20,7 +20,7 @@ class Actions(ActionsBase):
     """
 
     @remote
-    def prepare(self,serviceobject):
+    def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on approprate spots
         """

@@ -9,11 +9,11 @@ import JumpScale.baselib.remote.cuisine
 class Actions(ActionsBase):
 
 
-    def configure(self,**args):
+    def configure(self,serviceObj):
         """
         generate configuration for openvpn
         """
-        path = self.jp_instance.hrd.get('param.ca.dir')
+        path = serviceObj.hrd.get('param.ca.dir')
 
         cacrt_filename = "%s/ca.crt"%path
         cakey_filename = "%s/ca.key"%path
@@ -32,9 +32,9 @@ class Actions(ActionsBase):
         prikey,req=j.tools.sslSigning.createCertificateSigningRequest(hostname)
         clientcert=j.tools.sslSigning.signRequest(req, ca_cert, ca_key)
 
-        self.jp_instance.hrd.set('openvpn.client.crt',clientcert)
-        self.jp_instance.hrd.set('openvpn.client.crt',prikey)
-        self.jp_instance.hrd.set('openvpn.ca.crt',cacert_filecontent)
+        serviceObj.hrd.set('openvpn.client.crt',clientcert)
+        serviceObj.hrd.set('openvpn.client.crt',prikey)
+        serviceObj.hrd.set('openvpn.ca.crt',cacert_filecontent)
 
         config = """
     client
@@ -57,6 +57,6 @@ class Actions(ActionsBase):
 
         return True
 
-    def removedata(self, **args):
+    def removedata(self, serviceObj):
         j.system.fs.removeDirTree("$(param.dest.dir)")
         return True

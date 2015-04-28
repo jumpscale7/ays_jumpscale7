@@ -8,7 +8,7 @@ class Actions(ActionsBase):
     """
 
 
-    def configure(self,**args):
+    def configure(self,serviceObj):
         """
         configure ms1
         """
@@ -17,7 +17,7 @@ class Actions(ActionsBase):
         secret=j.tools.ms1.getCloudspaceSecret("$(param.login)","$(param.passwd)","$(param.cloudspace)","$(param.location)")
 
         #this remembers the secret required to use ms1
-        self.jp_instance.hrd.set("param.secret",secret)
+        serviceObj.hrd.set("param.secret",secret)
 
         return True
 

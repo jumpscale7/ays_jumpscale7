@@ -9,13 +9,13 @@ ActionsBase = j.packages.getActionsBaseClass()
 class Actions(ActionsBase):
     
 
-    def configure(self, **args):
+    def configure(self, serviceObj):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        hrd = self.jp_instance.hrd
+        hrd = serviceObj.hrd
         configsamplepath = j.system.fs.joinPaths('/opt/', 'statsd-collector', 'CollectorConfig.js')
         configpath = j.system.fs.joinPaths('/opt/', 'statsd-collector', 'statsd.collector.conf.js')
         if not j.system.fs.exists(configpath):

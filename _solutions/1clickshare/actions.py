@@ -20,7 +20,7 @@ class Actions(ActionsBase):
     """
 
 
-    def configure(self,serviceobject):
+    def configure(self,serviceObj):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
