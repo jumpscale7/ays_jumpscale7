@@ -24,10 +24,10 @@ class Actions(ActionsBase):
         hpath = j.system.fs.joinPaths(j.dirs.hrdDir, 'system', 'grid.hrd')
         if not j.system.fs.exists(path=hpath):
             hrd = j.core.hrd.get(hpath)
-            hrd.set('id', serviceObj.hrd.get('grid.id'))
+            hrd.set('id', serviceObj.hrd.get('instance.grid.id'))
             hrd.set('node.id', '0')
             hrd.set('node.machineguid', j.application.getUniqueMachineId())
-            hrd.set('node.roles', serviceObj.hrd.getList('grid.node.roles'))
+            hrd.set('node.roles', serviceObj.hrd.getStr('instance.grid.node.roles').split(','))
             hrd.save()
 
         # reload system config / whoAmI
