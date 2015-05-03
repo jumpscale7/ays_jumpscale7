@@ -1,0 +1,4 @@
+param.name = @ASK descr:'name of the container'
+param.image = @ASK descr:'docker image to use' default:'despiegk/mc'
+param.portsforwards = @ASK descr:'format as follows  "22:8022 80:8080"  the first arg e.g. 22 is the port in the container' default:''
+param.volumes = @ASK descr:'/var/insidemachine:/var/inhost # /var/1:/var/1 # ..."   '#' is separator' default:'format as follows

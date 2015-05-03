@@ -1,0 +1,2 @@
+param.name=@ASK descr:'NODE.KVM: name'
+param.baseimage=@ASK descr:'NODE.KVM: base image type' type:dropdown dropdownvals:openwrt,ubuntu1404,ubuntu1410
