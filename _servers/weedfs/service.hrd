@@ -2,7 +2,7 @@
 param.base='/opt/weedfs'
 
 process.1=
-    name:'$(jp.name)_master',
+    name:'$(service.name)_master',
     cmd:'./weed master -defaultReplication="002" -whiteList="127.0.0.1"  -mdir="/var/weedfs" -ip.bind="127.0.0.1"',
     args:,
     prio:10,

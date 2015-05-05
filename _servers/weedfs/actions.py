@@ -1,6 +1,6 @@
 from JumpScale import j
 
-ActionsBase=j.packages.getActionsBaseClass()
+ActionsBase=j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
     """
@@ -24,12 +24,12 @@ class Actions(ActionsBase):
 
     def configure(self,serviceObj):
 
-        if not j.system.fs.exists("$(param.storagelocation)"):
-            j.system.fs.createDir("$(param.storagelocation)")
-        storlocs=j.do.listDirsInDir("$(param.storagelocation)")
+        if not j.system.fs.exists("$(instance.param.storagelocation)"):
+            j.system.fs.createDir("$(instance.param.storagelocation)")
+        storlocs=j.do.listDirsInDir("$(instance.param.storagelocation)")
         for storloc in storlocs:
             counter=int(j.do.getBaseName(storloc))
-            pd={"args":"","name":'$(jp.name)_voldr_%s'%counter,'prio':10,'cwd':'$(param.base)','timeout_start':10,'timeout_stop':10,'startupmanager':'tmux','filterstr':''}
+            pd={"args":"","name":'$(service.name)_voldr_%s'%counter,'prio':10,'cwd':'$(instance.param.base)','timeout_start':10,'timeout_stop':10,'startupmanager':'tmux','filterstr':''}
             pd["ports"]=[9333+counter]
             pd["cmd"]="'./weed volume -port=%s -dir=%s -max=5 -ip=127.0.0.1 -ip.bind=127.0.0.1 -whiteList=127.0.0.1 -mserver=localhost:9333'"%(9333+counter,storloc)
 
