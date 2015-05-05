@@ -19,12 +19,13 @@ class Actions(ActionsBase):
             priv,pub = self._getSSHKey(serviceObj)
             if priv and pub:
                 try:
-                    cl.run('')
+                    cl.run('')  # force connection
                     result = cl.run('cat ~/.ssh/authorized_keys | grep "%s" '%pub)
                 except:
                     result = ""
                 if result == "":
                     # the key is not present yet, push it
+                    cl.run('mkdir -p ~/.ssh')
                     cl.run("echo '%s' >> ~/.ssh/authorized_keys" % pub)
 
         j.actions.start(name="pushkey",description='pushkey', action=pushkey, stdOutput=True, serviceObj=serviceObj)
@@ -64,7 +65,7 @@ class Actions(ActionsBase):
 
     def execute(self,serviceObj,cmd):
         cl = self._getSSHClient(serviceObj)
-        cl.run(cmd)
+        cl.run(cmd, sudo=True)
 
 
     def upload(self, serviceObj,source,dest):
@@ -104,4 +105,6 @@ class Actions(ActionsBase):
 
         if password == "" and priv == None:
             raise RuntimeError("can't connect to the node, should provide or password or a key to connect")
-        return c.connect(ip,port,passwd=password)
+        if login != '':
+            c.fabric.env['user'] = login
+        return c.connect(ip, port, passwd=password)
