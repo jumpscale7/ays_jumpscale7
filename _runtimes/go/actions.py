@@ -53,6 +53,7 @@ class Actions(ActionsBase):
             j.do.execute(command="echo 'export GOPATH=%s' >> /root/.bashrc"%gopath)
             j.do.execute(command="echo 'export GOROOT=/opt/go' >> /root/.bashrc")
             j.do.execute(command="echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' >> /root/.bashrc")
+            j.do.execute(command=". /root/.bashrc")
         j.actions.start(name="create GOPATH", description='create GOPATH', action=createENV,  die=True, stdOutput=True, serviceObj=serviceObj)
 
         def installGodep():
