@@ -32,22 +32,22 @@ class Actions(ActionsBase):
 
 
         def update():
-            cl.run("apt-get update")
+            cl.sudo("apt-get update")
             # j.do.execute("apt-get update")
         j.actions.start(name="update",description='update', action=update, stdOutput=True, serviceObj=serviceObj)
 
         def upgrade():
-            cl.run("apt-get upgrade -y")
+            cl.sudo("apt-get upgrade -y")
             # j.do.execute("apt-get upgrade -y")
         j.actions.start( name="upgrade",description='upgrade', action=upgrade, stdOutput=True, serviceObj=serviceObj)
         def extra():
-            cl.run("apt-get install byobu curl -y")
+            cl.sudo("apt-get install byobu curl -y")
             # j.do.execute("apt-get install byobu curl -y")
         j.actions.start(name="extra",description='extra', action=extra, stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
-            cl.run("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/@ys/install/install_python_web.sh > /tmp/installjs.sh")
-            cl.run("sh /tmp/installjs.sh")
+            cl.sudo("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/@ys/install/install_python_web.sh > /tmp/installjs.sh")
+            cl.sudo("sh /tmp/installjs.sh")
             # j.do.execute("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
             # j.do.execute("sh /tmp/installjs.sh")
         j.actions.start(name="jumpscale",description='install jumpscale', action=jumpscale, stdOutput=True, serviceObj=serviceObj)
@@ -59,13 +59,13 @@ class Actions(ActionsBase):
         """
         delete vmachine
         """
-        j.do.execute("killall tmux;killall python;echo")
+        self.execute(serviceObj, "killall tmux;killall python;echo")
         # j.do.execute("rm -rf /opt")
         return True
 
     def execute(self,serviceObj,cmd):
         cl = self._getSSHClient(serviceObj)
-        cl.run(cmd, sudo=True)
+        cl.sudo(cmd)
 
 
     def upload(self, serviceObj,source,dest):
@@ -105,6 +105,7 @@ class Actions(ActionsBase):
 
         if password == "" and priv == None:
             raise RuntimeError("can't connect to the node, should provide or password or a key to connect")
+        connection = c.connect(ip, port, passwd=password)
         if login != '':
-            c.fabric.env['user'] = login
-        return c.connect(ip, port, passwd=password)
+            connection.fabric.api.env['user'] = login
+        return connection
