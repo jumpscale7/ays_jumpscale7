@@ -73,8 +73,15 @@ class Actions(ActionsBase):
 
         ip = serviceObj.hrd.get("instance.ip")
         port = serviceObj.hrd.get("instance.ssh.port")
-        dest = "%s:%s" % (ip,dest)
-        self._rsync(source,dest,sshkey,port)
+        rdest = "%s:%s" % (ip,dest)
+        login = serviceObj.hrd.get('instance.login', default='') or None
+        if login:
+            cl = self._getSSHClient(serviceObj)
+            chowndir = dest
+            while not cl.file_exists(chowndir):
+                chowndir = j.system.fs.getParent(chowndir)
+            cl.sudo("chown -R %s %s" % (login, chowndir))
+        self._rsync(source,rdest,sshkey,port, login)
 
     def download(self, serviceObj,source,dest):
         sshkey,_ = self._getSSHKey(serviceObj)
