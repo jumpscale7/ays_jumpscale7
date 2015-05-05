@@ -19,34 +19,35 @@ class Actions(ActionsBase):
             priv,pub = self._getSSHKey(serviceObj)
             if priv and pub:
                 try:
-                    cl.run('')
+                    cl.run('')  # force connection
                     result = cl.run('cat ~/.ssh/authorized_keys | grep "%s" '%pub)
                 except:
                     result = ""
                 if result == "":
                     # the key is not present yet, push it
+                    cl.run('mkdir -p ~/.ssh')
                     cl.run("echo '%s' >> ~/.ssh/authorized_keys" % pub)
 
         j.actions.start(name="pushkey",description='pushkey', action=pushkey, stdOutput=True, serviceObj=serviceObj)
 
 
         def update():
-            cl.run("apt-get update")
+            cl.sudo("apt-get update")
             # j.do.execute("apt-get update")
         j.actions.start(name="update",description='update', action=update, stdOutput=True, serviceObj=serviceObj)
 
         def upgrade():
-            cl.run("apt-get upgrade -y")
+            cl.sudo("apt-get upgrade -y")
             # j.do.execute("apt-get upgrade -y")
         j.actions.start( name="upgrade",description='upgrade', action=upgrade, stdOutput=True, serviceObj=serviceObj)
         def extra():
-            cl.run("apt-get install byobu curl -y")
+            cl.sudo("apt-get install byobu curl -y")
             # j.do.execute("apt-get install byobu curl -y")
         j.actions.start(name="extra",description='extra', action=extra, stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
-            cl.run("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/@ys/install/install_python_web.sh > /tmp/installjs.sh")
-            cl.run("sh /tmp/installjs.sh")
+            cl.sudo("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/@ys/install/install_python_web.sh > /tmp/installjs.sh")
+            cl.sudo("sh /tmp/installjs.sh")
             # j.do.execute("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
             # j.do.execute("sh /tmp/installjs.sh")
         j.actions.start(name="jumpscale",description='install jumpscale', action=jumpscale, stdOutput=True, serviceObj=serviceObj)
@@ -58,13 +59,13 @@ class Actions(ActionsBase):
         """
         delete vmachine
         """
-        j.do.execute("killall tmux;killall python;echo")
+        self.execute(serviceObj, "killall tmux;killall python;echo")
         # j.do.execute("rm -rf /opt")
         return True
 
     def execute(self,serviceObj,cmd):
         cl = self._getSSHClient(serviceObj)
-        cl.run(cmd)
+        cl.sudo(cmd)
 
 
     def upload(self, serviceObj,source,dest):
@@ -72,8 +73,15 @@ class Actions(ActionsBase):
 
         ip = serviceObj.hrd.get("instance.ip")
         port = serviceObj.hrd.get("instance.ssh.port")
-        dest = "%s:%s" % (ip,dest)
-        self._rsync(source,dest,sshkey,port)
+        rdest = "%s:%s" % (ip,dest)
+        login = serviceObj.hrd.get('instance.login', default='') or None
+        if login:
+            cl = self._getSSHClient(serviceObj)
+            chowndir = dest
+            while not cl.file_exists(chowndir):
+                chowndir = j.system.fs.getParent(chowndir)
+            cl.sudo("chown -R %s %s" % (login, chowndir))
+        self._rsync(source,rdest,sshkey,port, login)
 
     def download(self, serviceObj,source,dest):
         sshkey,_ = self._getSSHKey(serviceObj)
@@ -104,4 +112,7 @@ class Actions(ActionsBase):
 
         if password == "" and priv == None:
             raise RuntimeError("can't connect to the node, should provide or password or a key to connect")
-        return c.connect(ip,port,passwd=password)
+        connection = c.connect(ip, port, passwd=password)
+        if login != '':
+            connection.fabric.api.env['user'] = login
+        return connection
