@@ -1,8 +1,10 @@
 from JumpScale import j
 import time
-ActionsBase=j.packages.getActionsBaseClass()
+ActionsBase = j.packages.getActionsBaseClass()
+
 
 class Actions(ActionsBase):
+
     """
     process for install
     -------------------
@@ -19,58 +21,60 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
-    def prepare(self,serviceObj):
+    def prepare(self, serviceObj):
         """
         this gets executed before the files are downloaded & installed on appropriate spots
         """
-        j.system.platform.ubuntu.createUser("postgres", passwd=j.base.idgenerator.generateGUID(), home="/home/postgresql", creategroup=True)
-        
-        j.system.process.killProcessByPort("$(param.port)")
+        j.system.platform.ubuntu.createUser("postgres", passwd=j.base.idgenerator.generateGUID(),
+                                            home="/home/postgresql", creategroup=True)
+
+        j.system.process.killProcessByPort("$(instance.param.port)")
         j.system.fs.createDir("/tmp/postgres")
 
         return True
 
-    def configure(self,serviceObj):
+    def configure(self, serviceObj):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        # j.application.config.applyOnDir("$(param.base)/cfg",filter=None, changeFileName=True,changeContent=True,additionalArgs={})  
+        # j.application.config.applyOnDir("$(param.base)/cfg",filter=None, changeFileName=True,changeContent=True,additionalArgs={})
 
-        if j.system.fs.exists(path="$(datadir)"):
+        if j.system.fs.exists(path="$(service.datadir)"):
             # Already configured once. Nothing to do here.
             return
-        
-        j.system.fs.createDir("$(datadir)")
-        j.system.fs.chown(path="$(param.base)", user="postgres")
-        j.system.fs.chown(path="$(datadir)", user="postgres")        
-        j.system.fs.chmod("$(datadir)",0777)
 
-        cmd="su -c '$(param.base)/bin/initdb -D $(datadir)' postgres"
+        j.system.fs.createDir("$(service.datadir)")
+        j.system.fs.chown(path="$(service.param.base)", user="postgres")
+        j.system.fs.chown(path="$(service.datadir)", user="postgres")
+        j.system.fs.chmod("$(service.datadir)", 0777)
+
+        cmd = "su -c '$(service.param.base)/bin/initdb -D $(service.datadir)' postgres"
         j.system.process.executeWithoutPipe(cmd)
 
-        def replace(path,newline,find):
-            lines=j.system.fs.fileGetContents(path)
-            out=""
-            found=False
+        def replace(path, newline, find):
+            lines = j.system.fs.fileGetContents(path)
+            out = ""
+            found = False
             for line in lines.split("\n"):
-                if line.find(find)<>-1:
-                    line=newline
-                    found=True
-                out+="%s\n"%line
-            if found==False:
-                out+="%s\n"%newline
-            j.system.fs.writeFile(filename=path,contents=out)
+                if line.find(find) != -1:
+                    line = newline
+                    found = True
+                out += "%s\n" % line
+            if found is False:
+                out += "%s\n" % newline
+            j.system.fs.writeFile(filename=path, contents=out)
 
-        replace("$(datadir)/pg_hba.conf","host    all             all             0.0.0.0/0               md5","0.0.0.0/0")
+        replace("$(service.datadir)/pg_hba.conf",
+                "host    all             all             0.0.0.0/0               md5", "0.0.0.0/0")
 
         j.system.fs.createDir("/var/log/postgresql")
-    
+
         self.start()
         time.sleep(2)
 
-        cmd="cd $(param.base)/bin;./psql -U postgres template1 -c \"alter user postgres with password '$(param.rootpasswd)';\" -h localhost"
+        cmd = "cd $(service.param.base)/bin;./psql -U postgres template1 -c \"alter user postgres with password '$instance.param.rootpasswd)';\" -h localhost"
         j.do.execute(cmd)
 
         # self.stop()
@@ -78,7 +82,7 @@ class Actions(ActionsBase):
         return True
 
     # def start(self,serviceObj):
-    #     #start postgresql in background
+    # start postgresql in background
     #     if j.system.net.tcpPortConnectionTest("localhost",3306):
     #         return
 
@@ -88,31 +92,32 @@ class Actions(ActionsBase):
     #     j.system.platform.screen.createSession("servers",["mariadb"])
     #     j.system.platform.screen.executeInScreen(sessionname="servers", screenname="mariadb", cmd=cmd, wait=0, cwd=None, env=None, user='root', tmuxuser=None)
 
-    #     #now wait till we can access the port
+    # now wait till we can access the port
     #     res=j.system.net.waitConnectionTest("localhost",3306,2)
     #     if res==False:
     #         j.events.inputerror_critical("mariadb did not become active, check in byobu","jpackage.install.mariadb.startup")
 
-    def stop(self,serviceObj):
+    def stop(self, serviceObj):
         """
         if you want a gracefull shutdown implement this method
         a uptime check will be done afterwards (local)
         return True if stop was ok, if not this step will have failed & halt will be executed.
         """
         # No process actually running
-        if not j.system.process.getPidsByPort("$(param.port)"):
+        if not j.system.process.getPidsByPort("$(instance.param.port)"):
             return
-        
-        cmd="sudo -u postgres $(param.base)/bin/pg_ctl -D /var/jumpscale/postgresql stop  -m fast"
-        # print (cmd)
-        rc,out,err=j.do.execute(cmd, dieOnNonZeroExitCode=False, outputStdout=False, outputStderr=True,timeout=5)
-        if rc>0:
-            if rc==999:
-                cmd="sudo -u postgres $(param.base)/bin/pg_ctl -D /var/jumpscale/postgresql stop  -m immediate"
-                rc,out,err=j.do.execute(cmd, dieOnNonZeroExitCode=False, outputStdout=False, outputStderr=True,timeout=5)
-            else:
-                raise RuntimeError("could not stop %s"%serviceObj)
 
+        cmd = "sudo -u postgres $(service.param.base)/bin/pg_ctl -D /var/jumpscale/postgresql stop  -m fast"
+        # print (cmd)
+        rc, out, err = j.do.execute(
+            cmd, dieOnNonZeroExitCode=False, outputStdout=False, outputStderr=True, timeout=5)
+        if rc > 0:
+            if rc == 999:
+                cmd = "sudo -u postgres $(service.param.base)/bin/pg_ctl -D /var/jumpscale/postgresql stop  -m immediate"
+                rc, out, err = j.do.execute(
+                    cmd, dieOnNonZeroExitCode=False, outputStdout=False, outputStderr=True, timeout=5)
+            else:
+                raise RuntimeError("could not stop %s" % serviceObj)
 
         # if self.check_down_local(hrd):
         #     return True
@@ -180,5 +185,3 @@ class Actions(ActionsBase):
     #     uninstall the apps, remove relevant files
     #     """
     #     pass
-
-
