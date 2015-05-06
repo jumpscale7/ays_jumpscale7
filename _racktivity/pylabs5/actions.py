@@ -20,4 +20,6 @@ class Actions(ActionsBase):
     step7b: do monitor_local to see if package healthy installed & running
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
-    pass
+    def configure(self, serviceObj):
+        j.system.process.execute('sed --in-place "/apt.apt_pkg.Config.set(\"APT::Install-Suggests\", \"0\")/d" /opt/qbase5/lib/pylabs/extensions/platforms/ubuntu/Ubuntu.py')
+        j.system.process.execute('sed --in-place "/apt.apt_pkg.Config.set(\"APT::Install-Recommends\", \"0\")/d" /opt/qbase5/lib/pylabs/extensions/platforms/ubuntu/Ubuntu.py')

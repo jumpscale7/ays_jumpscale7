@@ -1,9 +1,6 @@
 dependencies.1                 =
     name:'pylabs5',
 
-dependencies.2                 =
-    name:'postgresql',
-
 env.process.1                  = 
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
@@ -11,10 +8,25 @@ env.process.1                  =
 url = 'https://git.aydo.com/racktivity/dcpm'
 
 git.export.1                   =
-    dest:'/opt/qbase5/pyapps/dcpm',
+    dest:'/opt/qbase5/pyapps/dcpm/',
     link:'True',
-    nodirs:'True',
-    source:'pyapps/dcpm',
+    nodirs:'False',
+    source:'pyapps/dcpm/*',
+    url: $(url),
+
+git.export.2                   =
+    dest:'/opt/qbase5/bin/',
+    link:'True',
+    nodirs:'False',
+    source:'bin/*',
+    url: $(url),
+
+git.export.3                   =
+    dest:'/opt/qbase5/lib/python/site-packages/',
+    link:'False',
+    nodirs:'False',
+    overwrite:'True',
+    source:'lib/python/site-packages/*',
     url: $(url),
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
@@ -27,7 +39,7 @@ platform.supported             =
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
 process.1=
-    cmd:'export PATH=/opt/qbase5/bin:$PATH;/opt/qbase5/qshell -c "q.manage.applicationserver.restart(\'dcpm\')"',
+    cmd:'export PYTHONPATH=/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "q.manage.applicationserver.restart(\'dcpm\')"',
     args:'',
     prio:10,
     cwd:'/opt/qbase5',
@@ -35,5 +47,5 @@ process.1=
     timeout_stop:10,
     ports:,
     startupmanager:tmux,
-    filter
-    str:''
+    filterstr:'dcpm'
+

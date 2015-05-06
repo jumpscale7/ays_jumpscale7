@@ -2,7 +2,7 @@ param.base='/opt/postgresql'
 datadir='/var/jumpscale/postgresql/'
 
 process.1=
-    name:'$(jp.name)__$(jp.instance)',
+    name:'$(service.name)__$(service.instance)',
     cmd:'sudo -u postgres  /opt/postgresql/bin/postgres -D /var/jumpscale/postgresql/ -i',
     args:,
     prio:10,

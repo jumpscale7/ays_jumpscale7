@@ -22,6 +22,8 @@ class Actions(ActionsBase):
     """
 
     def prepare(self, serviceObj):
+        # import os
+        # os.makedirs('/opt/qbase5/pyapps/dcpm/')
         pass
 
     def configure(self, serviceObj):
