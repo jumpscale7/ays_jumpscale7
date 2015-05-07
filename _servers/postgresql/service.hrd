@@ -24,12 +24,15 @@ env.process.1=
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
 git.url='http://git.aydo.com/binary/postgresql'
+
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
+
 git.export.1=
     url:$(git.url),
-    source:'postgresql',
     dest:'$(param.base)',
-    link:False,
+    source:'postgresql/*',
+    nodirs:'False',
+    link:'False',
 
 platform.supported=linux64,
 
