@@ -1,8 +1,8 @@
 dependencies.1                 =
     name:'pylabs5_base',
 
-dependencies.2                 =
-    name:'postgresql',
+#dependencies.2                 =
+#    name:'postgresql',
 
 
 env.process.1                  = 
@@ -66,12 +66,14 @@ git.export.7                   =
     dest:'/opt/qbase5/lib/pylabs/extensions/agent',
     link:'False',
     nodirs:'False',
+    branch:'pylabs5',
     source:'agent/',
     url: 'https://git.aydo.com/racktivity/ext-pylabs_agent',
 
 git.export.8                   =
     dest:'/opt/qbase5/apps/applicationserver/services/agent_service',
     link:'False',
+    branch:'pylabs5',
     nodirs:'False',
     source:'agent_service/',
     url: 'https://git.aydo.com/racktivity/ext-pylabs_agent',
@@ -82,6 +84,13 @@ git.export.9                   =
     nodirs:'False',
     source:'',
     url: 'https://git.aydo.com/racktivity/ext-jswizards',
+
+git.export.10                   =
+    dest:'/opt/qbase5/apps/cloud_api_generator/',
+    link:'True',
+    nodirs:'False',
+    source:'apps/cloud_api_generator/*',
+    url: $(git.url),
 
 #git.export.10                   =
 #    dest:'/opt/qbase5/lib/python/site-packages/workflowengine',
@@ -120,6 +129,7 @@ git.export.9                   =
 
 git.export.15                   =
     dest:'/opt/qbase5/lib/python/site-packages/osis',
+    branch:'0.5',
     link:'False',
     nodirs:'False',
     source:'code/osis',
@@ -135,6 +145,7 @@ git.export.15                   =
 git.export.17                   =
     dest:'/opt/qbase5/lib/pylabs/extensions/osis_connection',
     link:'False',
+    branch:'0.5',
     nodirs:'False',
     source:'osis_connection_config',
     url: 'https://git.aydo.com/racktivity/ext-OSIS',

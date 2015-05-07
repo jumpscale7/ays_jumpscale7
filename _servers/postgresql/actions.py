@@ -49,9 +49,13 @@ class Actions(ActionsBase):
         j.system.fs.chown(path="$(service.param.base)", user="postgres")
         j.system.fs.chown(path="$(service.datadir)", user="postgres")
         j.system.fs.chmod("$(service.datadir)", 0777)
+        j.system.fs.chmod("/tmp", 0777)
 
         cmd = "su -c '$(service.param.base)/bin/initdb -D $(service.datadir)' postgres"
         j.system.process.executeWithoutPipe(cmd)
+
+        for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='.conf'):
+            j.system.fs.copyFile(config, '$(service.datadir)')
 
         def replace(path, newline, find):
             lines = j.system.fs.fileGetContents(path)

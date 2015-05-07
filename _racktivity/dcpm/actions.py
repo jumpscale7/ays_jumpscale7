@@ -31,3 +31,11 @@ class Actions(ActionsBase):
         j.system.process.execute('sudo -u postgres -i createdb store2', dieOnNonZeroExitCode=False)
         j.system.process.execute('sudo -u postgres -i createuser dcpm', dieOnNonZeroExitCode=False)
         j.system.process.execute('sudo -u postgres -i createdb dcpm -O dcpm', dieOnNonZeroExitCode=False)
+
+        j.system.fs.createDir('/etc/postgresql/8.4/main')
+        for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='.conf'):
+            j.system.fs.copyFile(config, '/etc/postgresql/8.4/main')
+
+        j.system.fs.createDir('/usr/lib/postgresql/8.4/bin/')
+        cmd = 'ln -s /opt/postgresql/bin/* /usr/lib/postgresql/8.4/bin/'
+        j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
