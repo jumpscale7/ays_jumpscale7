@@ -79,6 +79,7 @@ git.export.9                   =
     dest:'/opt/qbase5/www/jswizards',
     link:'False',
     nodirs:'False',
+    branch:'cofeee',
     source:'',
     url: 'https://git.aydo.com/racktivity/ext-jswizards',
 
