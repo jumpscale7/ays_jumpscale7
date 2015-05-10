@@ -75,7 +75,7 @@ class Actions(ActionsBase):
 
         j.system.fs.createDir("/var/log/postgresql")
 
-        self.start()
+        self.start(serviceObj)
         time.sleep(2)
 
         cmd = "cd $(service.param.base)/bin;./psql -U postgres template1 -c \"alter user postgres with password '$instance.param.rootpasswd)';\" -h localhost"
