@@ -1,6 +1,10 @@
 dependencies.1                 =
     name:'pylabs5',
 
+dependencies.2                 =
+    name:'postgresql',
+
+
 env.process.1                  = 
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib

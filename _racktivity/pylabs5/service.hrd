@@ -1,9 +1,6 @@
 dependencies.1                 =
     name:'pylabs5_base',
 
-#dependencies.2                 =
-#    name:'postgresql',
-
 
 env.process.1                  = 
 
