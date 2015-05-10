@@ -24,18 +24,17 @@ class Actions(ActionsBase):
     def prepare(self, serviceObj):
         # TO BE PACKAGED SERPERATELY
         j.system.process.execute('apt-get install rabbitmq-server -y')
-        j.system.process.execute('apt-get install vsftpd -y')
         j.system.process.execute('apt-get install nginx -y')
         j.system.process.execute('apt-get install vsftpd -y')
 
 
     def configure(self, serviceObj):
         j.system.process.execute('useradd postgres', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "createdb store2"', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "createuser dcpm"', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "createdb dcpm -O dcpm"', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "createdb ui -O dcpm"', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "createdb core -O dcpm"', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "/opt/postgresql/bin/createdb store2"', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "/opt/postgresql/bin/createuser dcpm"', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "/opt/postgresql/bin/createdb dcpm -O dcpm"', dieOnNonZeroExitCode=False)
+        #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema core\""', dieOnNonZeroExitCode=False)
+        #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema ui\""', dieOnNonZeroExitCode=False)
 
         j.system.fs.createDir('/etc/postgresql/8.4/main')
         for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='.conf'):

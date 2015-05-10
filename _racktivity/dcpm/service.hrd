@@ -70,7 +70,7 @@ platform.supported             =
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
 process.1=
-    cmd:'export PYTHONPATH=/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "q.manage.applicationserver.restart(\'dcpm\')"',
+    cmd:'export PYTHONPATH=/opt/postgres/lib:/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "q.manage.applicationserver.restart(\'dcpm\')"',
     args:'',
     prio:10,
     cwd:'/opt/qbase5',
