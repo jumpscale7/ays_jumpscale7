@@ -22,15 +22,20 @@ class Actions(ActionsBase):
     """
 
     def prepare(self, serviceObj):
-        # import os
-        # os.makedirs('/opt/qbase5/pyapps/dcpm/')
-        pass
+        # TO BE PACKAGED SERPERATELY
+        j.system.process.execute('apt-get install rabbitmq-server -y')
+        j.system.process.execute('apt-get install vsftpd -y')
+        j.system.process.execute('apt-get install nginx -y')
+        j.system.process.execute('apt-get install vsftpd -y')
+
 
     def configure(self, serviceObj):
         j.system.process.execute('useradd postgres', dieOnNonZeroExitCode=False)
-        j.system.process.execute('sudo -u postgres -i createdb store2', dieOnNonZeroExitCode=False)
-        j.system.process.execute('sudo -u postgres -i createuser dcpm', dieOnNonZeroExitCode=False)
-        j.system.process.execute('sudo -u postgres -i createdb dcpm -O dcpm', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "createdb store2"', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "createuser dcpm"', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "createdb dcpm -O dcpm"', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "createdb ui -O dcpm"', dieOnNonZeroExitCode=False)
+        j.system.process.execute('su postgres -c "createdb core -O dcpm"', dieOnNonZeroExitCode=False)
 
         j.system.fs.createDir('/etc/postgresql/8.4/main')
         for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='.conf'):
@@ -39,3 +44,8 @@ class Actions(ActionsBase):
         j.system.fs.createDir('/usr/lib/postgresql/8.4/bin/')
         cmd = 'ln -s /opt/postgresql/bin/* /usr/lib/postgresql/8.4/bin/'
         j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
+
+        j.system.process.execute('useradd ftp', dieOnNonZeroExitCode=False)
+
+
+        j.system.process.execute("sed -i 's/\/etc\/init.d\/rsyslog restart/restart rsyslog/g' /opt/qbase5/pyapps/dcpm/impl/init/store_logger/9_store_logger.py")
