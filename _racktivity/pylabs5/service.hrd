@@ -185,8 +185,7 @@ git.export.22                   =
 git.export.23                   =
     dest:'/opt/qbase5/lib/pylabs/extensions/api_generator/defaults',
     link:'False',
-    nodirs:'False',
-    source:'pyapp',
+    source:'pyapp/*',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.24                   =
