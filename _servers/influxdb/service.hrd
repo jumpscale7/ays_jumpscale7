@@ -1,7 +1,7 @@
 param.base='/opt/influxdb/'
 
 process.1=
-    name:'$(jp.name)__$(jp.instance)',
+    name:'$(service.name)__$(service.instance)',
     cmd:'./influxdb -config=../cfg/influxdb/config.toml',
     args:,
     prio:5,
@@ -10,10 +10,10 @@ process.1=
     timeout_stop:10,
     ports:8086;8083;8090,
     startupmanager:tmux,
-    filterstr:'influxdb',
+    filterstr:'./influxdb -config=../cfg/influxdb/config.toml',
 
 git.url='http://git.aydo.com/binary/influxdb'
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1=
     url:$(git.url),
     source:,
@@ -22,5 +22,3 @@ git.export.1=
 
 
 platform.supported=linux64,
-
-
