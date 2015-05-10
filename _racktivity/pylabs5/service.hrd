@@ -28,14 +28,14 @@ git.export.1                   =
 
 git.export.2                   =
     dest:'/opt/qbase5/apps/applicationserver/',
-    link:'True',
+    link:'False',
     nodirs:'False',
     source:'apps/applicationserver/*',
     url: $(git.url),
 
 git.export.3                   =
     dest:'/opt/qbase5/lib/pylabs/core/pylabs/',
-    link:'True',
+    link:'False',
     nodirs:'False',
     source:'core/*',
     url: $(git.url),
@@ -50,14 +50,14 @@ git.export.4                   =
 
 git.export.5                   =
     dest:'/opt/qbase5/lib/python/site-packages/',
-    link:'True',
+    link:'False',
     nodirs:'False',
     source:'lib/*',
     url: $(git.url),
 
 git.export.6                  =
     dest:'/opt/qbase5/utils/',
-    link:'True',
+    link:'False',
     nodirs:'False',
     source:'utils/*',
     url: $(git.url),
@@ -87,7 +87,7 @@ git.export.9                   =
 
 git.export.10                   =
     dest:'/opt/qbase5/apps/cloud_api_generator/',
-    link:'True',
+    link:'False',
     nodirs:'False',
     source:'apps/cloud_api_generator/*',
     url: $(git.url),
@@ -135,12 +135,12 @@ git.export.15                   =
     source:'code/osis',
     url: 'https://git.aydo.com/racktivity/ext-OSIS',
 
-#git.export.16                   =
-#    dest:'/opt/qbase5/lib/pylabs/extensions/api_generator/defaults',
-#    link:'False',
-#    nodirs:'False',
-#    source:'pyapp',
-#    url: 'https://git.aydo.com/racktivity/ext-OSIS',
+git.export.16                   =
+    dest:'/opt/qbase5/lib/pylabs/extensions/api_generator/defaults',
+    link:'False',
+    nodirs:'False',
+    source:'pyapp',
+    url: 'https://git.aydo.com/racktivity/ext-OSIS',
 
 git.export.17                   =
     dest:'/opt/qbase5/lib/pylabs/extensions/osis_connection',
@@ -186,6 +186,13 @@ git.export.22                   =
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.23                   =
+    dest:'/opt/qbase5/lib/pylabs/extensions/api_generator/defaults',
+    link:'False',
+    nodirs:'False',
+    source:'pyapp',
+    url: 'https://git.aydo.com/racktivity/ext-lfw',
+
+git.export.24                   =
     dest:'/opt/qbase5/lib/python/site-packages/httplib2',
     link:'False',
     nodirs:'False',

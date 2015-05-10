@@ -24,6 +24,14 @@ git.export.2                   =
     url: $(url),
 
 git.export.3                   =
+    dest:'/opt/qbase5/pyapps/dcpm/interface/model/',
+    link:'False',
+    branch:'1.5.1.bugfixes',
+    nodirs:'False',
+    source:'pyapps/upgrademanager/interface/model/*',
+    url: $(url),
+
+git.export.4                   =
     dest:'/opt/qbase5/bin/',
     link:'False',
     branch:'1.5.1.bugfixes',
@@ -31,7 +39,7 @@ git.export.3                   =
     source:'bin/*',
     url: $(url),
 
-git.export.4                   =
+git.export.5                   =
     dest:'/opt/qbase5/lib/python/site-packages/',
     link:'False',
     branch:'1.5.1.bugfixes',
