@@ -36,6 +36,13 @@ git.export.3                   =
     url: $(url),
 
 git.export.4                   =
+    dest:'/opt/qbase5/lib/pylabs/extensions/',
+    link:'False',
+    branch:'1.5.1.bugfixes',
+    source:'lib/pylabs/extensions/*',
+    url: $(url),
+
+git.export.5                   =
     dest:'/opt/qbase5/bin/',
     link:'False',
     branch:'1.5.1.bugfixes',
@@ -43,7 +50,7 @@ git.export.4                   =
     source:'bin/*',
     url: $(url),
 
-git.export.5                   =
+git.export.6                   =
     dest:'/opt/qbase5/lib/python/site-packages/',
     link:'False',
     branch:'1.5.1.bugfixes',
