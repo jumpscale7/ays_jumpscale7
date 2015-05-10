@@ -14,7 +14,7 @@ url = 'https://git.aydo.com/racktivity/dcpm'
 git.export.1                   =
     dest:'/opt/qbase5/pyapps/dcpm/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     source:'pyapps/dcpm/*',
     url: $(url),
@@ -22,7 +22,7 @@ git.export.1                   =
 git.export.2                   =
     dest:'/opt/qbase5/pyapps/dcpm/interface/action/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     source:'pyapps/upgrademanager/interface/action/*',
     url: $(url),
@@ -30,7 +30,7 @@ git.export.2                   =
 git.export.3                   =
     dest:'/opt/qbase5/pyapps/dcpm/interface/model/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     source:'pyapps/upgrademanager/interface/model/*',
     url: $(url),
@@ -38,14 +38,14 @@ git.export.3                   =
 git.export.4                   =
     dest:'/opt/qbase5/lib/pylabs/extensions/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     source:'lib/pylabs/extensions/*',
     url: $(url),
 
 git.export.5                   =
     dest:'/opt/qbase5/bin/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     source:'bin/*',
     url: $(url),
@@ -53,7 +53,7 @@ git.export.5                   =
 git.export.6                   =
     dest:'/opt/qbase5/lib/python/site-packages/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     overwrite:'True',
     source:'lib/python/site-packages/*',
