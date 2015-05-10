@@ -29,7 +29,7 @@ git.url='http://git.aydo.com/binary/postgresql'
 
 git.export.1=
     url:$(git.url),
-    dest:'$(param.base)',
+    dest:'$(param.base)/',
     source:'postgresql/*',
     nodirs:'False',
     link:'False',
