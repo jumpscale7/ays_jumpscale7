@@ -82,47 +82,6 @@ git.export.9                   =
     source:'',
     url: 'https://git.aydo.com/racktivity/ext-jswizards',
 
-git.export.10                   =
-    dest:'/opt/qbase5/apps/cloud_api_generator/',
-    link:'False',
-    nodirs:'False',
-    source:'apps/cloud_api_generator/*',
-    url: $(git.url),
-
-#git.export.10                   =
-#    dest:'/opt/qbase5/lib/python/site-packages/workflowengine',
-#    link:'False',
-#    nodirs:'False',
-#    source:'workflowengine/lib',
-#    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
-
-#git.export.11                   =
-#    dest:'/opt/qbase5/lib/pylabs/extensions/workflowengine/manage',
-#    link:'False',
-#    nodirs:'False',
-#    source:'workflowengine/manage',
-#    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
-
-#git.export.12                   =
-#    dest:'/opt/qbase5/apps/workflowengine/bin',
-#    link:'False',
-#    nodirs:'False',
-#    source:'workflowengine/bin',
-#    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
-
-#git.export.13                   =
-#    dest:'/opt/qbase5/apps/applicationserver/services/wfe_debug',
-#    link:'False',
-#    nodirs:'False',
-#    source:'workflowengine/debug_service',
-#    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
-
-#git.export.14                   =
-#    dest:'/opt/qbase5/lib/pylabs/extensions/api_generator/defaults',
-#    link:'False',
-#    nodirs:'False',
-#    source:'workflowengine/pyapp',
-#    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
 
 git.export.15                   =
     dest:'/opt/qbase5/lib/python/site-packages/osis',
@@ -202,4 +161,53 @@ git.export.24                   =
     source:'services/oauth_service/lib/httplib2',
     branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
+
+
+git.export.25                   =
+    dest:'/opt/qbase5/apps/cloud_api_generator/',
+    link:'False',
+    branch:'pylabs5',
+    nodirs:'False',
+    source:'apps/cloud_api_generator/*',
+    url: $(git.url),
+
+git.export.26                   =
+    dest:'/opt/qbase5/lib/python/site-packages/workflowengine',
+    link:'False',
+    branch:'pylabs5',
+    nodirs:'False',
+    source:'workflowengine/lib',
+    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+
+git.export.27                   =
+    dest:'/opt/qbase5/lib/pylabs/extensions/workflowengine/manage',
+    link:'False',
+    branch:'pylabs5',
+    nodirs:'False',
+    source:'workflowengine/manage',
+    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+
+git.export.28                   =
+    dest:'/opt/qbase5/apps/workflowengine/bin',
+    link:'False',
+    branch:'pylabs5',
+    nodirs:'False',
+    source:'workflowengine/bin',
+    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+
+git.export.29                  =
+    dest:'/opt/qbase5/apps/applicationserver/services/wfe_debug',
+    link:'False',
+    branch:'pylabs5',
+    nodirs:'False',
+    source:'workflowengine/debug_service',
+    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+
+git.export.30                  =
+    dest:'/opt/qbase5/lib/pylabs/extensions/api_generator/defaults',
+    link:'False',
+    branch:'pylabs5',
+    nodirs:'False',
+    source:'workflowengine/pyapp',
+    url: 'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
 
