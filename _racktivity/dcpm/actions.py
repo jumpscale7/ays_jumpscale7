@@ -31,9 +31,9 @@ class Actions(ActionsBase):
     def configure(self, serviceObj):
         j.system.unix.addSystemUser('postgres')
         j.system.unix.addSystemUser('ftp')
-        j.system.process.execute('cd /;su postgres -c "/opt/postgresql/bin/createdb store2"')
-        j.system.process.execute('cd /;su postgres -c "/opt/postgresql/bin/createuser dcpm"')
-        j.system.process.execute('cd /;su postgres -c "/opt/postgresql/bin/createdb dcpm -O dcpm"', dieOnNonZeroExitCode=False)
+        j.system.process.run('/opt/postgresql/bin/createdb -h 127.0.0.1 store2', user='postgres', stopOnError=False)
+        j.system.process.run('/opt/postgresql/bin/createuser -h 127.0.0.1 dcpm', user='postgres', stopOnError=False)
+        j.system.process.run('/opt/postgresql/bin/createdb -h 127.0.0.1 dcpm -O dcpm', user='postgres', stopOnError=False)
         #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema core\""', dieOnNonZeroExitCode=False)
         #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema ui\""', dieOnNonZeroExitCode=False)
 
