@@ -29,22 +29,18 @@ class Actions(ActionsBase):
 
 
     def configure(self, serviceObj):
-        j.system.process.execute('useradd postgres', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "/opt/postgresql/bin/createdb store2"', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "/opt/postgresql/bin/createuser dcpm"', dieOnNonZeroExitCode=False)
-        j.system.process.execute('su postgres -c "/opt/postgresql/bin/createdb dcpm -O dcpm"', dieOnNonZeroExitCode=False)
+        j.system.unix.addSystemUser('postgres')
+        j.system.unix.addSystemUser('ftp')
+        j.system.process.execute('cd /;su postgres -c "/opt/postgresql/bin/createdb store2"')
+        j.system.process.execute('cd /;su postgres -c "/opt/postgresql/bin/createuser dcpm"')
+        j.system.process.execute('cd /;su postgres -c "/opt/postgresql/bin/createdb dcpm -O dcpm"', dieOnNonZeroExitCode=False)
         #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema core\""', dieOnNonZeroExitCode=False)
         #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema ui\""', dieOnNonZeroExitCode=False)
 
         j.system.fs.createDir('/etc/postgresql/8.4/main')
-        for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='.conf'):
+        for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='*.conf'):
             j.system.fs.copyFile(config, '/etc/postgresql/8.4/main')
 
         j.system.fs.createDir('/usr/lib/postgresql/8.4/bin/')
         cmd = 'ln -s /opt/postgresql/bin/* /usr/lib/postgresql/8.4/bin/'
         j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
-
-        j.system.process.execute('useradd ftp', dieOnNonZeroExitCode=False)
-
-
-        j.system.process.execute("sed -i 's/\/etc\/init.d\/rsyslog restart/restart rsyslog/g' /opt/qbase5/pyapps/dcpm/impl/init/store_logger/9_store_logger.py")
