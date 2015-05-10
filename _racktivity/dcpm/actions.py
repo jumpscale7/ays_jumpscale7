@@ -50,4 +50,4 @@ class Actions(ActionsBase):
 
         j.system.process.execute("/etc/init.d/rabbitmq-server restart")
 
-        j.system.process.execute("/opt/qbase5/qshell -c \"p.application.install('dcpm')\"")
+        #j.system.process.execute("/opt/qbase5/qshell -c \"p.application.install('dcpm')\"")
