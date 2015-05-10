@@ -152,6 +152,7 @@ git.export.18                   =
     link:'False',
     nodirs:'False',
     source:'htdocs',
+    branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.19                   =
@@ -159,6 +160,7 @@ git.export.19                   =
     link:'False',
     nodirs:'False',
     source:'services/lfw',
+    branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.20                   =
@@ -166,6 +168,7 @@ git.export.20                   =
     link:'False',
     nodirs:'False',
     source:'pylabsmacro',
+    branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.21                   =
@@ -173,6 +176,7 @@ git.export.21                   =
     link:'False',
     nodirs:'False',
     source:'client',
+    branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.22                   =
@@ -180,6 +184,7 @@ git.export.22                   =
     link:'False',
     nodirs:'False',
     source:'services/oauth_service/lib/oauth2',
+    branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.23                   =
@@ -187,6 +192,7 @@ git.export.23                   =
     link:'False',
     nodirs:'False',
     source:'pyapp/*',
+    branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
 git.export.24                   =
@@ -194,10 +200,6 @@ git.export.24                   =
     link:'False',
     nodirs:'False',
     source:'services/oauth_service/lib/httplib2',
+    branch:'js7',
     url: 'https://git.aydo.com/racktivity/ext-lfw',
 
-
-
-
-
-    
