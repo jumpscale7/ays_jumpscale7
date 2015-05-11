@@ -32,10 +32,6 @@ class Actions(ActionsBase):
     def configure(self, serviceObj):
         j.system.unix.addSystemUser('postgres')
         j.system.unix.addSystemUser('ftp')
-        j.system.process.run('cd /tmp; /opt/postgresql/bin/createdb -h 127.0.0.1 store2', user='postgres', stopOnError=False)
-        j.system.process.run('cd /tmp; /opt/postgresql/bin/createuser -h 127.0.0.1 dcpm', user='postgres', stopOnError=False)
-        #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema core\""', dieOnNonZeroExitCode=False)
-        #j.system.process.execute('su postgres -c "/opt/postgresql/bin/psql -d dcpm -c \"create schema ui\""', dieOnNonZeroExitCode=False)
 
         j.system.fs.createDir('/etc/postgresql/8.4/main')
         for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='*.conf'):
@@ -45,9 +41,7 @@ class Actions(ActionsBase):
         cmd = 'ln -s /opt/postgresql/bin/* /usr/lib/postgresql/8.4/bin/'
         j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
 
-
         j.system.process.execute("pkill nginx", dieOnNonZeroExitCode=False)
-
         j.system.process.execute("/etc/init.d/rabbitmq-server restart")
 
-        #j.system.process.execute("/opt/qbase5/qshell -c \"p.application.install('dcpm')\"")
+        print "Please install DCPM app in qbase by executing:\n/opt/qbase5/qshell -c \"p.application.install('dcpm')\""

@@ -79,8 +79,18 @@ git.export.9                   =
     dest:'/opt/qbase5/www/jswizards',
     link:'False',
     nodirs:'False',
+    branch:'coffee',
     source:'',
     url: 'https://git.aydo.com/racktivity/ext-jswizards',
+
+git.export.10                   =
+    dest:'/opt/qbase5/www/jswizards/js/',
+    link:'False',
+    nodirs:'False',
+    branch:'master',
+    source:'js/jswizards.js',
+    url: 'https://git.aydo.com/binary/jswizards',
+
 
 
 git.export.15                   =
