@@ -30,6 +30,8 @@ class Actions(ActionsBase):
 
         j.system.process.killProcessByPort("$(instance.param.port)")
         j.system.fs.createDir("/tmp/postgres")
+        j.system.fs.createDir("/var/run/postgresql")
+        j.system.unix.chown('/var/run/postgresql', 'postgres', 'postgres')
 
         return True
 
@@ -49,6 +51,7 @@ class Actions(ActionsBase):
         j.system.fs.chown(path="$(service.param.base)", user="postgres")
         j.system.fs.chown(path="$(service.datadir)", user="postgres")
         j.system.fs.chmod("$(service.datadir)", 0777)
+        j.system.fs.chmod("/tmp", 0777)
 
         cmd = "su -c '$(service.param.base)/bin/initdb -D $(service.datadir)' postgres"
         j.system.process.executeWithoutPipe(cmd)
@@ -68,10 +71,12 @@ class Actions(ActionsBase):
 
         replace("$(service.datadir)/pg_hba.conf",
                 "host    all             all             0.0.0.0/0               md5", "0.0.0.0/0")
+        replace("$(service.datadir)/postgresql.conf",
+                "unix_socket_directories = '/tmp,/var/run/postgresql'    # comma-separated list of directories ", "unix_socket_directories")
 
         j.system.fs.createDir("/var/log/postgresql")
 
-        self.start()
+        self.start(serviceObj)
         time.sleep(2)
 
         cmd = "cd $(service.param.base)/bin;./psql -U postgres template1 -c \"alter user postgres with password '$instance.param.rootpasswd)';\" -h localhost"
