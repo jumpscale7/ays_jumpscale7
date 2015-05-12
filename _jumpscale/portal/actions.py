@@ -32,8 +32,8 @@ class Actions(ActionsBase):
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        cmd='jsuser delete -ul admin'
-        j.do.execute(cmd, dieOnNonZeroExitCode=False)
+        # cmd='jsuser delete -ul admin'
+        # j.do.execute(cmd, dieOnNonZeroExitCode=False)
         cmd='jsuser add -d admin:$(instance.param.portal.rootpasswd):admin:fakeemail.test.com:jumpscale'
         j.do.execute(cmd, dieOnNonZeroExitCode=False)
         # ini.write()
