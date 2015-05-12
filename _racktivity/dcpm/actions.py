@@ -22,20 +22,26 @@ class Actions(ActionsBase):
     """
 
     def prepare(self, serviceObj):
-        # import os
-        # os.makedirs('/opt/qbase5/pyapps/dcpm/')
-        pass
+        # TO BE PACKAGED SERPERATELY
+        j.system.process.execute('apt-get install rabbitmq-server -y')
+        j.system.process.execute('apt-get install nginx -y')
+        j.system.process.execute('apt-get install vsftpd -y')
+        j.system.process.execute('apt-get install python-pygresql -y')
+
 
     def configure(self, serviceObj):
-        j.system.process.execute('useradd postgres', dieOnNonZeroExitCode=False)
-        j.system.process.execute('sudo -u postgres -i createdb store2', dieOnNonZeroExitCode=False)
-        j.system.process.execute('sudo -u postgres -i createuser dcpm', dieOnNonZeroExitCode=False)
-        j.system.process.execute('sudo -u postgres -i createdb dcpm -O dcpm', dieOnNonZeroExitCode=False)
+        j.system.unix.addSystemUser('postgres')
+        j.system.unix.addSystemUser('ftp')
 
         j.system.fs.createDir('/etc/postgresql/8.4/main')
-        for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='.conf'):
+        for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='*.conf'):
             j.system.fs.copyFile(config, '/etc/postgresql/8.4/main')
 
         j.system.fs.createDir('/usr/lib/postgresql/8.4/bin/')
         cmd = 'ln -s /opt/postgresql/bin/* /usr/lib/postgresql/8.4/bin/'
         j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
+
+        j.system.process.execute("pkill nginx", dieOnNonZeroExitCode=False)
+        j.system.process.execute("/etc/init.d/rabbitmq-server restart")
+
+        print "Please install DCPM app in qbase by executing:\n/opt/qbase5/qshell -c \"p.application.install('dcpm')\""

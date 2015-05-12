@@ -1,6 +1,10 @@
 dependencies.1                 =
     name:'pylabs5',
 
+dependencies.2                 =
+    name:'postgresql',
+
+
 env.process.1                  = 
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
@@ -10,7 +14,7 @@ url = 'https://git.aydo.com/racktivity/dcpm'
 git.export.1                   =
     dest:'/opt/qbase5/pyapps/dcpm/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     source:'pyapps/dcpm/*',
     url: $(url),
@@ -18,23 +22,38 @@ git.export.1                   =
 git.export.2                   =
     dest:'/opt/qbase5/pyapps/dcpm/interface/action/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     source:'pyapps/upgrademanager/interface/action/*',
     url: $(url),
 
 git.export.3                   =
+    dest:'/opt/qbase5/pyapps/dcpm/interface/model/',
+    link:'False',
+    branch:'js7',
+    nodirs:'False',
+    source:'pyapps/upgrademanager/interface/model/*',
+    url: $(url),
+
+git.export.4                   =
+    dest:'/opt/qbase5/lib/pylabs/extensions/',
+    link:'False',
+    branch:'js7',
+    source:'lib/pylabs/extensions/*',
+    url: $(url),
+
+git.export.5                   =
     dest:'/opt/qbase5/bin/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     source:'bin/*',
     url: $(url),
 
-git.export.4                   =
+git.export.6                   =
     dest:'/opt/qbase5/lib/python/site-packages/',
     link:'False',
-    branch:'1.5.1.bugfixes',
+    branch:'js7',
     nodirs:'False',
     overwrite:'True',
     source:'lib/python/site-packages/*',
@@ -51,7 +70,7 @@ platform.supported             =
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
 process.1=
-    cmd:'export PYTHONPATH=/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "q.manage.applicationserver.restart(\'dcpm\')"',
+    cmd:'export PYTHONPATH=/opt/postgres/lib:/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "q.manage.applicationserver.restart(\'dcpm\')"',
     args:'',
     prio:10,
     cwd:'/opt/qbase5',

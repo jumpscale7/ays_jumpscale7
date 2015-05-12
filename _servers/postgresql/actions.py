@@ -30,6 +30,8 @@ class Actions(ActionsBase):
 
         j.system.process.killProcessByPort("$(instance.param.port)")
         j.system.fs.createDir("/tmp/postgres")
+        j.system.fs.createDir("/var/run/postgresql")
+        j.system.unix.chown('/var/run/postgresql', 'postgres', 'postgres')
 
         return True
 
@@ -54,9 +56,6 @@ class Actions(ActionsBase):
         cmd = "su -c '$(service.param.base)/bin/initdb -D $(service.datadir)' postgres"
         j.system.process.executeWithoutPipe(cmd)
 
-        for config in j.system.fs.listFilesInDir('/opt/postgresql/pgha/doc/masterDB/', filter='.conf'):
-            j.system.fs.copyFile(config, '$(service.datadir)')
-
         def replace(path, newline, find):
             lines = j.system.fs.fileGetContents(path)
             out = ""
@@ -72,6 +71,8 @@ class Actions(ActionsBase):
 
         replace("$(service.datadir)/pg_hba.conf",
                 "host    all             all             0.0.0.0/0               md5", "0.0.0.0/0")
+        replace("$(service.datadir)/postgresql.conf",
+                "unix_socket_directories = '/tmp,/var/run/postgresql'    # comma-separated list of directories ", "unix_socket_directories")
 
         j.system.fs.createDir("/var/log/postgresql")
 

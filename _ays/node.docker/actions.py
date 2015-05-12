@@ -23,6 +23,7 @@ class Actions(ActionsBase):
         return True
 
     def execute(self,serviceObj,cmd):
+        cmd = cmd or ""
         cmd = "bash -c \"%s\"" % (cmd.replace('"', '\"'))
         j.tools.docker.run("$(instance.param.name)", cmd)
 
