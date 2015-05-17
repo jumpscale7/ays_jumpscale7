@@ -2,14 +2,14 @@ param.base='/opt/nginx'
 
 process.1=
     name:'$(service.name)__$(service.instance)',
-    cmd:'./nginx -c /opt/nginx/cfg/nginx.conf',
+    cmd:'./nginx -c $(param.base)/cfg/nginx.conf',
     args:,
     prio:50,
     cwd:'$(param.base)',
     timeout_start:10,
     timeout_stop:10,
     startupmanager:tmux,
-    filterstr:'./nginx -c /opt/nginx/cfg/nginx.conf',
+    filterstr:'./nginx -c $(param.base)/cfg/nginx.conf',
 
 git.url = 'https://git.aydo.com/binary/nginx.git'
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  

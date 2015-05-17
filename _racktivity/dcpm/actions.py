@@ -21,15 +21,13 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
-    def prepare(self, serviceObj):
-        # TO BE PACKAGED SERPERATELY
-        j.system.process.execute('apt-get install rabbitmq-server -y')
-        j.system.process.execute('apt-get install nginx -y')
-        j.system.process.execute('apt-get install vsftpd -y')
-        j.system.process.execute('apt-get install python-pygresql -y')
-
-
     def configure(self, serviceObj):
+        j.system.fs.createDir('/etc/nginx/')
+        j.system.fs.symlink('/etc/nginx/nginx.conf', '/opt/nginx/cfg/nginx.conf', overwriteTarget=True)
+        j.system.fs.symlink('/etc/nginx/sites-available', '/opt/nginx/cfg/sites-available', overwriteTarget=True)
+        j.system.fs.symlink('/etc/nginx/sites-enabled', '/opt/nginx/cfg/sites-enabled', overwriteTarget=True)
+        j.system.fs.symlink('/opt/nginx/cfg/mime.types', '/etc/nginx/mime.types', overwriteTarget=True)
+
         j.system.unix.addSystemUser('postgres')
         j.system.unix.addSystemUser('ftp')
 

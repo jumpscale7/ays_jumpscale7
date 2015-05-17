@@ -4,6 +4,14 @@ dependencies.1                 =
 dependencies.2                 =
     name:'postgresql',
 
+dependencies.3                 =
+    name:'nginx',
+    args:'dep.args.nginx',
+
+dep.args.nginx                 =
+    param.basedir:'/etc/nginx',
+    param.vardir:'/opt/qbase5/var/',
+
 
 env.process.1                  = 
 
