@@ -31,6 +31,8 @@ class Actions(ActionsBase):
             j.system.fs.createDir(logPath)
 
     def stop(self, serviceObj):
+        if not j.system.fs.isDir('/opt/nginx'):
+            return
         if not j.system.process.getPidsByPort(80):
             return
         j.system.process.execute('cd /opt/nginx && ./nginx -c /opt/nginx/cfg/nginx.conf -s quit')
