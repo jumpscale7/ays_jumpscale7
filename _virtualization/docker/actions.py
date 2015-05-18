@@ -42,4 +42,9 @@ class Actions(ActionsBase):
             j.system.process.executeWithoutPipe("sudo service docker restart")
         j.actions.start(name="install",description='install', action=install, stdOutput=True, serviceObj=serviceobj)
         return True
-        
+
+    def start(self, serviceobj):
+        j.do.execute('service docker start', dieOnNonZeroExitCode=False)
+
+    def stop(self, serviceobj):
+        j.do.execute('service docker stop', dieOnNonZeroExitCode=False)
