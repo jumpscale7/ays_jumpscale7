@@ -23,20 +23,23 @@ class Actions(ActionsBase):
         """
         this gets executed before the files are downloaded & installed on approprate spots
         """
-        cmd="""
-sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
-"""
+        def addSource():
+            cmd="""
+    sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
+    """
 
-        j.system.process.executeWithoutPipe(cmd)
+            j.system.process.executeWithoutPipe(cmd)
 
-        print ("update apt")
-        j.system.process.executeWithoutPipe("apt-get update -y",dieOnNonZeroExitCode=False)
+            print ("update apt")
+            j.system.process.executeWithoutPipe("apt-get update -y",dieOnNonZeroExitCode=False)
+        j.actions.start(name="addSource",description='addSource', action=addSource, stdOutput=True, serviceObj=serviceobj)
 
-        print ("install lxc docker")
-        j.system.platform.ubuntu.install("lxc-docker")
+        def install():
+            print ("install lxc docker")
+            j.system.platform.ubuntu.install("lxc-docker")
 
-        j.system.process.executeWithoutPipe("sudo service docker restart")
-    
+            j.system.process.executeWithoutPipe("sudo service docker restart")
+        j.actions.start(name="install",description='install', action=install, stdOutput=True, serviceObj=serviceobj)
         return True
         
