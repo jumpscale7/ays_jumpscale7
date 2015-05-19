@@ -3,6 +3,11 @@ dependencies.1                 =
 
 dependencies.2                 =
     name:'influxdb_client',
+    instance:$('instance.param.osis.connection.influxdb'),
+
+dependencies.3                 =
+    name:'mongodb_client',
+    instance:$('instance.param.osis.connection.mongodb'),
 
 env.process.1                  = 
 
