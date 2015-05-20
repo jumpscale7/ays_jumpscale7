@@ -29,4 +29,11 @@ class Actions(ActionsBase):
         j.system.platform.ubuntu.stopService("mongod")
         j.system.platform.ubuntu.serviceDisableStartAtBoot("mongod")
         return True
-   
+
+    def configure(self, serviceObj):
+        if serviceObj.hrd.exists("instance.param.replicaset"):
+            repset = serviceObj.hrd.get("instance.param.replicaset")
+            if repset != "":
+                process = serviceObj.hrd.getDictFromPrefix('service.process')['1']
+                process['args'] += " --replSet '%s'" % repset
+                serviceObj.hrd.set('service.process.1',process)
