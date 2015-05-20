@@ -1,7 +1,7 @@
 param.base='/opt/statsd-master/'
 
 process.1=
-    name:'$(jp.name)__$(jp.instance)',
+    name:'$(service.name)__$(service.instance)',
     cmd:'/opt/nodejs/bin/node  stats.js statsd.master.conf.js',
     args:,
     prio:5,
@@ -11,13 +11,14 @@ process.1=
     ports:8128,
     startupmanager:tmux,
     filterstr:'statsd.master.conf.js',
-    
-dependencies.1                 =      
-    name:'nodejs',                       
+
+dependencies.1                 =
+    name:'nodejs',
 
 
-dependencies.2                 =      
-    name:'influxdb_client',                       
+dependencies.2                 =
+    name:'influxdb_client',
+    instance:'$('instance.param.influxdb.connection'),
 
 git.url='http://git.aydo.com/binary/statsd'
 

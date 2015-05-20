@@ -7,7 +7,7 @@ import struct
 ActionsBase = j.packages.getActionsBaseClass()
 
 class Actions(ActionsBase):
-    
+
 
     def configure(self, serviceObj):
         """

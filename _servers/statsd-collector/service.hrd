@@ -1,7 +1,7 @@
 param.base='/opt/statsd-collector/'
 
 process.1=
-    name:'$(jp.name)__$(jp.instance)',
+    name:'$(service.name)__$(service.instance)',
     cmd:'/opt/nodejs/bin/node  stats.js statsd.collector.conf.js',
     args:,
     prio:5,
@@ -12,8 +12,8 @@ process.1=
     startupmanager:tmux,
     filterstr:'statsd.collector.conf.js',
 
-dependencies.1                 =      
-    name:'nodejs',                       
+dependencies.1                 =
+    name:'nodejs',
 
 git.url='http://git.aydo.com/binary/statsd'
 
