@@ -25,6 +25,7 @@ platform.supported=linux64,
 
 dependencies.1                 =
     name:'agentcontroller_client',
+    instance:'$(instance.agentcontroller.connection)',
     args:'dep.args.agentcontroller_client',
 
 dep.args.agentcontroller_client =
@@ -33,7 +34,7 @@ dep.args.agentcontroller_client =
 
 dependencies.2                 =
     name:'osis_client',
-    instance:'jsagent',
+    instance:'$(instance.osis.connection)',
     args:'dep.args.osis_client',
 
 dep.args.osis_client = 

@@ -55,7 +55,7 @@ dependencies.1                 =
 
 dependencies.2                 =
     name:'osis_client',
-    instance:'main',
+    instance:'$(instance.param.osis.connection)',
 
 dependencies.3                 =
     name:'mailclient',
