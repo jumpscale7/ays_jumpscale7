@@ -18,7 +18,7 @@ dependencies.1                 =
 
 dependencies.2                 =
     name:'influxdb_client',
-    instance:'$('instance.param.influxdb.connection'),
+    instance:'$(instance.param.influxdb.connection)',
 
 git.url='http://git.aydo.com/binary/statsd'
 
