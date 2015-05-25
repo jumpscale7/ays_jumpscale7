@@ -30,5 +30,4 @@ class Actions(ActionsBase):
             j.system.fs.createEmptyFile(configpath)
 
         j.system.fs.copyFile(configsamplepath, configpath)
-        template = {'instance.param.influxdb.client.address': host}
-        hrd.applyOnFile(configpath, template)
+        hrd.applyOnFile(configpath)
