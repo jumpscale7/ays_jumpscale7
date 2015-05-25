@@ -1,7 +1,7 @@
 from JumpScale import j
 import time
 
-ActionsBase=j.packages.getActionsBaseClass()
+ActionsBase=j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
     """
@@ -63,9 +63,9 @@ class Actions(ActionsBase):
             cmd="cd /opt/mariadb;scripts/mysql_install_db --user=mysql --defaults-file=cfg/my.cnf --basedir=/opt/mariadb --datadir=/var/jumpscale/mysql/data"
             print (cmd)
             j.do.executeInteractive(cmd)
-            self.start()
-            cmd="/opt/mariadb/bin/mysqladmin -u root password '$(param.rootpasswd)'"
+            self.start(serviceObj)
+            cmd="/opt/mariadb/bin/mysqladmin -u root password '$(instance.param.rootpasswd)'"
             time.sleep(5)
             j.system.process.execute(cmd)
-            self.stop()
+            self.stop(serviceObj)
         return True
