@@ -1,8 +1,8 @@
 dependencies.1                 =
-    name:'portal_local_all',
-    args:'dep.args.portal_local_all',
+    name:'singlenode_portal',
+    args:'dep.args.singlenode_portal',
 
-dep.args.portal_local_all              =
+dep.args.singlenode_portal              =
     param.rootpasswd:'$(instance.rootpasswd)',
 
 dependencies.2                 =
