@@ -1,14 +1,4 @@
-process.1 = 
-    args:'',
-    cmd:'',
-    cwd:'',
-    filterstr:'ruby',
-    ports:'',
-    prio:1,
-    startupmanager:'',
-    timeout_start:20,
-    timeout_stop:10,
-    
+
 
 #dict where key is source in repo, 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib

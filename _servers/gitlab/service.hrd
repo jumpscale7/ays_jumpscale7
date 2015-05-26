@@ -9,7 +9,7 @@ process.1=
     startupmanager:tmux,
     filterstr:'gitlab'
 
-git.url='https://git.aydo.com/binary/gitlab-test.git'
+git.url='https://git.aydo.com/binary/gitlab-7-11.git'
 
 git.export.1=
     url:$(git.url),
@@ -27,16 +27,6 @@ postgresql.args=
     param.port:5432,
 
 dependencies.2=
-    name:'postgresql_client',
-    domain:,
-    args:'client.args',
-
-client.args=
-    addr:'localhost',
-    port:5432,
-    passwd:'rooter',
-
-dependencies.3=
     name:'redis',
     instance:'gitlab',
     args:'redis.server.args',
@@ -49,11 +39,11 @@ redis.server.args=
     param.port:0,
     param.unixsocket:1
 
-dependencies.4=
+dependencies.3=
     name:'ruby',
     domain:,
 
-dependencies.5=
+dependencies.4=
     name:'nginx',
     domain:,
 platform.supported=linux64,
