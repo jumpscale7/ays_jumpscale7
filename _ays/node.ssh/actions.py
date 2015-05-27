@@ -116,3 +116,49 @@ class Actions(ActionsBase):
         if login != '':
             connection.fabric.api.env['user'] = login
         return connection
+
+    def _rsync(self, source, dest, key, port=22, login=None):
+        """
+        helper method that can be used by services implementation for upload/download actions
+        """
+        def generateUniq(name):
+            import time
+            epoch = int(time.time())
+            return "%s__%s" % (epoch,name)
+
+        print("copy %s %s" % (source,dest))
+        # if not j.do.exists(source):
+            # raise RuntimeError("copytree:Cannot find source:%s"%source)
+
+        if dest.find(":") != -1:
+            # it's an upload
+            if j.do.isDir(source):
+                if dest[-1]!="/":
+                    dest+="/"
+                if source[-1]!="/":
+                    source+="/"
+        if source.find(":") != -1:
+            # it's a download
+            if j.do.isDir(dest):
+                if dest[-1]!="/":
+                    dest+="/"
+                if source[-1]!="/":
+                    source+="/"
+
+        keyloc = "/tmp/%s" % generateUniq('id_dsa')
+        j.system.fs.writeFile(keyloc, key)
+        j.system.fs.chmod(keyloc, 0o600)
+        login = login or 'root'
+        ssh = "-e 'ssh -o StrictHostKeyChecking=no -i %s -p %s -l %s'" % (keyloc, port, login)
+
+        destPath = dest
+        if dest.find(":") != -1:
+            destPath = dest.split(':')[1]
+
+        verbose = "-q"
+        if j.application.debug:
+            verbose = "-v"
+        cmd = "rsync -a --rsync-path=\"mkdir -p -r %s && rsync\" %s %s %s %s" % (destPath, verbose, ssh, source, dest)
+        print cmd
+        j.do.execute(cmd)
+        j.system.fs.remove(keyloc)
