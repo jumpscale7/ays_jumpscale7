@@ -1,7 +1,6 @@
-param.location='default' descr:'MS1 CLIENT: location'
-#@ASK default:'ca1' descr:'ca1 (canada),us2 (us)'
+param.location=@ASK descr:'MS1 CLIENT: location'  default:'ca1' descr:'ca1 (canada),us2 (us), eu1 (be)'
 
-param.cloudspace=@ASK default:'default' descr:'MS1 CLIENT: cloudspace name'
+param.cloudspace=@ASK default:default descr:'MS1 CLIENT: cloudspace name'
 param.login=@ASK descr:'MS1 CLIENT: username'
 param.passwd=@ASK descr:'MS1 CLIENT: password'
 param.secret=
