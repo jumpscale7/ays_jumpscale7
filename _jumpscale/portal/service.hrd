@@ -6,7 +6,7 @@ process.1=
     cwd:'$(system.paths.base)/apps/portals/$(service.instance)',
     timeout_start:10,
     timeout_stop:10,
-    ports:$(param.cfg.port),
+    ports:$(instance.param.cfg.port),
     startupmanager:tmux,
     filterstr:'portal_start.py $(service.instance)'
 
