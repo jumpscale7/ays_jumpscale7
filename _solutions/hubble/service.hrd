@@ -1,0 +1,22 @@
+git.url='http://git.aydo.com/binary/hubble'
+
+git.export.1=
+    url: $(git.url),
+    source: '.',
+    dest: '/opt/hubble/bin',
+    link: True,
+
+process.1=
+    cmd: '/opt/hubble/bin/proxy -listen $(instance.listen)',
+    cwd: '/opt/hubble/bin',
+    args:'',
+    prio:5,
+    env:,
+    timeout_start:60,
+    timeout_stop:10,
+    ports:,
+    startupmanager:tmux,
+    filterstr:'bin/proxy'
+
+platform.supported=linux64,
+instances.maxnr=1
