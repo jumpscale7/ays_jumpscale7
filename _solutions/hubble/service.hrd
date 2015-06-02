@@ -1,4 +1,11 @@
+dependencies.1=
+    name: go,
+    type: build,
+
 git.url='http://git.aydo.com/binary/hubble'
+
+git.build.1=
+    url: 'https://git.aydo.com/0-complexity/hubble.git',
 
 git.export.1=
     url: $(git.url),
