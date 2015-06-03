@@ -32,3 +32,9 @@ class Actions(ActionsBase):
 
         # reload system config / whoAmI
         j.application.loadConfig()
+
+    def start(self, *args, **kwargs):
+        result = ActionsBase.start(self, *args, **kwargs)
+        j.application.loadConfig()
+        j.application.initWhoAmI(True)
+        return result
