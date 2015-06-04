@@ -158,7 +158,7 @@ class Actions(ActionsBase):
         verbose = "-q"
         if j.application.debug:
             verbose = "-v"
-        cmd = "rsync -a --rsync-path=\"mkdir -p -r %s && rsync\" %s %s %s %s" % (destPath, verbose, ssh, source, dest)
+        cmd = "rsync -a --rsync-path=\"mkdir -p %s && rsync\" %s %s %s %s" % (destPath, verbose, ssh, source, dest)
         print cmd
         j.do.execute(cmd)
         j.system.fs.remove(keyloc)
