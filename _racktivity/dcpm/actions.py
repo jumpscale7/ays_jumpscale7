@@ -20,6 +20,8 @@ class Actions(ActionsBase):
     step7b: do monitor_local to see if package healthy installed & running
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
+    def prepare(self, serviceObj):
+        j.system.platform.ubuntu.install('python-pygresql')
 
     def configure(self, serviceObj):
         j.system.fs.createDir('/etc/nginx/')

@@ -16,5 +16,13 @@ git.export.2=
     overwrite:False,
     link:False,
 
+git.export.3=
+    url:$(git.url),
+    source:'root/ays',
+    dest:'/etc/init.d/ays',
+    overwrite:True,
+    link:False,
+
+
 platform.supported=linux64,
 
