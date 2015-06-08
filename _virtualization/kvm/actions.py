@@ -19,6 +19,27 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
+    def prepareLocal(self, serviceObj):
+        """
+        This function is always exectued locally, even in the case of a remote install
+        this gets executed before the files are downloaded & installed on approprate spots
+        """
+        def createBridgePub():
+            node = None
+            try:
+                node = service.getproducer('node')
+            except:
+                # can't load producer
+                return
+            if node:
+                conn = node._getSSHClient(node)
+                cl = j.ssh.ubuntu.get(conn)
+                script = """from JumpScale import j
+    j.system.net.setBasicNetConfigurationBridgePub()
+    """
+            cl.executeRemoteTmuxJumpscript(script)
+        j.actions.start(retry=2, name="createBridgePub",description='create public brigde on remote node', cmds=createBridgePub, action=None, actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj) 
+
     def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on approprate spots
