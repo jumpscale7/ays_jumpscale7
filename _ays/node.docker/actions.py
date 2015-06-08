@@ -31,13 +31,13 @@ class Actions(ActionsBase):
         j.tools.docker.run("$(instance.param.name)", cmd)
 
     def upload(self, serviceObj,source,dest):
-        j.tools.docker.copy("$(instance.param.name)", source, dest)
+        j.tools.docker.uploadFile("$(instance.param.name)", source, dest)
+
+    def download(self, serviceObj, source, dest):
+        j.tools.docker.downloadFile('$(instance.param.name)', source, dest)
 
     def start(self,serviceObj):
         j.tools.docker.restart('$(instance.param.name)')
 
     def stop(self,serviceObj):
         j.tools.docker.stop('$(instance.param.name)')
-
-    def download(self, serviceObj,source,dest):
-        raise NotImplemented("Download is not implemented")
