@@ -1,0 +1,28 @@
+instance.key.priv              = 
+    -----BEGIN DSA PRIVATE KEY-----
+    MIIBugIBAAKBgQCCkPGt7ID6TfDHDNDWqm3L427wpmDWIqzt/qlKhL2uZWJFERys
+    Z6U55E7fuKqBhSp6qEg4Cc0RjqWUyAosd5mz0OomKPwrrXecZ17MbUyOfeOE3wi6
+    gE/wX7mbHB/SXhCaG+ieh//hbn6qq/DNagqW9juA/8s4QZWLELpFZWNJwQIVAIgD
+    LJHQnD/pw1Zywfq6BXySjs8jAoGAQBA0LZyxT1xQ/2frAbPAfprnRlGeuzGIiDdn
+    3nphmVdIAi8lvi9YmJb2T8KM676jr4KmE5ReKalZYvFZF/EZihgfeoElGN2i+0iW
+    UPUxaLvJvo7+ZYKAKr85rqdC/p+Y4bbRlctaCEohtD+3cWt2kHJesHiiK8B6nAcU
+    WaF9VvACgYA/krYBZDJCaUzo9WVmTxXISkNVOrVhI5yk92QoY/8w42hdNnmX9476
+    GMOnsgGyCppN8q2wM4pouyufRhkBExiMe+uADnHl7dIx2n5k28k9tCquyLWMjJrM
+    EydwrBcu5AM1fIgncnH4pwP/LSBPAf0dU+51m6IO5sbZtyojyA5uEQIUEV+DKDKX
+    2FHn5LSbbOwSxQQaxRc=
+    -----END DSA PRIVATE KEY-----
+
+instance.key.pub               = 
+    ssh-dss AAAAB3NzaC1kc3MAAACBAIKQ8a3sgPpN8McM0NaqbcvjbvCmYNYirO3+qUqEva5lYkURHKxnpTnkTt+4qoGFKnqoSDgJzRGOpZTICix3mbPQ6iYo/Cutd5xnXsxtTI5944TfCLqAT/BfuZscH9JeEJob6J6H/+Fufqqr8M1qCpb2O4D/yzhBlYsQukVlY0nBAAAAFQCIAyyR0Jw/6cNWcsH6ugV8ko7PIwAAAIBAEDQtnLFPXFD/Z+sBs8B+mudGUZ67MYiIN2feemGZV0gCLyW+L1iYlvZPwozrvqOvgqYTlF4pqVli8VkX8RmKGB96gSUY3aL7SJZQ9TFou8m+jv5lgoAqvzmup0L+n5jhttGVy1oISiG0P7dxa3aQcl6weKIrwHqcBxRZoX1W8AAAAIA/krYBZDJCaUzo9WVmTxXISkNVOrVhI5yk92QoY/8w42hdNnmX9476GMOnsgGyCppN8q2wM4pouyufRhkBExiMe+uADnHl7dIx2n5k28k9tCquyLWMjJrMEydwrBcu5AM1fIgncnH4pwP/LSBPAf0dU+51m6IO5sbZtyojyA5uEQ== root@dev
+
+service.domain                 = 'jumpscale'
+service.installed.checksum     = 'c7358b6d7238951ee1cc8c7391168865'
+service.instance               = 'laptopSony'
+service.link.1                 =
+    action:'ssh',
+    descr:'provide sshkey to access node',
+    name:'node.ssh.key',
+    nr.max:'24',
+    nr.min:'0',
+
+service.name                   = 'sshkey'

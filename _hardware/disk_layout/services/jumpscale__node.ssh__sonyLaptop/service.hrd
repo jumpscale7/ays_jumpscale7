@@ -1,0 +1,17 @@
+instance.ip                    = '192.168.0.165'
+instance.login                 = 'root'
+instance.password              = 'kds007kds'
+instance.ssh.port              = 22
+instance.sshkey                = 'laptopSony'
+
+#optional category of service, default = app
+service.category               = 'node'
+service.description            = 'is a node running linux os'
+service.domain                 = 'jumpscale'
+service.installed.checksum     = '7bd97069064ca31140cfbee535032de0'
+service.instance               = 'sonyLaptop'
+service.name                   = 'node.ssh'
+
+#optional parent on wich this service is deployed e.g. app on top of node, portforward rule on top of firewall
+service.parent                 = 
+service.ubuntu.packages        = 'parted'
