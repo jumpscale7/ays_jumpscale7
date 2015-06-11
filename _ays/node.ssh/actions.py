@@ -81,7 +81,8 @@ class Actions(ActionsBase):
             while not cl.file_exists(chowndir):
                 chowndir = j.system.fs.getParent(chowndir)
             cl.sudo("chown -R %s %s" % (login, chowndir))
-        self._rsync(source,rdest,sshkey,port, login)
+        services = j.system.fs.find(source, '*__*__*')
+        self._rsync(services,rdest,sshkey,port, login)
 
     def download(self, serviceObj,source,dest):
         sshkey,_ = self._getSSHKey(serviceObj)
@@ -117,34 +118,35 @@ class Actions(ActionsBase):
             connection.fabric.api.env['user'] = login
         return connection
 
-    def _rsync(self, source, dest, key, port=22, login=None):
+    def _rsync(self, sources, dest, key, port=22, login=None):
         """
         helper method that can be used by services implementation for upload/download actions
         """
         def generateUniq(name):
             import time
             epoch = int(time.time())
-            return "%s__%s" % (epoch,name)
+            return "%s__%s" % (epoch, name)
 
-        print("copy %s %s" % (source,dest))
+        print("copy %s %s" % (sources, dest))
         # if not j.do.exists(source):
-            # raise RuntimeError("copytree:Cannot find source:%s"%source)
+        #    raise RuntimeError("copytree:Cannot find source:%s"%source)
 
+        sourcelist = list()
         if dest.find(":") != -1:
             # it's an upload
-            if j.do.isDir(source):
-                if dest[-1]!="/":
-                    dest+="/"
-                if source[-1]!="/":
-                    source+="/"
-        if source.find(":") != -1:
+            dest = dest if dest.endswith("/") else dest + "/"
+            for source in sources:
+                if j.do.isDir(source):
+                    sourcelist.append(source if source.endswith("/") else source + "/")
+        else:
             # it's a download
             if j.do.isDir(dest):
-                if dest[-1]!="/":
-                    dest+="/"
-                if source[-1]!="/":
-                    source+="/"
+                    dest = dest if dest.endswith("/") else dest + "/"
+            for source in sources:
+                if source.find(":") != -1:
+                    sourcelist.append(source if source.endswith("/") else source + "/")
 
+        source = ' '.join(sourcelist)
         keyloc = "/tmp/%s" % generateUniq('id_dsa')
         j.system.fs.writeFile(keyloc, key)
         j.system.fs.chmod(keyloc, 0o600)
