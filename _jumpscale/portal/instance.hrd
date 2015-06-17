@@ -10,6 +10,6 @@ param.cfg.defaultspace = @ASK default:home type:str descr:'PORTAL: Default space
 param.cfg.admingroups = @ASK default:'admin,'  descr:'PORTAL comma-seperated admin groups'
 param.cfg.authentication.method=@ASK type:dropdown dropdownvals:osis,gitlab default:osis descr:'Authentication method'
 param.cfg.gitlab.connection=@ASK default:main descr:'PORTAL: GITLAB connection instance'
-
+param.cfg.force_oauth_instance=@ASK default:'' descr:'PORTAL: ONLY USE/FORCE THIS OAUTH INSTANCE FOR LOGIN'
 
 param.cfg.contentdirs = @ASK default:'' type:str descr:'PORTAL comma-seperated additional content directories'

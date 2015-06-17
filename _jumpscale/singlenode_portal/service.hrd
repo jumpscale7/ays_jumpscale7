@@ -95,6 +95,7 @@ dep.args.portal         =
     param.cfg.defaultspace:'home',
     param.cfg.admingroups:'admin,',
     param.cfg.contentdirs:'',
+    param.cfg.force_oauth_instance:'',
 
 dependencies.11              =
     args:'dep.args.portal_client',
