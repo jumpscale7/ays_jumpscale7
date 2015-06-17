@@ -21,9 +21,9 @@ dependencies.2                 =
 
 process.1=
     cmd:'$(system.paths.base)/bin/jspython',
-    args:'osis.py --port $(instance.param.port)' --mongodb_config $(instance.param.mongodb.connection),
+    args:'ros.py --instance $(service.instance)',
     prio:15,
-    cwd:'$(system.paths.base)/apps/osis/',
+    cwd:'$(system.paths.base)/apps/ros/',
     timeout_start:10,
     timeout_stop:10,
     ports:$(instance.param.port),
