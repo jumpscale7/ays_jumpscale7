@@ -1,0 +1,5 @@
+remote.port= @ASK
+remote.address= @ASK
+remote.login= @ASK
+local.port= @ASK
+local.address= @ASK
