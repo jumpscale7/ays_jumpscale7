@@ -54,7 +54,7 @@ class Actions(ActionsBase):
                         stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
-            cl.sudo("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install.sh > /tmp/installjs.sh")
+            cl.sudo("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install.sh > /tmp/js7.sh && bash /tmp/js7.sh")
         j.actions.start(name="jumpscale", description='install jumpscale',
                         action=jumpscale,
                         stdOutput=True, serviceObj=serviceObj)
@@ -98,7 +98,7 @@ class Actions(ActionsBase):
 
         rsource = "%s:%s" % (ip, source)
         login = serviceObj.hrd.get('instance.login', default='') or None
-        self._rsync(rsource, dest, sshkey, port, login)
+        self._rsync([rsource], dest, sshkey, port, login)
 
     def _getSSHKey(self, serviceObj):
         keyname = serviceObj.hrd.get("instance.sshkey")
