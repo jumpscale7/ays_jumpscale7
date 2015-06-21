@@ -1,0 +1,14 @@
+
+
+process.1=
+    cmd:'autossh',
+    args:'-o "StrictHostKeyChecking no" -NR $(instance.remote.port):$(instance.local.address):$(instance.local.port) $(instance.remote.login)@$(instance.remote.address)',
+    prio:1,
+    cwd:'',
+    timeout_start:10,
+    timeout_stop:10,
+    ports:,
+    startupmanager:'tmux',
+    filterstr:'$(instance.remote.port):$(instance.local.address):$(instance.local.port) $(instance.remote.login)@$(instance.remote.address)'
+
+ubuntu.packages= 'autossh',

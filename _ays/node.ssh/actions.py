@@ -1,8 +1,7 @@
 from JumpScale import j
-ActionsBase = j.atyourservice.getActionsBaseClass()
-
-
 import JumpScale.baselib.remote.cuisine
+
+ActionsBase = j.atyourservice.getActionsBaseClass()
 
 
 class Actions(ActionsBase):
@@ -19,7 +18,9 @@ class Actions(ActionsBase):
             will install the key on the node if not already present
             """
             priv, pub = self._getSSHKey(serviceObj)
-            if priv and pub:
+
+            if pub:
+
                 try:
                     cl.run('')  # force connection
                     result = cl.run(
@@ -30,36 +31,33 @@ class Actions(ActionsBase):
                     # the key is not present yet, push it
                     cl.run('mkdir -p ~/.ssh')
                     cl.run("echo '%s' >> ~/.ssh/authorized_keys" % pub)
-
         j.actions.start(name="pushkey", description='pushkey',
                         action=pushkey, stdOutput=True, serviceObj=serviceObj)
 
+        # only do the rest if we want to install jumpscale
+        if not serviceObj.hrd.getBool('instance.jumpscale'):
+            return
+
         def update():
             cl.sudo("apt-get update")
-            # j.do.execute("apt-get update")
-        j.actions.start(name="update", description='update',
-                        action=update, stdOutput=True, serviceObj=serviceObj)
+        j.actions.start(name="update", description='update', action=update,
+                        stdOutput=True, serviceObj=serviceObj)
 
         def upgrade():
             cl.sudo("apt-get upgrade -y")
-            # j.do.execute("apt-get upgrade -y")
-        j.actions.start(name="upgrade", description='upgrade',
-                        action=upgrade, stdOutput=True, serviceObj=serviceObj)
+        j.actions.start(name="upgrade", description='upgrade', action=upgrade,
+                        stdOutput=True, serviceObj=serviceObj)
 
         def extra():
             cl.sudo("apt-get install byobu curl -y")
-            # j.do.execute("apt-get install byobu curl -y")
-        j.actions.start(name="extra", description='extra',
-                        action=extra, stdOutput=True, serviceObj=serviceObj)
+        j.actions.start(name="extra", description='extra', action=extra,
+                        stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
-            cl.sudo(
-                "curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
-            cl.sudo("sh /tmp/installjs.sh")
-            # j.do.execute("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh")
-            # j.do.execute("sh /tmp/installjs.sh")
+            cl.sudo("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install.sh > /tmp/js7.sh && bash /tmp/js7.sh")
         j.actions.start(name="jumpscale", description='install jumpscale',
-                        action=jumpscale, stdOutput=True, serviceObj=serviceObj)
+                        action=jumpscale,
+                        stdOutput=True, serviceObj=serviceObj)
 
         return True
 
@@ -96,8 +94,10 @@ class Actions(ActionsBase):
 
         ip = serviceObj.hrd.get("instance.ip")
         port = serviceObj.hrd.get("instance.ssh.port")
-        source = "%s:%s" % (ip, source)
-        self._rsync(source, dest, sshkey, port)
+
+        rsource = "%s:%s" % (ip, source)
+        login = serviceObj.hrd.get('instance.login', default='') or None
+        self._rsync([rsource], dest, sshkey, port, login)
 
     def _getSSHKey(self, serviceObj):
         keyname = serviceObj.hrd.get("instance.sshkey")
@@ -118,26 +118,26 @@ class Actions(ActionsBase):
         if priv:
             c.fabric.env["key"] = priv
 
-        if password == "" and priv == None:
+        if password == "" and priv is None:
             raise RuntimeError(
                 "can't connect to the node, should provide or password or a key to connect")
+
         connection = c.connect(ip, port, passwd=password)
+        connection.fabric.api.env['shell'] = serviceObj.hrd.get('instance.ssh.shell', "/bin/bash -l -c")
+
         if login != '':
             connection.fabric.api.env['user'] = login
         return connection
 
     def _rsync(self, sources, dest, key, port=22, login=None):
         """
-        helper method that can be used by services implementation for upload/download actions
+        helper method that can be used by services implementation for
+        upload/download actions
         """
         def generateUniq(name):
             import time
             epoch = int(time.time())
             return "%s__%s" % (epoch, name)
-
-        print("copy %s %s" % (sources, dest))
-        # if not j.do.exists(source):
-        #    raise RuntimeError("copytree:Cannot find source:%s"%source)
 
         sourcelist = list()
         if dest.find(":") != -1:
@@ -164,6 +164,7 @@ class Actions(ActionsBase):
 
         verbose = "-q"
         if j.application.debug:
+            print("copy from\n%s\nto\n %s" % (source, dest))
             verbose = "-v"
         cmd = "rsync -a --ignore-existing --exclude \"*.pyc\" --rsync-path=\"mkdir -p %s && rsync\" %s %s %s %s" % (
             destPath, verbose, ssh, source, dest)
