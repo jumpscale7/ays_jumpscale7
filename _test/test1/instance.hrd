@@ -1,0 +1,1 @@
+param.test=@ASK type:str default:'whateves'

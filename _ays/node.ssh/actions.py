@@ -88,8 +88,7 @@ class Actions(ActionsBase):
             while not cl.file_exists(chowndir):
                 chowndir = j.system.fs.getParent(chowndir)
             cl.sudo("chown -R %s %s" % (login, chowndir))
-        services = j.system.fs.walk(j.system.fs.getParent(
-            source), pattern='*__*__*', return_folders=1, return_files=0)
+        services = j.system.fs.walk(j.system.fs.getParent(source), pattern='*__*__*', return_folders=1, return_files=0)
         self._rsync(services, rdest, sshkey, port, login)
 
     def download(self, serviceObj, source, dest):
