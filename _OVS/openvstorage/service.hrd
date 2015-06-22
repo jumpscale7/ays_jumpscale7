@@ -1,0 +1,2 @@
+ubuntu.apt.update=True
+ubuntu.packages=openvstorage-hc,openvstorage
