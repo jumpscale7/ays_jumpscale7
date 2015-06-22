@@ -25,6 +25,7 @@ class Actions(ActionsBase):
         """
         j.system.fs.writeFile(filename="/etc/apt/sources.list.d/openvstorage.list", contents="deb http://apt-ovs.cloudfounders.com unstable/", append=False)
         j.do.execute('apt-get update')
+        j.do.execute('apt-get install -y --force-yes openvstorage-hc')
 
     def configure(self, serviceObj):
         import json
@@ -34,10 +35,9 @@ class Actions(ActionsBase):
                 'percentage': 100
             },
             '/mnt/cache1': {
-                'device': '$(instance.cache1)',
+                'device': 'DIR_ONLY',
                 'percentage': 100,
                 'label': 'cache1',
-                'ssh': True,
                 'type': 'writecache'
             },
             '/mnt/cache2': {
