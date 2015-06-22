@@ -3,7 +3,7 @@ dependencies.1                 =
     args:'dep.args.singlenode_portal',
 
 dep.args.singlenode_portal              =
-    param.rootpasswd:'$(instance.rootpasswd)',
+    param.rootpasswd:'$(instance.param.rootpasswd)',
 
 dependencies.2                 =
     args:'dep.args.agentcontroller',
@@ -32,7 +32,7 @@ dep.args.agentcontroller_client              =
     agentcontroller.client.addr:'localhost',
     agentcontroller.client.port:'4444',
     agentcontroller.client.login:'node',
-    agentcontroller.client.passwd:'$(instance.rootpasswd)',
+    agentcontroller.client.passwd:'$(instance.param.rootpasswd)',
 
 dependencies.5     =
     name:'jsagent',

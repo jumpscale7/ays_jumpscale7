@@ -1,2 +1,2 @@
-rootpasswd=rooter
+param.rootpasswd=rooter
 param.osis.client.addr=localhost
