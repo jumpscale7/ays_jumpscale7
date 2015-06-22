@@ -32,26 +32,10 @@ class Actions(ActionsBase):
 	j.do.execute('apt-get install -y --force-yes openvstorage')
         
 
-    def configure(self,serviceObj):	
-	
-        j.do.execute('echo "" > /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo [setup] > /tmp/openvstorage_preconfig.cfg >> /tmp/openvstorage_preconfig.cfg')
-        j.do.execute('echo target_ip = $(instance.param.targetip) >> /tmp/openvstorage_preconfig.cfg') 
-        j.do.execute('echo target_password = $(instance.param.targetpasswd) >> /tmp/openvstorage_preconfig.cfg')
-        j.do.execute('echo cluster_name = $(instance.param.clustername) >> /tmp/openvstorage_preconfig.cfg')
-        j.do.execute('echo cluster_ip = $(instance.param.clusterip) >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo master_ip = $(instance.param.masterip) >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo master_password = $(instance.param.masterpasswd) >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo join_cluster = False >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo hypervisor_type = KVM >> /tmp/openvstorage_preconfig.cfg')  
-	j.do.execute('echo hypervisor_name = kvm001 >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo hypervisor_ip = $(instance.param.hvip) >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo hypervisor_username = root >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo hypervisor_password = $(instance.param.hvpasswd) >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo arakoon_mountpoint = $(instance.param.db) >> /tmp/openvstorage_preconfig.cfg')  
-	j.do.execute('echo verbose = True >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo disk_layout = {} >> /tmp/openvstorage_preconfig.cfg')
-	j.do.execute('echo auto_config = True >> /tmp/openvstorage_preconfig.cfg')
+    def configure(self,serviceObj):
+        j.do.execute('echo "" > /tmp/openvstorage_preconfig.cfg')	
+        content = '[setup] \n target_ip = $ instance.param.targetip \n target_password = $ instance.param.targetpasswd \n cluster_name = $ instance.param.clustername \ncluster_ip = $ instance.param.clusterip \n master_ip = $ instance.param.masterip \n master_password = $ instance.param.masterpasswd \n join_cluster = False \n hypervisor_type = KVM \n hypervisor_name = kvm001 \n hypervisor_ip = $ instance.param.hvip  hypervisor_username = root  \n hypervisor_password = $ instance.param.hvpasswd \n arakoon_mountpoint = $ instance.param.db \n verbose = True \n disk_layout = {} \n auto_config = True '	
+        j.do.writeFile('/tmp/openvstorage_preconfig.cfg',content)
         j.do.execute('ovs setup')    	
         return True
 
