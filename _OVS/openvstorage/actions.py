@@ -1,6 +1,6 @@
 from JumpScale import j
-import time
-ActionsBase=j.atyourservice.getActionsBaseClass()
+ActionsBase = j.atyourservice.getActionsBaseClass()
+
 
 class Actions(ActionsBase):
     """
@@ -19,25 +19,41 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
-    def prepare(self,serviceObj):
+    def prepare(self, serviceObj):
         """
         this gets executed before the files are downloaded & installed on appropriate spots
         """
-	j.do.execute('echo "deb http://apt-ovs.cloudfounders.com unstable/" > /etc/apt/sources.list.d/ovsaptrepo.list')
-	j.system.fs.createEmptyFile('/tmp/openvstorage_preconfig.cfg')
-	j.do.execute('apt-get update && apt-get install kvm libvirt0 python-libvirt virtinst')
-	j.do.execute('apt-get install ntp')
-        j.do.execute('apt-get install -y --force-yes openvstorage-hc')
-	j.do.execute('apt-get install -y --force-yes openvstorage')
-        
+        j.system.fs.writeFile(filename="/etc/apt/sources.list.d/openvstorage.list", contents="deb http://apt-ovs.cloudfounders.com unstable/", append=False)
+        j.do.execute('apt-get update')
 
-    def configure(self,serviceObj):
-        j.do.execute('echo "" > /tmp/openvstorage_preconfig.cfg')	
-        content = '[setup]\ntarget_ip = $(instance.param.targetip)\ntarget_password = $(instance.param.targetpasswd)\ncluster_name = $(instance.param.clustername)\ncluster_ip = $(instance.param.clusterip)\nmaster_ip = $(instance.param.masterip)\nmaster_password = $(instance.param.masterpasswd)\njoin_cluster = False\nhypervisor_type = KVM\nhypervisor_name = kvm001\nhypervisor_ip = $(instance.param.hvip)\nhypervisor_username = root\nhypervisor_password = $(instance.param.hvpasswd)\narakoon_mountpoint = $(instance.param.db)\nverbose = True\ndisk_layout = {}\nauto_config = True'	
-        j.do.writeFile('/tmp/openvstorage_preconfig.cfg',content)
-        j.do.execute('ovs setup')    	
+    def configure(self, serviceObj):
+        import json
+        dictLayout = {
+            '/mnt/bfs': {
+                'device': 'DIR_ONLY',
+                'percentage': 100
+            },
+            '/mnt/cache1': {
+                'device': '$(instance.cache1)',
+                'percentage': 100,
+                'label': 'cache1',
+                'ssh': True,
+                'type': 'writecache'
+            },
+            '/mnt/cache2': {
+                'device': 'DIR_ONLY',
+                'percentage': 100
+            },
+            '/var/tmp': {
+                'device': 'DIR_ONLY',
+                'percentage': 100
+            }
+        }
+
+        layout = json.dumps(dictLayout)
+        serviceObj.hrd.set('instance.disklayout', layout)
+
+        j.system.fs.copyFile("/opt/code/git/binary/openvstorage/openvstorage/openvstorage_preconfig.cfg", "/tmp/openvstorage_preconfig.cfg")
+        serviceObj.hrd.applyOnFile("/tmp/openvstorage_preconfig.cfg")
+        j.do.execute('ovs setup')
         return True
-
-
-    def stop(self,serviceObj):
-	pass
