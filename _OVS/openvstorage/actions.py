@@ -1,6 +1,5 @@
 from JumpScale import j
 import time
-import os
 ActionsBase=j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
@@ -34,7 +33,7 @@ class Actions(ActionsBase):
 
     def configure(self,serviceObj):
         j.do.execute('echo "" > /tmp/openvstorage_preconfig.cfg')	
-        content = '[setup]\ntarget_ip = $ i(instance.param.targetip)\ntarget_password = $(instance.param.targetpasswd)\ncluster_name = $(instance.param.clustername)\ncluster_ip = $(instance.param.clusterip)\nmaster_ip = $(instance.param.masterip)\nmaster_password = $(instance.param.masterpasswd)\njoin_cluster = False\nhypervisor_type = KVM\nhypervisor_name = kvm001\nhypervisor_ip = $(instance.param.hvip)\nhypervisor_username = root\nhypervisor_password = $(instance.param.hvpasswd)\narakoon_mountpoint = $(instance.param.db)\nverbose = True\ndisk_layout = {}\nauto_config = True'	
+        content = '[setup]\ntarget_ip = $(instance.param.targetip)\ntarget_password = $(instance.param.targetpasswd)\ncluster_name = $(instance.param.clustername)\ncluster_ip = $(instance.param.clusterip)\nmaster_ip = $(instance.param.masterip)\nmaster_password = $(instance.param.masterpasswd)\njoin_cluster = False\nhypervisor_type = KVM\nhypervisor_name = kvm001\nhypervisor_ip = $(instance.param.hvip)\nhypervisor_username = root\nhypervisor_password = $(instance.param.hvpasswd)\narakoon_mountpoint = $(instance.param.db)\nverbose = True\ndisk_layout = {}\nauto_config = True'	
         j.do.writeFile('/tmp/openvstorage_preconfig.cfg',content)
         j.do.execute('ovs setup')    	
         return True
