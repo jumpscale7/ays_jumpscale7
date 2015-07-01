@@ -166,7 +166,7 @@ class Actions(ActionsBase):
         if j.application.debug:
             print("copy from\n%s\nto\n %s" % (source, dest))
             verbose = "-v"
-        cmd = "rsync -a --ignore-existing --exclude \"*.pyc\" --rsync-path=\"mkdir -p %s && rsync\" %s %s %s %s" % (
+        cmd = "rsync -a -u --exclude \"*.pyc\" --rsync-path=\"mkdir -p %s && rsync\" %s %s %s %s" % (
             destPath, verbose, ssh, source, dest)
         print cmd
         j.do.execute(cmd)
