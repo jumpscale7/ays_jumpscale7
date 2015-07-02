@@ -23,6 +23,7 @@ class Actions(ActionsBase):
         """
         this gets executed before the files are downloaded & installed on appropriate spots
         """
+        j.system.platform.ubuntu.updatePackageMetadata()
         j.system.platform.ubuntu.install('graphviz')
         return True
 
