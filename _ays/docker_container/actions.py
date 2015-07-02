@@ -57,7 +57,6 @@ class Actions(ActionsBase):
             _, ip = j.system.net.getDefaultIPConfig()
             port = j.tools.docker.getPubPortForInternalPort('$(instance.param.name)', 22)
             passwd = self.generatePassword()
-            from ipdb import set_trace;set_trace()
             cl.run('echo -e "%s\n%s" | passwd %s' % (passwd, passwd, user))
 
             serviceObj.hrd.set('instance.ip', ip)
