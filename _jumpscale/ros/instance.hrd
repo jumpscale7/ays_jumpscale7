@@ -1,5 +1,5 @@
 param.port = @ASK default:5545 type:int descr:'ROS: Port'
 param.mongodb.connection = @ASK default:main type:str descr:'ROS: mongodb connection instance'
 param.sqlalchemy.uri = @ASK default:sqlite:////opt/jumpscale7/var/ros/ type:str descr:'ROS: Connection for sqlalchemy based namespaces'
-param.eve.use_reloader=@ASK type:dropdown dropdownvals:yes,no descr:'ROS: use reloader'
-param.eve.use_debugger=@ASK type:dropdown dropdownvals:yes,no descr:'ROS: use debugger'
+param.use_reloader=@ASK type:bool descr:'ROS: use reloader'
+param.use_debugger=@ASK type:bool descr:'ROS: use debugger'
