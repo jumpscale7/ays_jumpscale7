@@ -1,0 +1,30 @@
+#base of repo where code or files are e.g. http://git.aydo.com/binary/base
+git.url='https://git.aydo.com/binary/jsagentcontroller_go/'
+
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
+git.export.1=
+    url:$(git.url),
+    source:'jsagentcontroller',
+    dest:'$(system.paths.base)/apps/jsagentcontroller_go/jsagentcontroller',
+    link:True,
+
+process.1=
+    cmd:'./jsagentcontroller',
+    args: '-p $(instance.param.webservice.host) -r $(instance.param.redis.host)',
+    prio:20,
+    env:,
+    cwd:'$(system.paths.base)/apps/jsagentcontroller_go/',
+    timeout_start:20,
+    timeout_stop:20,
+    ports:$(instance.param.webservice.host),
+    startupmanager:tmux,
+    filterstr:'jsagentcontroller -p',
+
+dependencies.1=
+    name:'redis',
+
+platform.supported=linux64,
+
+#how many instances can be installed of this package, if 1 the instance name is always 'main'
+instances.maxnr=10
+

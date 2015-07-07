@@ -1,0 +1,2 @@
+param.webservice.host = @ASK default::8966 type:string descr:'acc: webservice listen address:port'
+param.redis.instance  = @ASK default:system type:string descr:'acc: redis instance name'
