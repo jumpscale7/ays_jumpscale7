@@ -43,6 +43,13 @@ class Actions(ActionsBase):
         cmd = 'ln -s /opt/postgresql/bin/* /usr/lib/postgresql/8.4/bin/'
         j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
 
+        cmd = 'sudo -u postgres /opt/postgresql/bin/dropdb postgres'
+        j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
+        
+        cmd = 'sudo -u postgres /opt/postgresql/bin/createdb --template=template0' # to ensure encoding
+        j.system.process.execute(cmd, dieOnNonZeroExitCode=False)
+
+
         j.system.process.execute("pkill nginx", dieOnNonZeroExitCode=False)
         j.system.process.execute("/etc/init.d/rabbitmq-server restart")
 
