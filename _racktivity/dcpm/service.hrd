@@ -3,10 +3,15 @@ dependencies.1                 =
 
 dependencies.2                 =
     name:'postgresql',
+    args:'dep.args.postgresql',
 
 dependencies.3                 =
     name:'nginx',
     args:'dep.args.nginx',
+
+dep.args.postgresql            =
+    param.port:'5432',
+    param.rootpasswd:'rooter',
 
 dep.args.nginx                 =
     param.basedir:'/etc/nginx',
