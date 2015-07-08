@@ -102,7 +102,7 @@ class Actions(ActionsBase):
     def _getSSHKey(self, serviceObj):
         keyname = serviceObj.hrd.get("instance.sshkey")
         if keyname != "":
-            sshkeyHRD = j.application.getAppInstanceHRD("sshkey", keyname)
+            sshkeyHRD = j.application.getAppInstanceHRD("sshkey", keyname, parent=None)
             return (sshkeyHRD.get("instance.key.priv"), sshkeyHRD.get("instance.key.pub"))
         else:
             return (None, None)
