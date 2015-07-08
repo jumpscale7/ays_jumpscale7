@@ -1,0 +1,12 @@
+git.url='https://github.com/Jumpscale/jumpscale_portal/'
+
+git.export.1=
+    url:$(git.url),
+    source:'lib/portal',
+    dest:'$(system.paths.python.lib.js)/portal',
+    link:True,
+
+platform.supported=linux64,
+
+#how many instances can be installed of this package, if 1 the instance name is always 'main'
+instances.maxnr=1
