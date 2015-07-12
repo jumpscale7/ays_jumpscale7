@@ -1,0 +1,35 @@
+dependencies.1=
+    name: go,
+    type: build,
+
+git.url='https://git.aydo.com/binary/superagent'
+
+git.build.1=
+    url: 'https://github.com/Jumpscale/jsagent.git',
+
+git.export.1=
+    url: $(git.url),
+    source: 'superagent',
+    dest: '/opt/jumpscale7/bin/superagent',
+    link: True,
+
+git.export.2=
+    url: $(git.url),
+    source: 'agent.toml',
+    dest: '/opt/jumpscale7/cfg/superagent.toml',
+    link: True,
+
+process.1=
+    cmd: '/opt/jumpscale7/bin/superagent -c /opt/jumpscale7/cfg/superagent.toml',
+    cwd: '/opt/jumpscale7',
+    args:'',
+    prio:5,
+    env:,
+    timeout_start:60,
+    timeout_stop:10,
+    ports:,
+    startupmanager:tmux,
+    filterstr:'bin/superagent'
+
+platform.supported=linux64,
+instances.maxnr=1
