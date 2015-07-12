@@ -1,4 +1,5 @@
 import os
+import contoml
 
 from JumpScale import j
 
@@ -33,3 +34,10 @@ class Actions(ActionsBase):
             name='superagent',
             account='binary'
         )
+
+    def configure(self, service_obj):
+        agentcontroller = service_obj.hrd.get('instance.agentcontroller')
+        cfg = contoml.load('/opt/jumpscale7/cfg/superagent.toml')
+        cfg['main']['AgentControllers'] = [agentcontroller]
+
+        cfg.dump('/opt/jumpscale7/cfg/superagent.toml')
