@@ -13,7 +13,8 @@ class Actions(ActionsBase):
         root = '/opt/build/github.com/Jumpscale/jsagent'
 
         # src = '{root}/src'.format(root=root)
-        src = '/opt/build/src'
+        src = '/opt/go_workspace/src/github.com/Jumpscale/'
+        j.system.fs.createDir(src)
 
         if not os.path.exists(src):
             j.do.execute(
@@ -21,7 +22,7 @@ class Actions(ActionsBase):
             )
 
         cmd = (
-            '. {bashrc} && GOPATH=$GOPATH:/opt/build/ && cp -r {root} ' +
+            '. {bashrc} &&  cp -r {root} ' +
             '{src}/ && cd {src}/jsagent && godep get ' +
             '&& go build superagent.go && ' +
             'cp {src}/jsagent/superagent {src}/jsagent/agent.toml ' +
