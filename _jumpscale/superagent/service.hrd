@@ -10,18 +10,18 @@ git.build.1=
 git.export.1=
     url: $(git.url),
     source: 'superagent',
-    dest: '/opt/jumpscale7/bin/superagent',
+    dest: '$(system.paths.base)/bin/superagent',
     link: True,
 
 git.export.2=
     url: $(git.url),
     source: 'agent.toml',
-    dest: '/opt/jumpscale7/cfg/superagent.toml',
+    dest: '$(system.paths.base)/cfg/superagent.toml',
     link: True,
 
 process.1=
-    cmd: '/opt/jumpscale7/bin/superagent -c /opt/jumpscale7/cfg/superagent.toml',
-    cwd: '/opt/jumpscale7',
+    cmd: '$(system.paths.base)/bin/superagent -c /opt/jumpscale7/cfg/superagent.toml',
+    cwd: '$(system.paths.base)',
     args:'',
     prio:5,
     env:,
