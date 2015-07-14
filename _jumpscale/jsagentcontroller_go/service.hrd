@@ -1,16 +1,20 @@
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
 git.url='https://git.aydo.com/binary/jsagentcontroller_go/'
 
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
+git.build.1=
+    url: 'https://github.com/Jumpscale/jsagentcontroller.git',
+
+
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1=
     url:$(git.url),
-    source:'jsagentcontroller',
-    dest:'$(system.paths.base)/apps/jsagentcontroller_go/jsagentcontroller',
+    source:'.',
+    dest:'$(system.paths.base)/apps/jsagentcontroller_go',
     link:True,
 
 process.1=
     cmd:'./jsagentcontroller',
-    args: '-p $(instance.param.webservice.host) -r $(instance.param.redis.host)',
+    args: '-c agentcontroller.toml',
     prio:20,
     env:,
     cwd:'$(system.paths.base)/apps/jsagentcontroller_go/',
@@ -18,10 +22,14 @@ process.1=
     timeout_stop:20,
     ports:$(instance.param.webservice.host),
     startupmanager:tmux,
-    filterstr:'jsagentcontroller -p',
+    filterstr:'jsagentcontroller -c',
 
 dependencies.1=
     name:'redis',
+
+dependencies.2=
+    name: go,
+    type: build,
 
 platform.supported=linux64,
 
