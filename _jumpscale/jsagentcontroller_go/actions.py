@@ -59,13 +59,11 @@ class Actions(ActionsBase):
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        hrd = j.application.getAppInstanceHRD('redis', service_obj.hrd.get('instance.param.redis.instance'))
-        redis = hrd.get('instance.param.port')
 
-        host = service_obj.hrd.get('instance.param.webservice.host')
         toml = '/opt/jumpscale7/apps/jsagentcontroller_go/agentcontroller.toml'
         cfg = contoml.load(toml)
-        cfg['main']['Listen'] = host
-        cfg['main']['Redis'] = ':' + str(redis)
+        cfg['main']['Listen'] = service_obj.hrd.get('instance.param.webservice.host')
+        cfg['main']['RedisHost'] = service_obj.hrd.get('instance.param.redis.host')
+        cfg['main']['RedisPassword'] = service_obj.hrd.get('instance.param.redis.password')
 
         cfg.dump(toml)

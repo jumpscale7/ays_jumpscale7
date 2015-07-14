@@ -25,9 +25,6 @@ process.1=
     filterstr:'jsagentcontroller -c',
 
 dependencies.1=
-    name:'redis',
-
-dependencies.2=
     name: go,
     type: build,
 
