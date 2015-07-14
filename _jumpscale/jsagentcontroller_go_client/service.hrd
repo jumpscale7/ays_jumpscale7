@@ -13,7 +13,7 @@ git.export.1=
 
 git.export.2=
     url: $(git.url),
-    source: 'acclient_ext',
+    source: 'acclient_ext/*',
     dest: '$(system.paths.python.lib.js)/libext/acclient_ext',
     link: True,
 
