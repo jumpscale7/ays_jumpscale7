@@ -40,5 +40,7 @@ class Actions(ActionsBase):
         agentcontroller = service_obj.hrd.get('instance.agentcontroller')
         cfg = contoml.load('/opt/jumpscale7/cfg/superagent.toml')
         cfg['main']['AgentControllers'] = [agentcontroller]
+        cfg['main']['Gid'] = int(service_obj.hrd.get('instance.gid'))
+        cfg['main']['Nid'] = int(service_obj.hrd.get('instance.nid'))
 
         cfg.dump('/opt/jumpscale7/cfg/superagent.toml')
