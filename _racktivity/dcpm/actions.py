@@ -25,9 +25,9 @@ class Actions(ActionsBase):
 
     def configure(self, serviceObj):
         j.system.fs.createDir('/etc/nginx/')
-        j.system.fs.symlink('/etc/nginx/nginx.conf', '/opt/nginx/cfg/nginx.conf', overwriteTarget=True)
-        j.system.fs.symlink('/etc/nginx/sites-available', '/opt/nginx/cfg/sites-available', overwriteTarget=True)
-        j.system.fs.symlink('/etc/nginx/sites-enabled', '/opt/nginx/cfg/sites-enabled', overwriteTarget=True)
+        j.system.fs.symlink('/opt/nginx/cfg/nginx.conf', '/etc/nginx/nginx.conf', overwriteTarget=True)
+        j.system.fs.symlink('/opt/nginx/cfg/sites-available', '/etc/nginx/sites-available', overwriteTarget=True)
+        j.system.fs.symlink('/opt/nginx/cfg/sites-enabled', '/etc/nginx/sites-enabled', overwriteTarget=True)
         j.system.fs.symlink('/opt/nginx/cfg/mime.types', '/etc/nginx/mime.types', overwriteTarget=True)
 
         j.system.fs.symlink('/etc/init.d/ays', '/etc/init.d/nginx', overwriteTarget=True)
