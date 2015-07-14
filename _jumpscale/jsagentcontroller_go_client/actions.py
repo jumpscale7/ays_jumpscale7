@@ -1,6 +1,7 @@
 from JumpScale import j
 
-ActionsBase=j.atyourservice.getActionsBaseClass()
+ActionsBase = j.atyourservice.getActionsBaseClass()
+
 
 class Actions(ActionsBase):
     """
@@ -16,12 +17,20 @@ class Actions(ActionsBase):
     step6: use the info in the hrd to start the application
     step7: do check_uptime_local to see if process starts
     step7b: do monitor_local to see if package healthy installed & running
-    step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
+    step7c: do monitor_remote to see if package healthy installed & running,
+        but this time test is done from central location
     """
 
-    def prepare(self,serviceObj):
-        """
-        this gets executed before the files are downloaded & installed on appropriate spots
-        """
-        j.system.fs.createDir("$(system.paths.base)/apps/jsagentcontroller_go_client")
-        return True
+    def build(self, service_obj):
+        root = '/opt/build/github.com/Jumpscale/jsagentcontroller'
+
+        j.system.fs.copyDirTree(
+            j.system.fs.joinPaths(root, 'client'),
+            '/opt/code/git/binary/jsagentcontroller_go_client'
+        )
+
+        j.do.pushGitRepos(
+            message='agentcontroller client new build',
+            name='jsagentcontroller_go_client',
+            account='binary'
+        )

@@ -1,12 +1,21 @@
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
 git.url='https://git.aydo.com/binary/jsagentcontroller_go_client/'
 
+git.build.1=
+    url: 'https://github.com/Jumpscale/jsagentcontroller.git',
+
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1=
-    url:$(git.url),
-    source:'acclient.py',
+    url: $(git.url),
+    source: 'acclient.py',
     dest:'$(system.paths.python.lib.ext)/acclient.py',
-    link:True,
+    link: True,
+
+git.export.2=
+    url: $(git.url),
+    source: 'acclient_ext',
+    dest: '$(system.paths.python.lib.js)/libext/acclient_ext',
+    link: True,
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr=10
