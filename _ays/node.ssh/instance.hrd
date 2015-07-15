@@ -2,6 +2,6 @@ ip=@ASK descr:'Machine  IP'
 ssh.port=@ASK default:22 descr:'SSH port'
 login=@ASK descr:'login'
 password=@ASK descr:'password'
-sshkey=@ASK descr:'instance name of the sshkey to use for connection to the node, can be empty if you want to connect with password'
+sshkey=@ASK descr:'instance name of the sshkey to use for connection to the node'
 jumpscale=@ASK descr:'install jumpscale ?' default:True
 ssh.shell=@ASK descr:'shell to use during ssh session' default:'/bin/bash -l -c'
