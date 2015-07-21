@@ -1,8 +1,8 @@
 
 
 process.1=
-    cmd:'autossh',
-    args:'-o "StrictHostKeyChecking no" -NR $(instance.remote.port):$(instance.local.address):$(instance.local.port) $(instance.remote.login)@$(instance.remote.address)',
+    cmd:'while true; do autossh -o "StrictHostKeyChecking no" -NR $(instance.remote.port):$(instance.local.address):$(instance.local.port) $(instance.remote.login)@$(instance.remote.address) -p $(instance.remote.connection.port); sleep 5; done',
+    args:'',
     prio:1,
     cwd:'',
     timeout_start:10,

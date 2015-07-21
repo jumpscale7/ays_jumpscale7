@@ -1,5 +1,6 @@
-remote.port= @ASK
-remote.address= @ASK
-remote.login= @ASK
-local.port= @ASK
-local.address= @ASK
+remote.address= @ASK descr:'Remote address'
+remote.connection.port= @ASK descr:'Remote connection port' default:22
+remote.login= @ASK descr:'Remote login' default:root
+remote.port= @ASK descr:'Remote listening port'
+local.address= @ASK descr:'Local address to forward'
+local.port= @ASK descr:'Local port to forward'
