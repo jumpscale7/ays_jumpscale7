@@ -72,10 +72,10 @@ dependencies.9               =
     name:'mailclient',
 
 dep.args.mailclient         =
-    smtp.login : 'support@mothership1.com',
-    smtp.port  : 587,
-    smtp.passwd  : 'rooter',
-    smtp.server: 'smtp.mandrillapp.com',
+    smtp.login : '',
+    smtp.port  : 25,
+    smtp.passwd  : '',
+    smtp.server: 'localhost',
     smtp.sender:'info@incubaid.com',
 
 
