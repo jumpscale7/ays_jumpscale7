@@ -11,6 +11,10 @@ class Actions(ActionsBase):
         """
         import JumpScale.baselib.redis
         j.clients.redis.deleteInstance(serviceObj.instance)
+
+        if j.do.TYPE.startswith("osx"):
+            j.do.execute("brew install redis")
+
         return True
         
     def configure(self,serviceObj):
