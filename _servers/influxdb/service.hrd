@@ -2,15 +2,15 @@ git.export.1                   =
     dest:'/opt/influxdb/',
     link:'False',
     platform:'ubuntu',
-    source:,
-    url:'http://git.aydo.com/binary/influxdb/influxdb',
+    source:'influxdb',
+    url:'http://git.aydo.com/binary/influxdb',
 
 git.export.2                   =
     dest:'/opt/influxdb/cfg',
     link:'False',
     platform:'ubuntu',
-    source:,
-    url:'http://git.aydo.com/binary/influxdb/cfg/influxdb',
+    source:'cfg/influxdb',
+    url:'http://git.aydo.com/binary/influxdb',
 
 git.url                        = 'http://git.aydo.com/binary/influxdb'
 
