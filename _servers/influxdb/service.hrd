@@ -1,24 +1,48 @@
-param.base='/opt/influxdb/'
-
-process.1=
-    name:'$(service.name)__$(service.instance)',
-    cmd:'./influxdb -config=../cfg/influxdb/config.toml',
-    args:,
-    prio:5,
-    cwd:'$(param.base)/influxdb',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:8086;8083;8090,
-    startupmanager:tmux,
-    filterstr:'./influxdb -config=../cfg/influxdb/config.toml',
-
-git.url='http://git.aydo.com/binary/influxdb'
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
-git.export.1=
-    url:$(git.url),
+git.export.1                   =
+    dest:'/opt/influxdb/',
+    link:'False',
+    platform:'ubuntu',
     source:,
-    dest:'$(param.base)',
-    link:False,
+    url:'http://git.aydo.com/binary/influxdb/influxdb',
 
+git.export.2                   =
+    dest:'/opt/influxdb/cfg',
+    link:'False',
+    platform:'ubuntu',
+    source:,
+    url:'http://git.aydo.com/binary/influxdb/cfg/influxdb',
 
-platform.supported=linux64,
+git.url                        = 'http://git.aydo.com/binary/influxdb'
+
+param.base                     = '/opt/influxdb/'
+
+platform.supported             =
+    'linux64',
+    'darwin',
+
+process.1                      =
+    args:,
+    cmd:'./influxdb -config=cfg/config.toml',
+    cwd:'/opt/influxdb',
+    filterstr:'./influxdb -config=cfg/config.toml',
+    name:'$(service.name)__$(service.instance)',
+    platform:'ubuntu',
+    ports:'8086;8083;8090',
+    prio:'5',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',
+
+process.2                      =
+    args:,
+    cmd:'./influxdb -config=cfg/influxdb.conf',
+    cwd:'/opt/influxdb',
+    filterstr:'./influxdb -config=cfg/influxdb.conf',
+    name:'$(service.name)__$(service.instance)',
+    platform:'darwin',
+    ports:'8086;8083',
+    prio:'5',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',
+
