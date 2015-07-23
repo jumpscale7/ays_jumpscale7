@@ -36,3 +36,10 @@ class Actions(ActionsBase):
 
         cfg = j.dirs.replaceTxtDirVars(cfg, additionalArgs={})
         j.system.fs.writeFile(fname, cfg)
+
+    def build(self,serviceObj):
+
+        #to reset the state use jpackage reset -n ...
+
+        j.system.platform.ubuntu.check()
+        #@todo

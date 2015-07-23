@@ -1,11 +1,9 @@
+base                           = '/opt/go'
 
-base='/opt/go'
-
-
-git.url='http://git.aydo.com/binary/go'
-
-git.export.1=
-    url:$(service.git.url),
-    source:'go/',
+git.export.1                   =
     dest:'$(service.base)/',
-    link:False,
+    link:'False',
+    source:'go/',
+    url:'$(service.git.url)',
+
+git.url                        = 'http://git.aydo.com/binary/go'

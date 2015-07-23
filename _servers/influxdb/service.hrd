@@ -27,7 +27,7 @@ process.1                      =
     filterstr:'./influxdb -config=cfg/config.toml',
     name:'$(service.name)__$(service.instance)',
     platform:'ubuntu',
-    ports:'8086;8083;8090',
+    ports:'8086;8083',
     prio:'5',
     startupmanager:'tmux',
     timeout_start:'10',
