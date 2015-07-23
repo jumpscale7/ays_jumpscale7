@@ -23,11 +23,32 @@ class Actions(ActionsBase):
         """
         this gets executed before the files are downloaded & installed on approprate spots
         """
-        j.do.execute('apt-get purge \'mongo*\' -y')
-        j.do.execute('apt-get autoremove -y')
-        j.system.fs.createDir("$(system.paths.var)/mongodb/$(service.instance)")
-        j.system.platform.ubuntu.stopService("mongod")
-        j.system.platform.ubuntu.serviceDisableStartAtBoot("mongod")
+
+        if j.do.TYPE.lower().startswith("osx"):
+            res=j.do.execute("brew install mongodb")
+            res=j.do.execute("brew list mongodb")
+            for line in res[1].split("\n"):
+                if line.strip()=="":
+                    continue
+                if j.do.exists(line.strip()) and line.find("bin/")~=-1:
+                    destpart=line.split("bin/")[-1]
+                    dest="/opt/mongodb/%s"%destpart
+                    j.system.fs.createDir(j.system.fs.getDirName(dest))
+                    do.copy(line,dest)                    
+                    
+        from IPython import embed
+        print "DEBUG NOW 1234"
+        embed()
+        p
+            
+
+        if j.do.TYPE.lower().startswith("ubuntu"):
+            j.do.execute('apt-get purge \'mongo*\' -y')
+            j.do.execute('apt-get autoremove -y')
+            j.system.fs.createDir("$(system.paths.var)/mongodb/$(service.instance)")
+            j.system.platform.ubuntu.stopService("mongod")
+            j.system.platform.ubuntu.serviceDisableStartAtBoot("mongod")
+
         return True
 
     def configure(self, serviceObj):
