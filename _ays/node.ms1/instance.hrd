@@ -6,11 +6,14 @@ param.ssdsize=@ASK type:dropdown descr:'NODE.MS1: SSD size (GBs)'  dropdownvals:
 
 #param.imagename=@ASK type:dropdown dropdownvals:fedora,windows,ubuntu.13.10,ubuntu.12.04,windows.essentials,ubuntu.14.04,zentyal,debian.7,arch,fedora,centos,opensuse,gitlab,ubuntu.jumpscale
 #we are always going to work with ubuntu 14.04 in this implementation
-param.imagename='ubuntu.14.04'
+param.imagename='ubuntu.14.04.x64'
 
 param.machine.id=
 param.machine.ssh.ip=
 param.machine.ssh.port=
 
 #link to sshkey to be used
-param.ssh.key.name = @ASK default:'default' descr:'NODE.MS1: SSH key name'
+param.ssh.key = @ASK default:'main' descr:'NODE.MS1: sshkey instance'
+paran.ssh.shell=@ASK descr:'shell to use during ssh session' default:'/bin/bash -l -c'
+
+param.jumpscale=@ASK descr:'install jumpscale ?' default:True type:bool

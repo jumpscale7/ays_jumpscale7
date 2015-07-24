@@ -71,7 +71,7 @@ class Actions(ActionsBase):
 
     def execute(self, serviceObj, cmd):
         cl = self._getSSHClient(serviceObj)
-        cl.sudo(cmd)
+        return cl.sudo(cmd)
 
     def upload(self, serviceObj, source, dest):
         sshkey, _ = self._getSSHKey(serviceObj)
