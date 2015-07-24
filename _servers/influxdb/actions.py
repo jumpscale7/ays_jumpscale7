@@ -109,8 +109,6 @@ class Actions(ActionsBase):
         this gets executed before the files are downloaded & installed on approprate spots
         """
 
-
-
         if j.do.TYPE.lower().startswith("osx"):
             res=j.do.execute("brew install influxdb")
             res=j.do.execute("brew list influxdb")
@@ -119,27 +117,22 @@ class Actions(ActionsBase):
                     continue
                 if j.do.exists(line.strip()) and line.find("bin/")!=-1:
                     destpart=line.split("bin/")[-1]
-                    dest="/opt/influxdb/%s"%destpart
+                    dest="$(service.param.base)/%s"%destpart
                     j.system.fs.createDir(j.system.fs.getDirName(dest))
                     j.do.copyFile(line,dest)
                     j.do.chmod(dest, 0o770) 
 
         if j.do.TYPE.lower().startswith("ubuntu64"):
-            j.system.platform.ubuntu.downloadInstallDebPkg("https://s3.amazonaws.com/influxdb/influxdb_0.9.2-rc1_amd64.deb")
+            j.system.platform.ubuntu.downloadInstallDebPkg("https://s3.amazonaws.com/influxdb/influxdb_0.9.2-rc1_amd64.deb",minspeed=50)
             for path in j.system.platform.ubuntu.listFilesPkg("influxdb",regex=".*\/versions\/.*\/infl.*"):
                 #find the files which have been installed
-                from IPython import embed
-                print "DEBUG NOW id"
-                embed()
-                p
-                
-            
+                j.do.copyFile(path,"$(service.param.base)",skipIfExists=True)            
 
         return True
 
     def configure(self, service):
         cfg = j.dirs.replaceTxtDirVars(CONFIG, additionalArgs={})
-        j.system.fs.writeFile(fname, cfg)
+        j.do.writeFile("$(service.param.base)/cfg/config.toml", cfg)
 
     def build(self,serviceObj):
 
