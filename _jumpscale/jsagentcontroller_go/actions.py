@@ -23,29 +23,24 @@ class Actions(ActionsBase):
     """
 
     def build(self, service_obj):
-        bashrc = os.environ['HOME'] + "/" + ".bashrc"
+        package = 'github.com/Jumpscale/jsagentcontroller'
+        # build package
+        go = j.atyourservice.get(name='go')
+        go.actions.buildProjet(go, package=package)
 
-        root = '/opt/build/github.com/Jumpscale/jsagentcontroller'
+        # path to bin and config
+        gopath = go.hrd.getStr('instance.gopath')
+        cfgPath = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller.toml')
+        binPath = j.system.fs.joinPaths(gopath, 'bin', 'jsagentcontroller')
 
-        # src = '{root}/src'.format(root=root)
-        src = '/opt/go_workspace/src/github.com/Jumpscale/'
-        j.system.fs.createDir(src)
+        # move bin to the binary repo
+        binRepo = '/opt/code/git/binary/jsagentcontroller_go/'
+        for f in j.system.fs.listFilesInDir(binRepo):
+            j.system.fs.remove(f)
+        j.system.fs.move(binPath, binRepo)
+        j.system.fs.move(cfgPath, binRepo)
 
-        if not os.path.exists(src):
-            j.do.execute(
-                'mkdir %s' % src
-            )
-
-        cmd = (
-            '. {bashrc} &&  cp -r {root} ' +
-            '{src}/ && cd {src}/jsagentcontroller && godep get ' +
-            '&& go build main.go && ' +
-            'cp {src}/jsagentcontroller/main /opt/code/git/binary/jsagentcontroller_go/jsagentcontroller && ' +
-            'cp {src}/jsagentcontroller/agentcontroller.toml ' +
-            '/opt/code/git/binary/jsagentcontroller_go'
-        ).format(bashrc=bashrc, root=root, src=src)
-
-        j.do.execute(cmd)
+        # upload bin to gitlab
         j.do.pushGitRepos(
             message='agentcontroller new build',
             name='jsagentcontroller_go',

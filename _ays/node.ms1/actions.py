@@ -7,67 +7,161 @@ import JumpScale.baselib.remote.cuisine
 
 class Actions(ActionsBase):
 
-    def configure(self,serviceobj):
+    def configure(self, serviceObj):
         """
         will install a node
         """
+        redisCl = j.clients.redis.getByInstance('system')
+        spacesecret = None
 
-        ms1client_hrd=j.application.getAppInstanceHRD("ms1_client","$(instance.param.ms1.connection)")
-
-        spacesecret=ms1client_hrd.get("instance.param.secret")
+        if not redisCl.exists('cloudrobot:cloudspaces:secrets'):
+            ms1_client = j.atyourservice.get(name='ms1_client', instance='$(instance.param.ms1.connection)')
+            ms1_client.configure()
+            spacesecret = ms1_client.hrd.get('instance.param.secret')
+        else:
+            ms1client_hrd = j.application.getAppInstanceHRD("ms1_client","$(instance.param.ms1.connection)")
+            spacesecret = ms1client_hrd.get("instance.param.secret")
 
         def createmachine():
+            _, sshkey = self._getSSHKey(serviceObj)
 
-            machineid,ip,port=j.tools.ms1.createMachine(spacesecret, "$(instance.param.name)", memsize="$(instance.param.memsize)", \
-                ssdsize=$(instance.param.ssdsize), vsansize=0, description='',imagename="$(instance.param.imagename)",delete=False)
+            machineid, ip, port = j.tools.ms1.createMachine(spacesecret, "$(instance.param.name)", memsize="$(instance.param.memsize)", \
+                ssdsize=$(instance.param.ssdsize), vsansize=0, description='',imagename="$(instance.param.imagename)",delete=False, sshkey=sshkey)
 
-            serviceobj.hrd.set("instance.param.machine.id",machineid)
-            serviceobj.hrd.set("instance.param.machine.ssh.ip",ip)
-            serviceobj.hrd.set("instance.param.machine.ssh.port",port)
+            serviceObj.hrd.set("instance.param.machine.id",machineid)
+            serviceObj.hrd.set("instance.param.machine.ssh.ip",ip)
+            serviceObj.hrd.set("instance.param.machine.ssh.port",port)
 
+        j.actions.start(retry=1, name="createmachine", description='createmachine', cmds='', action=createmachine, \
+                        actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceObj)
 
-        j.actions.start(retry=1, name="createmachine",description='createmachine', cmds='', action=createmachine, \
-            actionRecover=None, actionArgs={}, errorMessage='', die=True, stdOutput=True, serviceObj=serviceobj)
+        # only do the rest if we want to install jumpscale
+        if not serviceObj.hrd.getBool('instance.param.jumpscale'):
+            return
 
+        cl = self._getSSHClient(serviceObj)
 
         def update():
-            serviceobj.args['cmd'] = "apt-get update"
-            self.execute()
-        j.actions.start(retry=1, name="update",description='update', action=update, stdOutput=True, serviceObj=serviceobj)
+            cl.sudo("apt-get update")
+        j.actions.start(name="update", description='update', action=update,
+                        stdOutput=True, serviceObj=serviceObj)
 
         def upgrade():
-            serviceobj.args['cmd'] = "apt-get upgrade -y"
-            self.execute()
-        j.actions.start(retry=1, name="upgrade",description='upgrade', action=upgrade, stdOutput=True, serviceObj=serviceobj)
+            cl.sudo("apt-get upgrade -y")
+        j.actions.start(name="upgrade", description='upgrade', action=upgrade,
+                        stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
-            serviceobj.args['cmd'] = "curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/installjs.sh; sh /tmp/installjs.sh"
-            self.execute(cmd="")
-        j.actions.start(retry=1, name="jumpscale",description='install jumpscale', action=jumpscale, stdOutput=True, serviceObj=serviceobj)
-
+            cl.sudo("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install.sh > /tmp/js7.sh && bash /tmp/js7.sh")
+        j.actions.start(name="jumpscale", description='install jumpscale',
+                        action=jumpscale,
+                        stdOutput=True, serviceObj=serviceObj)
         return True
 
-
-    def removedata(self,serviceobj):
+    def removedata(self, serviceObj):
         """
         delete vmachine
         """
-        ms1client_hrd=j.application.getAppInstanceHRD("ms1_client","$(instance.param.ms1.connection)")
-        spacesecret=ms1client_hrd.get("instance.param.secret")
+        ms1client_hrd = j.application.getAppInstanceHRD("ms1_client","$(instance.param.ms1.connection)")
+        spacesecret = ms1client_hrd.get("instance.param.secret")
         j.tools.ms1.deleteMachine(spacesecret, "$(instance.param.name)")
 
         return True
 
-    def execute(self,serviceobj):
+    def execute(self, serviceObj, cmd):
         """
         execute over ssh something onto the machine
         """
+        cl = self._getSSHClient(serviceObj)
+        cl.sudo(cmd)
 
-        if "cmd" not in serviceObj.args:
-            raise RuntimeError("cmd need to be in args, example usage:jpackage execute -n node.ssh.key -i ovh5 --data=\"cmd:'ls /'\"")
+    def upload(self, serviceObj, source, dest):
+        sshkey, _ = self._getSSHKey(serviceObj)
 
-        cl = j.packages.remote.sshPython(serviceObj=serviceObj,node=serviceObj.instance)
-        cmd = serviceobj.args['cmd']
-        cl.connection.run(cmd)
+        ip = serviceObj.hrd.get("instance.param.machine.ssh.ip")
+        port = serviceObj.hrd.get("instance.param.machine.ssh.port")
+        rdest = "%s:%s" % (ip, dest)
+        services = j.system.fs.walk(j.system.fs.getParent(source), pattern='*__*__*', return_folders=1, return_files=0)
+        self._rsync(services, rdest, sshkey, port)
 
-        return True
+    def download(self, serviceObj, source, dest):
+        sshkey, _ = self._getSSHKey(serviceObj)
+
+        ip = serviceObj.hrd.get("instance.param.machine.ssh.ip")
+        port = serviceObj.hrd.get("instance.param.machine.ssh.port")
+
+        rsource = "%s:%s" % (ip, source)
+        self._rsync([rsource], dest, sshkey, port)
+
+    def _getSSHKey(self, serviceObj):
+        keyname = serviceObj.hrd.get("instance.param.ssh.key")
+        if keyname != "":
+            sshkeyHRD = j.application.getAppInstanceHRD("sshkey", keyname, parent=None)
+            return (sshkeyHRD.get("instance.key.priv"), sshkeyHRD.get("instance.key.pub"))
+        else:
+            return (None, None)
+
+    def _getSSHClient(self, serviceObj):
+        c = j.remote.cuisine
+
+        ip = serviceObj.hrd.get('instance.param.machine.ssh.ip')
+        port = serviceObj.hrd.get('instance.param.machine.ssh.port')
+        # login = serviceObj.hrd.get('instance.login', default='')
+        # password = serviceObj.hrd.get('instance.password', default='')
+        priv, _ = self._getSSHKey(serviceObj)
+        if priv:
+            c.fabric.env["key"] = priv
+
+        if priv is None:
+            raise RuntimeError(
+                "can't connect to the node, should provide or password or a key to connect")
+
+        connection = c.connect(ip, port)
+        connection.fabric.api.env['shell'] = serviceObj.hrd.get('instance.ssh.shell', "/bin/bash -l -c")
+
+        # if login != '':
+            # connection.fabric.api.env['user'] = login
+        return connection
+
+    def _rsync(self, sources, dest, key, port=22, login=None):
+        """
+        helper method that can be used by services implementation for
+        upload/download actions
+        """
+        def generateUniq(name):
+            import time
+            epoch = int(time.time())
+            return "%s__%s" % (epoch, name)
+
+        sourcelist = list()
+        if dest.find(":") != -1:
+            # it's an upload
+            dest = dest if dest.endswith("/") else dest + "/"
+            sourcelist = [source.rstrip("/") for source in sources if j.do.isDir(source)]
+        else:
+            # it's a download
+            if j.do.isDir(dest):
+                dest = dest if dest.endswith("/") else dest + "/"
+            sourcelist = [source.rstrip("/") for source in sources if source.find(":") != -1]
+
+        source = ' '.join(sourcelist)
+        keyloc = "/tmp/%s" % generateUniq('id_dsa')
+        j.system.fs.writeFile(keyloc, key)
+        j.system.fs.chmod(keyloc, 0o600)
+        login = login or 'root'
+        ssh = "-e 'ssh -o StrictHostKeyChecking=no -i %s -p %s -l %s'" % (
+            keyloc, port, login)
+
+        destPath = dest
+        if dest.find(":") != -1:
+            destPath = dest.split(':')[1]
+
+        verbose = "-q"
+        if j.application.debug:
+            print("copy from\n%s\nto\n %s" % (source, dest))
+            verbose = "-v"
+        cmd = "rsync -a -u --exclude \"*.pyc\" --rsync-path=\"mkdir -p %s && rsync\" %s %s %s %s" % (
+            destPath, verbose, ssh, source, dest)
+        print cmd
+        j.do.execute(cmd)
+        j.system.fs.remove(keyloc)
