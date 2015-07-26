@@ -1,4 +1,3 @@
-import os
 import contoml
 
 from JumpScale import j
@@ -8,28 +7,26 @@ ActionsBase = j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
     def build(self, service_obj):
-        bashrc = os.environ['HOME'] + "/" + ".bashrc"
+        package = 'github.com/Jumpscale/jsagent'
+        # build package
+        go = j.atyourservice.get(name='go')
+        go.actions.buildProjet(go, package=package)
 
-        root = '/opt/build/github.com/Jumpscale/jsagent'
+        # path to bin and config
+        gopath = go.hrd.getStr('instance.gopath')
+        bin_path = j.system.fs.joinPaths(gopath, 'bin', 'jsagent')
+        cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agent.toml')
+        ext_path = j.system.fs.joinPaths(gopath, 'src', package, 'extensions')
 
-        # src = '{root}/src'.format(root=root)
-        src = '/opt/go_workspace/src/github.com/Jumpscale/'
-        j.system.fs.createDir(src)
+        # move bin to the binary repo
+        bin_repo = '/opt/code/git/binary/superagent/'
+        for f in j.system.fs.listFilesInDir(bin_repo):
+            j.system.fs.remove(f)
+        j.system.fs.copyFile(bin_path, j.system.fs.joinPaths(bin_repo, 'superagent'))
+        j.system.fs.copyFile(cfg_path, bin_repo)
+        j.system.fs.copyDirTree(ext_path, j.system.fs.joinPaths(bin_repo, 'extensions'))
 
-        if not os.path.exists(src):
-            j.do.execute(
-                'mkdir %s' % src
-            )
-
-        cmd = (
-            '. {bashrc} &&  cp -r {root} ' +
-            '{src}/ && cd {src}/jsagent && godep get ' +
-            '&& go build superagent.go && ' +
-            'cp {src}/jsagent/superagent {src}/jsagent/agent.toml ' +
-            '/opt/code/git/binary/superagent'
-        ).format(bashrc=bashrc, root=root, src=src)
-
-        j.do.execute(cmd)
+        # upload bin to gitlab
         j.do.pushGitRepos(
             message='superagent new build',
             name='superagent',
@@ -38,9 +35,10 @@ class Actions(ActionsBase):
 
     def configure(self, service_obj):
         agentcontroller = service_obj.hrd.get('instance.agentcontroller')
-        cfg = contoml.load('/opt/jumpscale7/cfg/superagent.toml')
-        cfg['main']['AgentControllers'] = [agentcontroller]
-        cfg['main']['Gid'] = int(service_obj.hrd.get('instance.gid'))
-        cfg['main']['Nid'] = int(service_obj.hrd.get('instance.nid'))
+        cfg_path = j.system.fs.joinPaths(j.dirs.baseDir, 'apps/superagent/superagent.toml')
+        cfg = contoml.load(cfg_path)
+        cfg['main']['agent_controllers'] = [agentcontroller]
+        cfg['main']['gid'] = int(service_obj.hrd.get('instance.gid'))
+        cfg['main']['nid'] = int(service_obj.hrd.get('instance.nid'))
 
-        cfg.dump('/opt/jumpscale7/cfg/superagent.toml')
+        cfg.dump(cfg_path)

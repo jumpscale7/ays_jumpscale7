@@ -1,4 +1,3 @@
-import os
 from JumpScale import j
 
 ActionsBase = j.atyourservice.getActionsBaseClass()
@@ -30,15 +29,20 @@ class Actions(ActionsBase):
 
         # path to bin and config
         gopath = go.hrd.getStr('instance.gopath')
-        cfgPath = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller.toml')
-        binPath = j.system.fs.joinPaths(gopath, 'bin', 'jsagentcontroller')
+        bin_path = j.system.fs.joinPaths(gopath, 'bin', 'jsagentcontroller')
+        cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller.toml')
+        handlers_path = j.system.fs.joinPaths(gopath, 'src', package, 'handlers')
+        client_path = j.system.fs.joinPaths(gopath, 'src', package, 'client')
 
         # move bin to the binary repo
-        binRepo = '/opt/code/git/binary/jsagentcontroller_go/'
-        for f in j.system.fs.listFilesInDir(binRepo):
+        bin_repo = '/opt/code/git/binary/jsagentcontroller_go/'
+        for f in j.system.fs.listFilesInDir(bin_repo):
             j.system.fs.remove(f)
-        j.system.fs.move(binPath, binRepo)
-        j.system.fs.move(cfgPath, binRepo)
+
+        j.system.fs.copyFile(bin_path, bin_repo)
+        j.system.fs.copyFile(cfg_path, bin_repo)
+        j.system.fs.copyDirTree(handlers_path, j.system.fs.joinPaths(bin_repo, 'handlers'))
+        j.system.fs.copyDirTree(client_path, j.system.fs.joinPaths(bin_repo, 'client'))
 
         # upload bin to gitlab
         j.do.pushGitRepos(
@@ -57,8 +61,8 @@ class Actions(ActionsBase):
 
         toml = '/opt/jumpscale7/apps/jsagentcontroller_go/agentcontroller.toml'
         cfg = contoml.load(toml)
-        cfg['main']['Listen'] = service_obj.hrd.get('instance.param.webservice.host')
-        cfg['main']['RedisHost'] = service_obj.hrd.get('instance.param.redis.host')
-        cfg['main']['RedisPassword'] = service_obj.hrd.get('instance.param.redis.password')
+        cfg['main']['listen'] = service_obj.hrd.get('instance.param.webservice.host')
+        cfg['main']['redis_host'] = service_obj.hrd.get('instance.param.redis.host')
+        cfg['main']['redis_password'] = service_obj.hrd.get('instance.param.redis.password')
 
         cfg.dump(toml)

@@ -1,35 +1,44 @@
-dependencies.1=
-    name: go,
-    type: build,
+dependencies.1                 =
+    name:'go',
+    type:'build',
 
-git.url='https://git.aydo.com/binary/superagent'
+git.build.1                    =
+    url:'https://github.com/Jumpscale/jsagent.git',
 
-git.build.1=
-    url: 'https://github.com/Jumpscale/jsagent.git',
+git.export.1                   =
+    dest:'$(system.paths.base)/apps/superagent/superagent',
+    link:'True',
+    source:'superagent',
+    url:'https://git.aydo.com/binary/superagent',
 
-git.export.1=
-    url: $(git.url),
-    source: 'superagent',
-    dest: '$(system.paths.base)/bin/superagent',
-    link: True,
+git.export.2                   =
+    dest:'$(system.paths.base)/apps/superagent/superagent.toml',
+    link:'True',
+    source:'agent.toml',
+    url:'https://git.aydo.com/binary/superagent',
 
-git.export.2=
-    url: $(git.url),
-    source: 'agent.toml',
-    dest: '$(system.paths.base)/cfg/superagent.toml',
-    link: True,
+git.export.3                   =
+    dest:'$(system.paths.base)/apps/superagent/extensions',
+    link:'True',
+    source:'extensions',
+    url:'https://git.aydo.com/binary/superagent',
 
-process.1=
-    cmd: '$(system.paths.base)/bin/superagent -c /opt/jumpscale7/cfg/superagent.toml',
-    cwd: '$(system.paths.base)',
-    args:'',
-    prio:5,
+git.url                        = 'https://git.aydo.com/binary/superagent'
+
+instances.maxnr                = 1
+
+platform.supported             =
+    'linux64',
+
+process.1                      =
+    args:,
+    cmd:'superagent -c $(system.paths.base)/apps/superagent/superagent.toml',
+    cwd:'$(system.paths.base)/apps/superagent/',
     env:,
-    timeout_start:60,
-    timeout_stop:10,
+    filterstr:'superagent -c',
     ports:,
-    startupmanager:tmux,
-    filterstr:'bin/superagent'
+    prio:'5',
+    startupmanager:'tmux',
+    timeout_start:'60',
+    timeout_stop:'10',
 
-platform.supported=linux64,
-instances.maxnr=1
