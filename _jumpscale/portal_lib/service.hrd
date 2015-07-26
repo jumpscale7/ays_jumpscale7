@@ -1,20 +1,26 @@
-param.base='$(system.paths.base)/lib'
+git.export.1                   =
+    dest:'$(system.paths.base)/lib/',
+    link:'False',
+    overwrite:'False',
+    platform:'linux64',
+    source:'root/lib/*',
+    url:'http://git.aydo.com/binary/web_python',
+
+git.export.2                   =
+    dest:'$(system.paths.base)/apps/portals/jslib/',
+    link:'False',
+    platform:'linux64',
+    source:'root/jslib/*',
+    url:'http://git.aydo.com/binary/web_python',
+
+git.export.3                   =
+    dest:'$(system.paths.python.lib.js)/portal',
+    link:'True',
+    source:'lib/portal',
+    url:'https://github.com/Jumpscale/jumpscale_portal/',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
-git.url='http://git.aydo.com/binary/web_python'
-git.export.1=
-    url:$(git.url),
-    source:'root/lib/*',
-    dest:'$(param.base)/',
-    overwrite:False,
-    platform:'linux64',
-    link:False,
+git.url                        = 'http://git.aydo.com/binary/web_python'
 
-git.export.2=
-    url:$(git.url),
-    source:'root/jslib/*',
-    dest:'$(system.paths.base)/apps/portals/jslib/',
-    platform:'linux64',
-    link:False,
-
+param.base                     = '$(system.paths.base)/lib'
 
