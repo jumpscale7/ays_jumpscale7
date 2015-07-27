@@ -28,4 +28,4 @@ process.1=
     timeout_stop:10,
     ports:$(instance.param.port),
     startupmanager:tmux,
-    filterstr:'osis.py --port $(instance.param.port)'
+    filterstr:'ros.py --instance $(service.instance)'

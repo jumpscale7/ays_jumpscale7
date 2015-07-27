@@ -1,0 +1,4 @@
+param.ros.client.addr=@ASK default:localhost  descr:'ROS CLIENT: ROS SERVER address'
+param.ros.client.port=5545
+param.ros.client.login=@ASK default:root descr:'ROS CLIENT: ROS SERVER username'
+param.ros.client.passwd=@ASK default: descr:'ROS CLIENT: ROS SERVER password'
