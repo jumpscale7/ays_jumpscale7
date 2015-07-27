@@ -1,28 +1,28 @@
-
-git.url='http://git.aydo.com/binary/base_python'
-git.export.1=
-    url:$(git.url),
-    source:'root/bin/',
+git.export.1                   =
+    depth:'1',
     dest:'/opt/jumpscale7/bin/',
-    depth:1,
-    overwrite:False,
-    link:False,
+    link:'False',
+    overwrite:'False',
+    source:'root/bin/',
+    url:'http://git.aydo.com/binary/base_python',
 
-git.export.2=
-    url:$(git.url),
-    source:'root/lib/',
+git.export.2                   =
+    depth:'1',
     dest:'/opt/jumpscale7/lib/',
-    depth:1,
-    overwrite:False,
-    link:False,
+    link:'False',
+    overwrite:'False',
+    source:'root/lib/',
+    url:'http://git.aydo.com/binary/base_python',
 
-git.export.3=
-    url:$(git.url),
-    source:'root/ays',
+git.export.3                   =
     dest:'/etc/init.d/ays',
-    overwrite:True,
-    link:False,
+    link:'False',
+    overwrite:'True',
+    source:'root/ays',
+    url:'http://git.aydo.com/binary/base_python',
 
+git.url                        = 'http://git.aydo.com/binary/base_python'
 
-platform.supported=linux64,
+platform.supported             =
+    'linux64',
 

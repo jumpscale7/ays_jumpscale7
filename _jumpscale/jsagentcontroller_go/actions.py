@@ -62,7 +62,14 @@ class Actions(ActionsBase):
         toml = '/opt/jumpscale7/apps/jsagentcontroller_go/agentcontroller.toml'
         cfg = contoml.load(toml)
         cfg['main']['listen'] = service_obj.hrd.get('instance.param.webservice.host')
-        cfg['main']['redis_host'] = service_obj.hrd.get('instance.param.redis.host')
+        redis = service_obj.hrd.get('instance.param.redis.host')
+        cfg['main']['redis_host'] = redis
         cfg['main']['redis_password'] = service_obj.hrd.get('instance.param.redis.password')
+
+        # configure env var for handlers
+        redis_host, _, redis_port = redis.partition(':')
+        cfg['handlers']['env']['REDIS_ADDRESS'] = redis_host
+        cfg['handlers']['env']['REDIS_PORT'] = redis_port
+        cfg['handlers']['env']['REDIS_PASSWORD'] = service_obj.hrd.get('instance.param.redis.password')
 
         cfg.dump(toml)
