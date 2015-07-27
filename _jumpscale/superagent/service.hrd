@@ -32,7 +32,7 @@ platform.supported             =
 
 process.1                      =
     args:,
-    cmd:'superagent -c $(system.paths.base)/apps/superagent/superagent.toml',
+    cmd:'./superagent -c $(system.paths.base)/apps/superagent/superagent.toml',
     cwd:'$(system.paths.base)/apps/superagent/',
     env:,
     filterstr:'superagent -c',
