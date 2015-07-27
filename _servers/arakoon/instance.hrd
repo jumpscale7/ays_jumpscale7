@@ -1,0 +1,3 @@
+home = '/opt/arakoon/'
+cfg = '$(home)/cfg/settings.cfg'
+nodename = @ASK type:string default:node1
