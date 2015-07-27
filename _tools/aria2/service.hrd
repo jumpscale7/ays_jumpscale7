@@ -1,4 +1,3 @@
-param.base                     = '/opt/influxdb/'
 
 platform.supported             =
     'linux64',
@@ -6,13 +5,13 @@ platform.supported             =
 
 process.1                      =
     args:,
-    cmd:'./influxd -config=cfg/config.toml',
-    cwd:'/opt/influxdb/',
-    filterstr:'./influxd -config=cfg/config.toml',
+    cmd:'aria2c --enable-rpc --rpc-listen-all',
+    cwd:'',
+    filterstr:'aria2c',
     name:'$(service.name)__$(service.instance)',
-    platform:'ubuntu',
-    ports:'8086;8083',
-    prio:'5',
+    platform:'ubuntu,darwin',
+    ports:'6800',
+    prio:'10',
     startupmanager:'tmux',
     timeout_start:'10',
     timeout_stop:'10',

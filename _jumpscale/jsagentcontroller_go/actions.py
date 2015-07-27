@@ -1,4 +1,3 @@
-import os
 from JumpScale import j
 
 ActionsBase = j.atyourservice.getActionsBaseClass()
@@ -23,29 +22,29 @@ class Actions(ActionsBase):
     """
 
     def build(self, service_obj):
-        bashrc = os.environ['HOME'] + "/" + ".bashrc"
+        package = 'github.com/Jumpscale/jsagentcontroller'
+        # build package
+        go = j.atyourservice.get(name='go')
+        go.actions.buildProjet(go, package=package)
 
-        root = '/opt/build/github.com/Jumpscale/jsagentcontroller'
+        # path to bin and config
+        gopath = go.hrd.getStr('instance.gopath')
+        bin_path = j.system.fs.joinPaths(gopath, 'bin', 'jsagentcontroller')
+        cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller.toml')
+        handlers_path = j.system.fs.joinPaths(gopath, 'src', package, 'handlers')
+        client_path = j.system.fs.joinPaths(gopath, 'src', package, 'client')
 
-        # src = '{root}/src'.format(root=root)
-        src = '/opt/go_workspace/src/github.com/Jumpscale/'
-        j.system.fs.createDir(src)
+        # move bin to the binary repo
+        bin_repo = '/opt/code/git/binary/jsagentcontroller_go/'
+        for f in j.system.fs.listFilesInDir(bin_repo):
+            j.system.fs.remove(f)
 
-        if not os.path.exists(src):
-            j.do.execute(
-                'mkdir %s' % src
-            )
+        j.system.fs.copyFile(bin_path, bin_repo)
+        j.system.fs.copyFile(cfg_path, bin_repo)
+        j.system.fs.copyDirTree(handlers_path, j.system.fs.joinPaths(bin_repo, 'handlers'))
+        j.system.fs.copyDirTree(client_path, j.system.fs.joinPaths(bin_repo, 'client'))
 
-        cmd = (
-            '. {bashrc} &&  cp -r {root} ' +
-            '{src}/ && cd {src}/jsagentcontroller && godep get ' +
-            '&& go build main.go && ' +
-            'cp {src}/jsagentcontroller/main /opt/code/git/binary/jsagentcontroller_go/jsagentcontroller && ' +
-            'cp {src}/jsagentcontroller/agentcontroller.toml ' +
-            '/opt/code/git/binary/jsagentcontroller_go'
-        ).format(bashrc=bashrc, root=root, src=src)
-
-        j.do.execute(cmd)
+        # upload bin to gitlab
         j.do.pushGitRepos(
             message='agentcontroller new build',
             name='jsagentcontroller_go',
@@ -62,8 +61,15 @@ class Actions(ActionsBase):
 
         toml = '/opt/jumpscale7/apps/jsagentcontroller_go/agentcontroller.toml'
         cfg = contoml.load(toml)
-        cfg['main']['Listen'] = service_obj.hrd.get('instance.param.webservice.host')
-        cfg['main']['RedisHost'] = service_obj.hrd.get('instance.param.redis.host')
-        cfg['main']['RedisPassword'] = service_obj.hrd.get('instance.param.redis.password')
+        cfg['main']['listen'] = service_obj.hrd.get('instance.param.webservice.host')
+        redis = service_obj.hrd.get('instance.param.redis.host')
+        cfg['main']['redis_host'] = redis
+        cfg['main']['redis_password'] = service_obj.hrd.get('instance.param.redis.password')
+
+        # configure env var for handlers
+        redis_host, _, redis_port = redis.partition(':')
+        cfg['handlers']['env']['REDIS_ADDRESS'] = redis_host
+        cfg['handlers']['env']['REDIS_PORT'] = redis_port
+        cfg['handlers']['env']['REDIS_PASSWORD'] = service_obj.hrd.get('instance.param.redis.password')
 
         cfg.dump(toml)

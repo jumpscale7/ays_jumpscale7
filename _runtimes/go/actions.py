@@ -20,44 +20,52 @@ class Actions(ActionsBase):
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
 
-    
-    def prepare(self,serviceObj):
-        j.system.process.execute('apt-get install gcc -y', outputToStdout=True)
+    def prepare(self, serviceObj):
+        j.system.platform.ubuntu.install("gcc")
 
-    def configure(self,serviceObj):
+    def configure(self, serviceObj):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        gopath = serviceObj.hrd.get("instance.gopath")
 
-        def createENV():
-            bashrc = os.environ['HOME'] + "/" + ".bashrc"
+        serviceObj.hrd.set('instance.goroot', serviceObj.hrd.getStr('service.base', '/opt/go'))
+
+        def createGOPATH():
             # create GOPATH
-            if not j.system.fs.exists(gopath):
-                j.system.fs.createDir(gopath)
-                j.system.fs.createDir(j.system.fs.joinPaths(gopath,"pkg"))
-                j.system.fs.createDir(j.system.fs.joinPaths(gopath,"src"))
-                j.system.fs.createDir(j.system.fs.joinPaths(gopath,"bin"))
+            if not j.system.fs.exists('$(instance.gopath)'):
+                j.system.fs.createDir('$(instance.gopath)')
+                j.system.fs.createDir(j.system.fs.joinPaths('$(instance.gopath)', "pkg"))
+                j.system.fs.createDir(j.system.fs.joinPaths('$(instance.gopath)', "src"))
+                j.system.fs.createDir(j.system.fs.joinPaths('$(instance.gopath)', "bin"))
 
-            j.do.execute(command="sed -i '/$GOPATH/d' %s" % bashrc)
-            j.do.execute(command="sed -i '/GOPATH/d'  %s" % bashrc)
-            j.do.execute(command="sed -i '/GOROOT/d'  %s" % bashrc)
+        j.actions.start(name="create GOPATH", description='create GOPATH', action=createGOPATH,  die=True, stdOutput=True, serviceObj=serviceObj)
 
-            j.do.execute(command="echo 'export GOPATH=%s' >> %s"%(gopath, bashrc))
-            j.do.execute(command="echo 'export GOROOT=/opt/go' >>  %s" % bashrc)
-            j.do.execute(command="echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' >>  %s" % bashrc)
+    def buildProjet(self, serviceObj, package=None):
+        """
+        you can call this method from another service action.py file to build a go project
+        """
+        if package is None:
+            j.events.inputerror_critical(msg="package can't be none", category="go build", msgpub='')
 
-        j.actions.start(name="create GOPATH", description='create GOPATH', action=createENV,  die=True, stdOutput=True, serviceObj=serviceObj)
+        gopath = serviceObj.hrd.get('instance.gopath')
+        goroot = serviceObj.hrd.get('instance.goroot')
+        gobin = j.system.fs.joinPaths(goroot, 'bin/go')
+        env = os.environ
+        env.update({
+            'GOPATH': gopath,
+            'GOROOT': goroot
+        })
+        getcmd = '%s get -a -u -v %s' % (gobin, package)
+        re, out, err = 0, '', ''
+        try:
+            print "start : %s" % getcmd
+            re, out, err = j.system.process.run(getcmd, env=env, maxSeconds=60,  showOutput=True, captureOutput=False)
+            print "go get succeed" if re == 0 else "error during go get"
+        except Exception as e:
+            print e.msg
 
-        def installGodep():
-            bashrc = os.environ['HOME'] + "/" + ".bashrc"
-            j.do.execute(". %s && /opt/go/bin/go get -u github.com/tools/godep" % bashrc)
-        j.actions.start(name="install godep", description='install godep (can take a while)', action=installGodep,  die=True, stdOutput=True, serviceObj=serviceObj)
-        return True
 
-    def removedata(self,serviceObj):
+    def removedata(self, serviceObj):
         j.system.fs.removeDirTree("/opt/go")
-        j.do.execute(command="sed -i '/GOPATH/d' /root/.bashrc")
-        j.do.execute(command="sed -i '/GOROOT/d' /root/.bashrc")

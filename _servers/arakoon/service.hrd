@@ -1,0 +1,12 @@
+platform.supported             =
+    'linux64',
+
+process.1                      =
+    cmd:'arakoon --node $(instance.nodename) -config $(instance.cfg)',
+    filterstr:'arakoon --node $(instance.nodename)',
+    name:'$(service.name)__$(service.instance)',
+    prio:'50',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',
+
