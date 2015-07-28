@@ -1,30 +1,31 @@
-
-git.url='https://github.com/Jumpscale/jumpscale_core7/'
-git.export.1=
-    url:$(git.url),
-    source:'apps/ros/',
-    dest:'$(system.paths.base)/apps/ros',
-    link:True,
-
-platform.supported=linux64,
-
-#how many instances can be installed of this package, if 1 the instance name is always 'main'
-instances.maxnr=10
-
 dependencies.1                 =
     name:'mongodb_client',
 
 dependencies.2                 =
     name:'web',
 
+git.export.1                   =
+    dest:'$(system.paths.base)/apps/ros',
+    link:'True',
+    source:'apps/ros/',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
 
-process.1=
-    cmd:'$(system.paths.base)/bin/jspython',
+git.url                        = 'https://github.com/Jumpscale/jumpscale_core7/'
+
+#how many instances can be installed of this package, if 1 the instance name is always 'main'
+instances.maxnr                = 10
+
+platform.supported             =
+    'linux64',
+
+process.1                      =
     args:'ros.py --instance $(service.instance)',
-    prio:15,
+    cmd:'$(system.paths.base)/bin/jspython',
     cwd:'$(system.paths.base)/apps/ros/',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:$(instance.param.port),
-    startupmanager:tmux,
-    filterstr:'ros.py --instance $(service.instance)'
+    filterstr:'ros.py --instance $(service.instance)',
+    ports:'$(instance.param.port)',
+    prio:'15',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',
+
