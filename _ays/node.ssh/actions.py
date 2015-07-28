@@ -111,7 +111,7 @@ class Actions(ActionsBase):
         c = j.remote.cuisine
 
         ip = serviceObj.hrd.get('instance.ip')
-        port = serviceObj.hrd.get('instance.ssh.port')
+        port = serviceObj.hrd.getInt('instance.ssh.port')
         login = serviceObj.hrd.get('instance.login', default='')
         password = serviceObj.hrd.get('instance.password', default='')
         priv, _ = self._getSSHKey(serviceObj)
