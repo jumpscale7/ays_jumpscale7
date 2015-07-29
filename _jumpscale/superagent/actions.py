@@ -37,7 +37,7 @@ class Actions(ActionsBase):
         agentcontroller = service_obj.hrd.get('instance.agentcontroller')
         cfg_path = j.system.fs.joinPaths(j.dirs.baseDir, 'apps/superagent/superagent.toml')
         cfg = contoml.load(cfg_path)
-        cfg['main']['agent_controllers'] = [agentcontroller]
+        cfg['controllers']['main']['url'] = agentcontroller
         cfg['main']['gid'] = int(service_obj.hrd.get('instance.gid'))
         cfg['main']['nid'] = int(service_obj.hrd.get('instance.nid'))
 
