@@ -1,5 +1,5 @@
 param.influxdb.connection=@ASK type:str default:'main' descr:'GRAFANA: Influxdb connection'
-
+param.port=3000
 
 
 
