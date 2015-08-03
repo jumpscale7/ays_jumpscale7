@@ -9,7 +9,7 @@ class Actions(ActionsBase):
     def prepare(self, serviceObj):
         if serviceObj.hrd.get("instance.key.priv").strip() == "":
             self._generateKeys(serviceObj)
-        elif serviceObj.hrd.get("instance.key.pub"):
+        elif serviceObj.hrd.get("instance.key.priv"):
             privloc = "/tmp/privkey"
             publoc = '/tmp/pubkey'
             privkey = serviceObj.hrd.get("instance.key.priv")
