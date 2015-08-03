@@ -18,7 +18,7 @@ class Actions(ActionsBase):
             nodeinfo['name'] = j.console.askString("Enter node name", "node1")
             nodeinfo['ip'] = j.console.askString("Enter node IP")
             nodeinfo['client_port'] = j.console.askInteger("Enter node client port", 7080)
-            nodeinfo['messaging_port'] = j.console.askInteger("Enter node client port", 10000)
+            nodeinfo['messaging_port'] = j.console.askInteger("Enter messaging port", 10000)
             nodeinfo['home'] = j.console.askString("Enter node home dir", "/opt/arakoon/data/")
             if nodeinfo['name'] == nodename:
                 j.system.fs.createDir(nodeinfo['home'])
