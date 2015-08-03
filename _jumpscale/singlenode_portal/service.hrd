@@ -8,8 +8,8 @@ dep.args.influxdbclient        =
 dep.args.mailclient            =
     smtp.login:,
     smtp.passwd:,
-    smtp.port:'25',
-    smtp.sender:'info@incubaid.com',
+    smtp.port:'8025',
+    smtp.sender:'info@jumpscale.com',
     smtp.server:'localhost',
 
 dep.args.mongodb               =
