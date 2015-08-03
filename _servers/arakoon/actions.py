@@ -8,7 +8,6 @@ class Actions(ActionsBase):
         """
         this gets executed before the files are downloaded & installed on approprate spots
         """
-        import ipdb; ipdb.set_trace()
         nodes = serviceObj.hrd.getListFromPrefix('instance.nodes')
         settings = serviceObj.hrd.get('instance.cfg')
         nodename = serviceObj.hrd.get('instance.nodename')
