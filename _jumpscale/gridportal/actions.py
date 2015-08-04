@@ -26,13 +26,12 @@ class Actions(ActionsBase):
         after this step the system will try to start the jpackage if anything needs to be started
         """
         portal = j.atyourservice.get(domain='jumpscale', name='portal')
-        influxclient = j.atyourservice.get(domain='jumpscale', name='influxdb_client')
-        influxhost = influxclient.hrd.get('instance.param.influxdb.client.address')
-        influxport = influxclient.hrd.get('instance.param.influxdb.client.port')
-        influxurl = "http://%s:%s" % (influxhost, influxport)
-        influxproxy = {'path': '/proxy/influxdb', 'dest': influxurl}
+        grafana = j.atyourservice.get(domain='jumpscale', name='grafana')
+        grafanaport = grafana.hrd.get('instance.param.port')
+        grafanaurl = "http://localhost:%s" % (grafanaport)
+        grafana = {'path': '/proxy/grafana', 'dest': grafanaurl}
         eveproxy = {'path': '/proxy/eve', 'dest': "http://localhost:5000"}
-        portal.hrd.set('instance.proxy.1', influxproxy)
+        portal.hrd.set('instance.proxy.1', grafana)
         portal.hrd.set('instance.proxy.2', eveproxy)
 
         portal.restart()
