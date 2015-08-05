@@ -1,0 +1,17 @@
+
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
+#how many instances can be installed of this package, if 1 the instance name is always 'main'
+instances.maxnr                = 1
+
+process.1                      =
+    args:'-i',
+    cmd:'samba',
+    cwd:'/',
+    env:,
+    filterstr:'samba',
+    ports:'53',
+    prio:'20',
+    startupmanager:'tmux',
+    timeout_start:'20',
+    timeout_stop:'20',
+
