@@ -38,10 +38,9 @@ class Actions(ActionsBase):
         # Check if sources.list contains sernet packages server
         if 'download.sernet.de/packages/samba/4.2/ubuntu' not in open('/etc/apt/sources.list').read():
             print 'Adding sources.list sernet repository'
-            with open('/etc/apt/sources.list', 'a') as sourceslist:
-                  sourceslist.write("\n")
-                  sourceslist.write("# Samba sernet\n")
-                  sourceslist.write("deb https://sernet-samba-public:Noo1oxe4zo@download.sernet.de/packages/samba/4.2/ubuntu trusty main\n")
+            j.system.fs.writeFile('/etc/apt/sources.list', "\n", True)
+            j.system.fs.writeFile('/etc/apt/sources.list', "# Samba sernet\n", True)
+            j.system.fs.writeFile('/etc/apt/sources.list', "deb https://sernet-samba-public:Noo1oxe4zo@download.sernet.de/packages/samba/4.2/ubuntu trusty main\n", True)
 
         # Update packages list
         j.system.platform.ubuntu.updatePackageMetadata()
