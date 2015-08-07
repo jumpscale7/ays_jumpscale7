@@ -57,8 +57,10 @@ class Actions(ActionsBase):
         # Skipping AD if no domain is set
         if not domain == '*':
             print 'Setting up Active Directory:', realm, '/', domain
+            
             # Removing old files
-            j.system.fs.moveFile('/etc/samba/smb.conf', '/etc/samba/smb.conf.bak')
+            if j.system.fs.exists('/etc/samba/smb.conf'):
+                j.system.fs.moveFile('/etc/samba/smb.conf', '/etc/samba/smb.conf.bak')
 
             # Provision AD
             options = "--domain " + domain + " --realm " + realm + " --adminpass " + passwd
