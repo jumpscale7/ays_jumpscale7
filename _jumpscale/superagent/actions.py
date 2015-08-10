@@ -7,6 +7,8 @@ ActionsBase = j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
     def build(self, service_obj):
+        j.system.platform.ubuntu.install('mercurial')
+
         package = 'github.com/Jumpscale/jsagent'
         # build package
         go = j.atyourservice.get(name='go')
