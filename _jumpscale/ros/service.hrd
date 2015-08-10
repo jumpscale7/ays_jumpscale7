@@ -5,9 +5,51 @@ dependencies.2                 =
     name:'web',
 
 git.export.1                   =
-    dest:'$(system.paths.base)/apps/ros',
+    dest:'$(system.paths.base)/apps/ros/app',
     link:'True',
-    source:'apps/ros/',
+    source:'apps/ros/app',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+git.export.2                   =
+    dest:'$(system.paths.base)/apps/ros/ros.py',
+    link:'True',
+    source:'apps/ros/ros.py',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+git.export.3                   =
+    dest:'$(system.paths.base)/apps/ros/models/__init__.py',
+    link:'True',
+    source:'apps/ros/models/__init__.py',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+git.export.4                   =
+    dest:'$(system.paths.base)/apps/ros/models/hooks/',
+    link:'True',
+    source:'apps/ros/models/hooks/*',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+git.export.5                   =
+    dest:'$(system.paths.base)/apps/ros/models/sqlalchemy/',
+    link:'True',
+    source:'apps/ros/models/sqlalchemy/*',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+git.export.6                   =
+    dest:'$(system.paths.base)/apps/ros/models/osis/__init__.py',
+    link:'True',
+    source:'apps/ros/models/osis/__init__.py',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+git.export.7                   =
+    dest:'$(system.paths.base)/apps/ros/models/osis/mongo',
+    link:'True',
+    source:'apps/ros/models/osis/mongo/*',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+git.export.8                   =
+    dest:'$(system.paths.base)/apps/ros/models/osis/sql',
+    link:'True',
+    source:'apps/ros/models/osis/sql/*',
     url:'https://github.com/Jumpscale/jumpscale_core7/',
 
 git.url                        = 'https://github.com/Jumpscale/jumpscale_core7/'
