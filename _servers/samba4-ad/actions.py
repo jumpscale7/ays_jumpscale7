@@ -19,6 +19,15 @@ class Actions(ActionsBase):
     step7b: do monitor_local to see if package healthy installed & running
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
+    
+    """
+    === Uninstall ===
+    killall samba
+    apt-get remove -y --purge samba* sernet*
+    apt-get autoremove -y --purge
+    rm -rfv /opt/jumpscale7/hrd/apps/jumpscale__samba4*
+    rm -rfv /var/cache/samba/ /var/lib/samba/ /tmp/samba4/ /run/samba/ /var/log/samba/ /etc/samba/
+    """
     def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on appropriate spots
@@ -31,6 +40,9 @@ class Actions(ActionsBase):
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
+        base = j.application.config.get('system.paths.base')
+        base = base + '/apps/samba4'
+        
         domain = serviceObj.hrd.get('instance.param.ad.domain')
         realm  = serviceObj.hrd.get('instance.param.ad.realm')
         passwd = serviceObj.hrd.get('instance.param.ad.adminpwd')
@@ -40,6 +52,10 @@ class Actions(ActionsBase):
         # Provision AD
         options = "--domain " + domain + " --realm " + realm + " --adminpass " + passwd
         j.system.process.run("samba-tool domain provision --use-rfc2307 " + options, True, False)
+        
+        # Building uid/gid
+        print 'Building initial unix uid/gid for domain users'
+        j.system.process.run("bash " + base + "/update-uid.sh", True, False)
 
         # Update resolv.conf
         j.system.fs.writeFile('/etc/resolv.conf', "domain " + realm + "\n", False)
