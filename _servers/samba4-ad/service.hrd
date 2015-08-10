@@ -21,3 +21,5 @@ process.1                      =
     timeout_start:'8',
     timeout_stop:'20',
 
+dependencies.1                 =
+    name:'samba4',

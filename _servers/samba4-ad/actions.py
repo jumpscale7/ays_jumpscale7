@@ -31,37 +31,10 @@ class Actions(ActionsBase):
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-        base = j.application.config.get('system.paths.base')
-        base = base + '/apps/samba4'
-        
-        # Install sernet repository on system
-        j.system.process.run("dpkg -i " + base + "/sernet-samba-keyring_1.4_all.deb", True, False)
-
-        # Check if sources.list contains sernet packages server
-        if 'download.sernet.de/packages/samba/4.2/ubuntu' not in open('/etc/apt/sources.list').read():
-            print 'Adding sources.list sernet repository'
-            j.system.fs.writeFile('/etc/apt/sources.list', "\n", True)
-            j.system.fs.writeFile('/etc/apt/sources.list', "# Samba sernet\n", True)
-            j.system.fs.writeFile('/etc/apt/sources.list', "deb https://sernet-samba-public:Noo1oxe4zo@download.sernet.de/packages/samba/4.2/ubuntu trusty main\n", True)
-
-            # Update packages list
-            j.system.platform.ubuntu.updatePackageMetadata()
-
-        # Install samba
-        j.system.platform.ubuntu.install("sernet-samba-client sernet-samba-ad")
-        j.system.fs.createDir('/var/run/samba/')
-
-        # Loading hrd settings
-        myaddr = serviceObj.hrd.get('instance.param.ad.ipaddr')
         domain = serviceObj.hrd.get('instance.param.ad.domain')
         realm  = serviceObj.hrd.get('instance.param.ad.realm')
-        remote = serviceObj.hrd.get('instance.param.ad.remote')
         passwd = serviceObj.hrd.get('instance.param.ad.adminpwd')
         
-        # Saving old files
-        if j.system.fs.exists('/etc/samba/smb.conf'):
-            j.system.fs.moveFile('/etc/samba/smb.conf', '/etc/samba/smb.conf.bak')
-
         print 'Setting up new Active Directory:', realm, '/', domain
 
         # Provision AD
