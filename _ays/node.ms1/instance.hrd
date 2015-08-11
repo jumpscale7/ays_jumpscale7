@@ -14,6 +14,6 @@ param.machine.ssh.port=
 
 #link to sshkey to be used
 param.ssh.key = @ASK default:'main' descr:'NODE.MS1: sshkey instance'
-paran.ssh.shell=@ASK descr:'shell to use during ssh session' default:'/bin/bash -l -c'
+param.ssh.shell=@ASK descr:'shell to use during ssh session' default:'/bin/bash -l -c'
 
 param.jumpscale=@ASK descr:'install jumpscale ?' default:True type:bool
