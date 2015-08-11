@@ -19,6 +19,15 @@ class Actions(ActionsBase):
     step7b: do monitor_local to see if package healthy installed & running
     step7c: do monitor_remote to see if package healthy installed & running, but this time test is done from central location
     """
+    
+    """
+    === Uninstall ===
+    killall samba
+    apt-get remove -y --purge samba* sernet*
+    apt-get autoremove -y --purge
+    rm -rfv /opt/jumpscale7/hrd/apps/jumpscale__samba4*
+    rm -rfv /var/cache/samba/ /var/lib/samba/ /tmp/samba4/ /run/samba/ /var/log/samba/ /etc/samba/
+    """
     def prepare(self,serviceObj):
         """
         this gets executed before the files are downloaded & installed on appropriate spots
@@ -34,39 +43,19 @@ class Actions(ActionsBase):
         base = j.application.config.get('system.paths.base')
         base = base + '/apps/samba4'
         
-        # Install sernet repository on system
-        j.system.process.run("dpkg -i " + base + "/sernet-samba-keyring_1.4_all.deb", True, False)
-
-        # Check if sources.list contains sernet packages server
-        if 'download.sernet.de/packages/samba/4.2/ubuntu' not in open('/etc/apt/sources.list').read():
-            print 'Adding sources.list sernet repository'
-            j.system.fs.writeFile('/etc/apt/sources.list', "\n", True)
-            j.system.fs.writeFile('/etc/apt/sources.list', "# Samba sernet\n", True)
-            j.system.fs.writeFile('/etc/apt/sources.list', "deb https://sernet-samba-public:Noo1oxe4zo@download.sernet.de/packages/samba/4.2/ubuntu trusty main\n", True)
-
-            # Update packages list
-            j.system.platform.ubuntu.updatePackageMetadata()
-
-        # Install samba
-        j.system.platform.ubuntu.install("sernet-samba-client sernet-samba-ad")
-        j.system.fs.createDir('/var/run/samba/')
-
-        # Loading hrd settings
-        myaddr = serviceObj.hrd.get('instance.param.ad.ipaddr')
         domain = serviceObj.hrd.get('instance.param.ad.domain')
         realm  = serviceObj.hrd.get('instance.param.ad.realm')
-        remote = serviceObj.hrd.get('instance.param.ad.remote')
         passwd = serviceObj.hrd.get('instance.param.ad.adminpwd')
         
-        # Saving old files
-        if j.system.fs.exists('/etc/samba/smb.conf'):
-            j.system.fs.moveFile('/etc/samba/smb.conf', '/etc/samba/smb.conf.bak')
-
         print 'Setting up new Active Directory:', realm, '/', domain
 
         # Provision AD
         options = "--domain " + domain + " --realm " + realm + " --adminpass " + passwd
         j.system.process.run("samba-tool domain provision --use-rfc2307 " + options, True, False)
+        
+        # Building uid/gid
+        print 'Building initial unix uid/gid for domain users'
+        j.system.process.run("bash " + base + "/update-uid.sh", True, False)
 
         # Update resolv.conf
         j.system.fs.writeFile('/etc/resolv.conf', "domain " + realm + "\n", False)

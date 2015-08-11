@@ -1,5 +1,1 @@
-param.ad.domain   = @ASK default:master type:string descr:'active directory domain name (workgroup)'
-param.ad.realm    = @ASK default:master.maxux.net type:string descr:'active directory realm fqdn address'
-param.ad.adminpwd = @ASK default:rooter@1337 type:string descr:'active directory administrator password (must be complexe otherwise setup will fail)'
-param.ad.remote   = @ASK default:172.17.0.2 type:string descr:'active directory remote server address (leave blank to provision new ad)'
-param.ad.ipaddr   = @ASK default:172.17.0.1 type:string descr:'my ip address (used for domain member only)'
+

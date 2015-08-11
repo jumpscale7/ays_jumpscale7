@@ -50,61 +50,9 @@ class Actions(ActionsBase):
         # Install samba
         j.system.platform.ubuntu.install("sernet-samba-client sernet-samba-ad")
         j.system.fs.createDir('/var/run/samba/')
-
-        # Loading hrd settings
-        myaddr = serviceObj.hrd.get('instance.param.ad.ipaddr')
-        domain = serviceObj.hrd.get('instance.param.ad.domain')
-        realm  = serviceObj.hrd.get('instance.param.ad.realm')
-        remote = serviceObj.hrd.get('instance.param.ad.remote')
-        passwd = serviceObj.hrd.get('instance.param.ad.adminpwd')
         
         # Saving old files
         if j.system.fs.exists('/etc/samba/smb.conf'):
-            j.system.fs.moveFile('/etc/samba/smb.conf', '/etc/samba/smb.conf.bak')
-
-        # Skipping AD if no domain is set
-        if not remote == '':
-            print 'Joining Active Directory', realm, '/', myaddr
-            
-            # Update resolv.conf
-            j.system.fs.writeFile('/etc/resolv.conf', "domain " + realm + "\n", False)
-            j.system.fs.writeFile('/etc/resolv.conf', "nameserver " + remote + "\n", True)
-            
-            # Setup /etc/hosts
-            
-            
-            # Building smb.conf file
-            j.system.fs.copyFile(base + '/smb.member.conf', '/etc/samba/smb.conf')
-            
-            data = {
-                'hostname': j.system.net.getHostname(),
-                'workgroup': domain,
-                'realm': realm
-            }
-            
-            hrd = j.core.hrd.getHRDFromDict(data)
-            hrd.applyOnFile('/etc/samba/smb.conf')
-            
-            # Reload config
-            j.system.process.killProcessByName('smbd', signal.SIGHUP)
-            j.system.process.killProcessByName('nmbd', signal.SIGHUP)
-            
-            # Joining domain
-            j.system.process.run("net ads join -U Administrator%" + passwd, True, False, 10, False)
-            
-            # Enable remote auth with nsswitch.conf
-            
-            
-            
-        else:
-            print 'Setting up new Active Directory:', realm, '/', domain
-
-            # Provision AD
-            options = "--domain " + domain + " --realm " + realm + " --adminpass " + passwd
-            j.system.process.run("samba-tool domain provision --use-rfc2307 " + options, True, False)
-
-            # Update resolv.conf
-            j.system.fs.writeFile('/etc/resolv.conf', "domain " + realm + "\n", False)
-            j.system.fs.writeFile('/etc/resolv.conf', "nameserver 127.0.0.1\n", True)
+            j.system.fs.copyFile('/etc/samba/smb.conf', '/etc/samba/smb.conf.bak')
 
         return True
