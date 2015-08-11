@@ -1,3 +1,4 @@
+remote.bind= @ASK descr:'Remote bind address' default:'127.0.0.1'
 remote.address= @ASK descr:'Remote address'
 remote.connection.port= @ASK descr:'Remote connection port' default:22
 remote.login= @ASK descr:'Remote login' default:root
