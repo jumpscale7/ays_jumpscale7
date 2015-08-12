@@ -1,0 +1,3 @@
+dependencies.1 =
+    name:'portal_lib'
+    domain:'jumpscale'
