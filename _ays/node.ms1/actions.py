@@ -13,6 +13,7 @@ class Actions(ActionsBase):
         """
         redisCl = j.clients.redis.getByInstance('system')
         spacesecret = None
+        ms1 = j.tools.ms1.get()
 
         if not redisCl.exists('cloudrobot:cloudspaces:secrets'):
             ms1_client = j.atyourservice.get(name='ms1_client', instance='$(instance.param.ms1.connection)')
@@ -25,7 +26,7 @@ class Actions(ActionsBase):
         def createmachine():
             _, sshkey = self._getSSHKey(serviceObj)
 
-            machineid, ip, port = j.tools.ms1.createMachine(spacesecret, "$(instance.param.name)", memsize="$(instance.param.memsize)", \
+            machineid, ip, port = ms1.createMachine(spacesecret, "$(instance.param.name)", memsize="$(instance.param.memsize)", \
                 ssdsize=$(instance.param.ssdsize), vsansize=0, description='',imagename="$(instance.param.imagename)",delete=False, sshkey=sshkey)
 
             serviceObj.hrd.set("instance.param.machine.id",machineid)
@@ -41,15 +42,15 @@ class Actions(ActionsBase):
 
         cl = self._getSSHClient(serviceObj)
 
-        def update():
-            cl.sudo("apt-get update")
-        j.actions.start(name="update", description='update', action=update,
-                        stdOutput=True, serviceObj=serviceObj)
+        # def update():
+        #     cl.sudo("apt-get update")
+        # j.actions.start(name="update", description='update', action=update,
+        #                 stdOutput=True, serviceObj=serviceObj)
 
-        def upgrade():
-            cl.sudo("apt-get upgrade -y")
-        j.actions.start(name="upgrade", description='upgrade', action=upgrade,
-                        stdOutput=True, serviceObj=serviceObj)
+        # def upgrade():
+        #     cl.sudo("apt-get upgrade -y")
+        # j.actions.start(name="upgrade", description='upgrade', action=upgrade,
+        #                 stdOutput=True, serviceObj=serviceObj)
 
         def jumpscale():
             cl.sudo("curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install.sh > /tmp/js7.sh && bash /tmp/js7.sh")
@@ -64,7 +65,8 @@ class Actions(ActionsBase):
         """
         ms1client_hrd = j.application.getAppInstanceHRD("ms1_client","$(instance.param.ms1.connection)")
         spacesecret = ms1client_hrd.get("instance.param.secret")
-        j.tools.ms1.deleteMachine(spacesecret, "$(instance.param.name)")
+        ms1 = j.tools.ms1.get()
+        ms1.deleteMachine(spacesecret, "$(instance.param.name)")
 
         return True
 
