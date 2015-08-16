@@ -8,7 +8,7 @@ class Actions(ActionsBase):
     def build(self, service_obj):
         package = 'github.com/Jumpscale/agentcontroller2'
         # build package
-        go = j.atyourservice.get(name='go')
+        go = j.atyourservice.get(name='go', parent=None)
         go.actions.buildProjet(go, package=package)
 
         # path to bin and config

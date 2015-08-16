@@ -11,7 +11,7 @@ class Actions(ActionsBase):
 
         package = 'github.com/Jumpscale/agent2'
         # build package
-        go = j.atyourservice.get(name='go')
+        go = j.atyourservice.get(name='go', parent=None)
         go.actions.buildProjet(go, package=package)
 
         # path to bin and config
