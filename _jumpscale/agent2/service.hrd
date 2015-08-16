@@ -14,7 +14,7 @@ git.export.1                   =
 git.export.2                   =
     dest:'$(system.paths.base)/apps/agent2/agent2.toml',
     link:'True',
-    source:'agent.toml',
+    source:'agent2.toml',
     url:'https://git.aydo.com/binary/agent2',
 
 git.export.3                   =
