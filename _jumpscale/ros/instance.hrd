@@ -1,6 +1,0 @@
-param.ros.port = @ASK default:5545 type:int descr:'ROS: Port'
-param.ros.mongodb.connection = @ASK default:main type:str descr:'ROS: mongodb connection instance'
-param.ros.sqlalchemy.uri = @ASK default:sqlite:////opt/jumpscale7/var/ros/ type:str descr:'ROS: Connection for sqlalchemy based namespaces'
-param.ros.use_reloader='0'
-param.ros.use_debugger='1'
-param.ros.superadmin.passwd=@ASK default:'rooter' descr:'ROS: superadmin password'
