@@ -6,7 +6,7 @@ ActionsBase = j.atyourservice.getActionsBaseClass()
 class Actions(ActionsBase):
     
     def build(self, service_obj):
-        package = 'github.com/Jumpscale/jsagentcontroller'
+        package = 'github.com/Jumpscale/agentcontroller2'
         # build package
         go = j.atyourservice.get(name='go')
         go.actions.buildProjet(go, package=package)
@@ -14,13 +14,13 @@ class Actions(ActionsBase):
         # path to bin and config
         gopath = go.hrd.getStr('instance.gopath')
         #@todo can't we change the binary to agentcontroller2
-        bin_path = j.system.fs.joinPaths(gopath, 'bin', 'jsagentcontroller')
-        cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller.toml')
+        bin_path = j.system.fs.joinPaths(gopath, 'bin', 'agentcontroller2')
+        cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller2.toml')
         handlers_path = j.system.fs.joinPaths(gopath, 'src', package, 'handlers')
         client_path = j.system.fs.joinPaths(gopath, 'src', package, 'client')
 
         # move bin to the binary repo
-        bin_repo = '/opt/code/git/binary/jsagentcontroller_go/'
+        bin_repo = '/opt/code/git/binary/agentcontroller2/'
         for f in j.system.fs.listFilesInDir(bin_repo):
             j.system.fs.remove(f)
 
