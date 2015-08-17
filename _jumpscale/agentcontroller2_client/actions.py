@@ -10,11 +10,11 @@ class Actions(ActionsBase):
 
         j.system.fs.copyDirTree(
             j.system.fs.joinPaths(root, 'client'),
-            '/opt/code/git/binary/jsagentcontroller2_client'
+            '/opt/code/git/binary/agentcontroller2_client'
         )
 
         j.do.pushGitRepos(
             message='agentcontroller2 client new build',
-            name='jsagentcontroller2_client',
+            name='agentcontroller2_client',
             account='binary'
         )

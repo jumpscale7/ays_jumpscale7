@@ -4,18 +4,18 @@ ActionsBase = j.atyourservice.getActionsBaseClass()
 
 
 class Actions(ActionsBase):
-    
+
     def build(self, service_obj):
         package = 'github.com/Jumpscale/agentcontroller2'
         # build package
-        go = j.atyourservice.get(name='go')
+        go = j.atyourservice.get(name='go', parent=None)
         go.actions.buildProjet(go, package=package)
 
         # path to bin and config
         gopath = go.hrd.getStr('instance.gopath')
-        #@todo can't we change the binary to agentcontroller2
+        # @todo can't we change the binary to agentcontroller2
         bin_path = j.system.fs.joinPaths(gopath, 'bin', 'agentcontroller2')
-        cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller2.toml')
+        cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller.toml')
         handlers_path = j.system.fs.joinPaths(gopath, 'src', package, 'handlers')
         client_path = j.system.fs.joinPaths(gopath, 'src', package, 'client')
 
@@ -25,14 +25,17 @@ class Actions(ActionsBase):
             j.system.fs.remove(f)
 
         j.system.fs.copyFile(bin_path, bin_repo)
-        j.system.fs.copyFile(cfg_path, bin_repo)
+        j.system.fs.copyFile(
+            cfg_path,
+            j.system.fs.joinPaths(bin_repo, 'agentcontroller2.toml')
+        )
         j.system.fs.copyDirTree(handlers_path, j.system.fs.joinPaths(bin_repo, 'handlers'))
         j.system.fs.copyDirTree(client_path, j.system.fs.joinPaths(bin_repo, 'client'))
 
         # upload bin to gitlab
         j.do.pushGitRepos(
             message='agentcontroller2 new build',
-            name='jsagentcontroller2',
+            name='agentcontroller2',
             account='binary'
         )
 
@@ -43,13 +46,13 @@ class Actions(ActionsBase):
         this step is used to do configuration steps to the platform
         after this step the system will try to start the jpackage if anything needs to be started
         """
-            
-        #for backwards compatibility
+
+        # for backwards compatibility
         try:
-            j.system.fs.renameFile("/opt/jumpscale7/apps/agentcontroller2/jsagentcontroller","/opt/jumpscale7/apps/agentcontroller2/agentcontroller2")
+            j.system.fs.renameFile("/opt/jumpscale7/apps/agentcontroller2/jsagentcontroller",
+                                   "/opt/jumpscale7/apps/agentcontroller2/agentcontroller2")
         except:
             pass
-
 
         toml = '/opt/jumpscale7/apps/agentcontroller2/agentcontroller2.toml'
         cfg = contoml.load(toml)
@@ -64,5 +67,5 @@ class Actions(ActionsBase):
         cfg['handlers']['env']['REDIS_PORT'] = redis_port
         cfg['handlers']['env']['REDIS_PASSWORD'] = service_obj.hrd.get('instance.param.redis.password')
 
-        #@TODO need to first fix toml before we can do this
+        # @TODO need to first fix toml before we can do this
         cfg.dump(toml)
