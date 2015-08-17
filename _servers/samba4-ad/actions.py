@@ -55,6 +55,7 @@ class Actions(ActionsBase):
         
         # Building uid/gid
         print 'Building initial unix uid/gid for domain users'
+        j.system.fs.copyFile(base + '/update-uid.sh', '/etc/samba/update-uid.sh')
         j.system.process.run("bash " + base + "/update-uid.sh", True, False)
 
         # Update resolv.conf
