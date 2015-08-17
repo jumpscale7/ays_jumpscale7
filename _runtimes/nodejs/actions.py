@@ -11,4 +11,7 @@ class Actions(ActionsBase):
         
     def configure(self, serviceobj):
         j.system.fs.symlink('/opt/nodejs/lib/node_modules/npm/bin/npm-cli.js','/opt/nodejs/bin/npm',True)
+        j.system.fs.symlink('/opt/nodejs/bin/node','/usr/local/bin/node',True)
+        j.system.fs.symlink('/opt/nodejs/lib/node_modules/npm/bin/npm-cli.js','/usr/local/bin/npm',True)
+
 
