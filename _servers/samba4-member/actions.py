@@ -83,7 +83,6 @@ class Actions(ActionsBase):
             print 'Setting winbind in nsswitch'
             nss = nss.replace("passwd:         compat", "passwd:         compat winbind")
             nss = nss.replace("group:          compat", "group:          compat winbind")
-            print nss
             j.system.fs.writeFile('/etc/nsswitch.conf', nss + "\n")
 
         # Checking if it works (FIXME: net ads testjoin ?)
