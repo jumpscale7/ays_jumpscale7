@@ -80,4 +80,4 @@ class Actions(ActionsBase):
         j.system.fs.createDir(jumpscripts)
 
         syncthing.actions.add_folder(syncthing, 'legacy', legacy)
-        syncthing.actions.add_folder(syncthing, 'jumpscripts', legacy)
+        syncthing.actions.add_folder(syncthing, 'jumpscripts', jumpscripts)
