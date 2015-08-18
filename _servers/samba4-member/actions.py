@@ -52,7 +52,7 @@ class Actions(ActionsBase):
         # eg: 172.17.0.1      18dadc4c034c.dc1.domain.tld 18dadc4c034c
         hosts = StringIO('\n'.join(line.strip() for line in open('/etc/hosts'))).getvalue()
         if not realm in hosts:
-            j.system.fs.writeFile('/etc/hosts', myaddr + "\t" +  host + "." + realm + " " + host + "\n", True)
+            j.system.fs.writeFile('/etc/hosts', "\n" + myaddr + "\t" +  host + "." + realm + " " + host + "\n", True)
 
         # Building config files
         j.system.fs.copyFile(base + '/smb.member.conf', '/etc/samba/smb.conf')
