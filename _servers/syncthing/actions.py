@@ -1,6 +1,8 @@
 import requests
 import os
 import json
+import time
+import logging
 
 from JumpScale import j
 
@@ -29,9 +31,21 @@ class Actions(ActionsBase):
 
         config_url = self.get_url(service_obj, self.ENDPOINT_CONFIG)
 
-        response = sessions.get(config_url)
-        if not response.ok:
-            raise Exception('Invalid response from syncthing: %s' % response.reason)
+        _errors = 0
+        while True:
+            try:
+                response = sessions.get(config_url)
+                if not response.ok:
+                    raise Exception('Invalid response from syncthing: %s' % response.reason)
+                else:
+                    break
+            except:
+                _errors += 1
+                if _errors >= 3:
+                    raise
+                seconds = 3 * _errors
+                logging.info('Error retreiving syncthing config, retrying in %s seconds', seconds)
+                time.sleep(seconds)
 
         config = response.json()
 
