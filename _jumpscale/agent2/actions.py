@@ -43,4 +43,7 @@ class Actions(ActionsBase):
         cfg['main']['gid'] = int(service_obj.hrd.get('instance.gid'))
         cfg['main']['nid'] = int(service_obj.hrd.get('instance.nid'))
 
+        syncthing = j.atyourservice.get(name='syncthing', instance='agent')
+        cfg['cmds']['sync']['env']['SYNCTHING_URL'] = 'http://localhost:%s/' % syncthing.hrd.get('instance.param.port')
+
         cfg.dump(cfg_path)

@@ -68,11 +68,16 @@ class Actions(ActionsBase):
         cfg['handlers']['env']['REDIS_PORT'] = redis_port
         cfg['handlers']['env']['REDIS_PASSWORD'] = service_obj.hrd.get('instance.param.redis.password')
 
-        # @TODO need to first fix toml before we can do this
+        syncthing = j.atyourservice.get(name='syncthing', instance='controller')
+        cfg['handlers']['env']['SYNCTHING_URL'] = 'http://localhost:%s/' % syncthing.hrd.get('instance.param.port')
         cfg.dump(toml)
 
-        # Start legacy script syncing (syncthing)
-        syncthing = j.atyourservice.get(name='syncthing', instance='controller')
+        # Start script syncing (syncthing)
         legacy = j.system.fs.joinPaths(base, 'legacy')
+        jumpscripts = j.system.fs.joinPaths(base, 'jumpscripts')
+
         j.system.fs.createDir(legacy)
+        j.system.fs.createDir(jumpscripts)
+
         syncthing.actions.add_folder(syncthing, 'legacy', legacy)
+        syncthing.actions.add_folder(syncthing, 'jumpscripts', legacy)
