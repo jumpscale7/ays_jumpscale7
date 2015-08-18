@@ -8,13 +8,13 @@ git.export.1                   =
     source:'*',
     url:'http://git.aydo.com/binary/syncthing',
 
-platform.supported             = 
+platform.supported             =
     linux64
 
 process.1                      =
     args:'-home /opt/syncthing/$(service.instance) -gui-address "127.0.0.1:$(instance.param.port)"',
     cmd:'/opt/syncthing/syncthing',
-    cwd:'/opt/syncthing/syncthing',
+    cwd:'/opt/syncthing',
     env:,
     filterstr:'syncthing -home /opt/syncthing/$(service.instance)',
     ports:'$(instance.param.port)',
