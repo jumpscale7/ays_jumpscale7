@@ -48,9 +48,10 @@ class Actions(ActionsBase):
         """
 
         # for backwards compatibility
+        base = '/opt/jumpscale7/apps/agentcontroller2'
         try:
             j.system.fs.renameFile("/opt/jumpscale7/apps/agentcontroller2/jsagentcontroller",
-                                   "/opt/jumpscale7/apps/agentcontroller2/agentcontroller2")
+                                   j.system.fs.joinPaths(base, 'agentcontroller2'))
         except:
             pass
 
@@ -69,3 +70,9 @@ class Actions(ActionsBase):
 
         # @TODO need to first fix toml before we can do this
         cfg.dump(toml)
+
+        # Start legacy script syncing (syncthing)
+        syncthing = j.atyourservice.get(name='syncthing', instance='controller')
+        legacy = j.system.fs.joinPaths(base, 'legacy')
+        j.system.fs.createDir(legacy)
+        syncthing.actions.add_folder(syncthing, 'legacy', legacy)
