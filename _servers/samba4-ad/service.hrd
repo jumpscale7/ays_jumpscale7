@@ -14,7 +14,7 @@ process.1                      =
     cmd:'samba',
     cwd:'/',
     env:,
-    filterstr:'samba',
+    filterstr:'samba -i',
     ports:'53',
     prio:'20',
     startupmanager:'tmux',
