@@ -10,7 +10,9 @@ class Actions(ActionsBase):
 
     def build(self, service_obj):
         root = '/opt/build/github.com/Jumpscale/jumpscale_core7'
-        binary = '/opt/code/git/binary/legacy_js_core'
+        binary = '/opt/code/git/binary/legacy_js_core/domains'
+
+        j.system.fs.removeDirTree(binary)
 
         def pack(_, path):
             module = imp.load_source(path, path)
