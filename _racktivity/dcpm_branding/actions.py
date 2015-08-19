@@ -22,5 +22,4 @@ class Actions(ActionsBase):
     """
 
     def configure(self, serviceObj):
-        cmd = "sed -i 's/  <link rel='stylesheet' href='themes\/dcpm/style.css' type='text\/css' media='screen, projection' \/>/  <link rel='stylesheet' href='themes\/dcpm\/style.css' type='text/\css' media='screen, projection' \/>\n  <link rel='stylesheet' href='themes/dcpm/style-branding.css' type='text/css' media='screen, projection' /> /g' /opt/qbase5/pyapps/dcpm/portal/static/index.html"
-        j.system.process.execute(cmd, dieOnNonZeroExitCode=False, outputToStdout=True)
+        pass
