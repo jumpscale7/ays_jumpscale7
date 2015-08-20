@@ -61,7 +61,7 @@ class Actions(ActionsBase):
             script = "/bin/bash -c 'cd /opt/openvpn/easy-rsa; source vars; ./build-dh'"
             j.do.executeInteractive(script)
 
-            files = ['ca.crt', 'server.key', 'server.crt', 'dh2048.pem']
+            files = ['ca.crt', 'server.key', 'server.crt','client.key', 'client.crt', 'dh2048.pem']
             for f in files:
                 source = j.system.fs.joinPaths('/opt/openvpn/easy-rsa/keys', f)
                 dest = j.system.fs.joinPaths('/opt/openvpn/etc/', f)
