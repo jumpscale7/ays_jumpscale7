@@ -1,19 +1,15 @@
-param.ms1.connection=@ASK descr:'NODE.MS1: ms1 client instance' default:'main'
+ms1.connection=@ASK descr:'NODE.MS1: ms1 client instance' default:'main'
+name=@ASK descr:'NODE.MS1: vmachine name'
+memsize=@ASK type:dropdown descr:'NODE.MS1: MEM size (GBs)'  dropdownvals:0.5,1,2,4,8,16
+ssdsize=@ASK type:dropdown descr:'NODE.MS1: SSD size (GBs)'  dropdownvals:10,20,30,40,100
+imagename='Ubuntu.14.04.x64'
 
-param.name=@ASK descr:'NODE.MS1: vmachine name'
-param.memsize=@ASK type:dropdown descr:'NODE.MS1: MEM size (GBs)'  dropdownvals:0.5,1,2,4,8,16
-param.ssdsize=@ASK type:dropdown descr:'NODE.MS1: SSD size (GBs)'  dropdownvals:10,20,30,40,100
-
-#param.imagename=@ASK type:dropdown dropdownvals:fedora,windows,ubuntu.13.10,ubuntu.12.04,windows.essentials,ubuntu.14.04,zentyal,debian.7,arch,fedora,centos,opensuse,gitlab,ubuntu.jumpscale
-#we are always going to work with ubuntu 14.04 in this implementation
-param.imagename='ubuntu.14.04.x64'
-
-param.machine.id=
-param.machine.ssh.ip=
-param.machine.ssh.port=
+machine.id=
+ip=
+ssh.port=
 
 #link to sshkey to be used
-param.ssh.key = @ASK default:'main' descr:'NODE.MS1: sshkey instance'
-param.ssh.shell=@ASK descr:'shell to use during ssh session' default:'/bin/bash -l -c'
+sshkey = @ASK default:'main' descr:'NODE.MS1: sshkey instance'
 
-param.jumpscale=@ASK descr:'install jumpscale ?' default:True type:bool
+jumpscale=@ASK descr:'install jumpscale ?' default:True type:bool
+ssh.shell=@ASK descr:'shell to use during ssh session' default:'/bin/bash -l -c'
