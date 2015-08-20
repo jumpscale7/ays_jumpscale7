@@ -12,7 +12,7 @@ class Actions(ActionsBase):
         """
         import JumpScale.lib.ms1
 
-        ms1 = j.tools.ms1.get()
+        ms1 = j.tools.ms1.get("$(instance.param.apiurl)")
         secret = ms1.getCloudspaceSecret("$(instance.param.login)","$(instance.param.passwd)","$(instance.param.cloudspace)","$(instance.param.location)")
 
         #this remembers the secret required to use ms1
