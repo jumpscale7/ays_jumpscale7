@@ -13,23 +13,26 @@ class Actions(ActionsBaseNode):
         spacesecret = ms1client_hrd.get("instance.param.secret", '')
         if True or spacesecret == '':
             ms1Service = j.atyourservice.get(name='ms1_client', instance="$(instance.ms1.connection)")
-            from ipdb import set_trace;set_trace()
             ms1Service.configure()
             spacesecret = ms1Service.hrd.get("instance.param.secret")
             if spacesecret == '':
                 j.events.opserror_critical('impossible to retreive ms1 space secret', category='atyourservice')
         return spacesecret
 
+    def getCoudClient(self):
+        ms1client_hrd = j.application.getAppInstanceHRD("ms1_client","$(instance.ms1.connection)")
+        return j.tools.ms1.get(ms1client_hrd.get('instance.param.apiurl'))
+
     def configure(self, serviceObj):
         """
         create a vm on ms1
         """
         def createmachine():
-            ms1 = j.tools.ms1.get()
+            cloudCl = self.getCoudClient()
             spacesecret = self._getSpaceSecret(serviceObj)
             _, sshkey = self.getSSHKey(serviceObj)
 
-            machineid, ip, port = ms1.createMachine(spacesecret, "$(instance.name)", memsize="$(instance.memsize)", \
+            machineid, ip, port = cloudCl.createMachine(spacesecret, "$(instance.name)", memsize="$(instance.memsize)", \
                 ssdsize=$(instance.ssdsize), vsansize=0, description='',imagename="$(instance.imagename)",delete=False, sshkey=sshkey)
 
             serviceObj.hrd.set("instance.machine.id",machineid)
@@ -49,7 +52,26 @@ class Actions(ActionsBaseNode):
         """
         ms1client_hrd = j.application.getAppInstanceHRD("ms1_client","$(instance.ms1.connection)")
         spacesecret = ms1client_hrd.get("instance.param.secret")
-        ms1 = j.tools.ms1.get()
-        ms1.deleteMachine(spacesecret, "$(instance.param.name)")
+        cloudCl = self.getCoudClient()
+        cloudCl.deleteMachine(spacesecret, "$(instance.name)")
 
         return True
+
+    def start(self, serviceObj):
+        if serviceObj.hrd.get('instance.machine.id', '') != '':
+            cloudCl = self.getCoudClient()
+            spacesecret = self._getSpaceSecret(serviceObj)
+            cloudCl.startMachine(spacesecret, serviceObj.hrd.getStr('instance.name'))
+
+    def stop(self, serviceObj):
+        if serviceObj.hrd.get('instance.machine.id') != '':
+            cloudCl = self.getCoudClient()
+            spacesecret = self._getSpaceSecret(serviceObj)
+            cloudCl.stopMachine(spacesecret, serviceObj.hrd.getStr('instance.name'))
+
+    def addDisk(self, serviceObj, name, size, description=None, type='D'):
+        if serviceObj.hrd.exists('instance.machine.id') != '':
+            vmName = serviceObj.hrd.getStr('instance.name')
+            cloudCl = self.getCoudClient()
+            spacesecret = self._getSpaceSecret(serviceObj)
+            cloudCl.addDisk(spacesecret, vmName, name, size=size, description=description, type=type)
