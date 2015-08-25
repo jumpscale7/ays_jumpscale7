@@ -47,6 +47,9 @@ dep.args.portal                =
     param.osis.connection:'main',
     param.portal.name:'main',
     param.portal.rootpasswd:'$(instance.param.rootpasswd)',
+    param.dcpm.url:'https://dcpmcustomer.demo.greenitglobe.com'
+    param.ovs.url:'https://ovscustomer.demo.greenitglobe.com'
+    param.portal.url:'https://customer.demo.greenitglobe.com'
 
 dep.args.portal_client         =
     param.addr:'localhost',
