@@ -24,7 +24,7 @@ class Actions(ActionsBaseNode):
                         action=pushkey, stdOutput=True, serviceObj=serviceObj)
 
         # only do the rest if we want to install jumpscale
-        if serviceObj.hrd.getBool('instance.param.jumpscale'):
+        if serviceObj.hrd.getBool('instance.jumpscale'):
             self.isntallJumpscale(serviceObj)
 
         return True
