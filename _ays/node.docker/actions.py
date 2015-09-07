@@ -34,9 +34,8 @@ class Actions(ActionsBase):
         return True
 
     def execute(self, service_obj, cmd):
-        cmd = cmd or ""
-        cmd = "bash -c \"%s\"" % (cmd.replace('"', '\"'))
-        j.tools.docker.run("$(instance.param.name)", cmd)
+        ssh = j.tools.docker.getSSH("$(instance.param.name)")
+        return ssh.run(cmd)
 
     def upload(self, service_obj, source, dest):
         j.tools.docker.uploadFile("$(instance.param.name)", source, dest)
