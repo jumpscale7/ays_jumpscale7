@@ -24,7 +24,7 @@ git.export.3                   =
 
 git.url                        = 'http://git.aydo.com/binary/grafana'
 
-instances.maxnr                = 1
+instances.maxnr                = '1'
 
 platform.supported             =
     'linux64',
