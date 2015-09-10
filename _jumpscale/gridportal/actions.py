@@ -29,7 +29,7 @@ class Actions(ActionsBase):
         grafana = j.atyourservice.get(domain='jumpscale', name='grafana')
         grafanaport = grafana.hrd.get('instance.param.port')
         grafanaurl = "http://localhost:%s" % (grafanaport)
-        grafana = {'path': '/proxy/grafana', 'dest': grafanaurl}
+        grafana = {'path': '/grafana', 'dest': grafanaurl}
         eveproxy = {'path': '/proxy/eve', 'dest': "http://localhost:5000"}
         portal.hrd.set('instance.proxy.1', grafana)
         portal.hrd.set('instance.proxy.2', eveproxy)

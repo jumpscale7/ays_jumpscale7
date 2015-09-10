@@ -1,43 +1,50 @@
 from JumpScale import j
-ActionsBase=j.atyourservice.getActionsBaseClass()
+ActionsBase = j.atyourservice.getActionsBaseClass()
 
 
 class Actions(ActionsBase):
 
-    def configure(self,serviceObj):
+    def configure(self, service_obj):
         """
         will install create a docker container
         """
 
         def createContainer():
-            j.tools.docker.create(name="$(instance.param.name)",base="$(instance.param.image)", ports="$(instance.param.portsforwards)", vols="$(instance.param.volumes)")
+            j.tools.docker.create(name="$(instance.param.name)", base="$(instance.param.image)",
+                                  ports="$(instance.param.portsforwards)", vols="$(instance.param.volumes)")
 
-        j.actions.start(name="create container", description='create a docker container', action=createContainer, stdOutput=True, serviceObj=serviceObj)
+        j.actions.start(name="create container", description='create a docker container',
+                        action=createContainer, stdOutput=True, serviceObj=service_obj)
 
         def installJumpscale():
-            self.execute(self, "curl https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install_python_web.sh > /tmp/js7.sh && bash /tmp/js7.sh")
-        j.actions.start(name="install jumpscale", description='install Jumpscale', action=installJumpscale, stdOutput=True, serviceObj=serviceObj)
+            self.execute(
+                self,
+                ("cd /tmp;rm -f install.sh;curl " +
+                 "-k https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install.sh > " +
+                 "install.sh;bash install.sh")
+            )
+        j.actions.start(name="install jumpscale", description='install Jumpscale',
+                        action=installJumpscale, stdOutput=True, serviceObj=service_obj)
 
-    def removedata(self,serviceObj):
+    def removedata(self, service_obj):
         """
         delete docker container
         """
         j.tools.docker.destroy("$(instance.param.name)")
         return True
 
-    def execute(self,serviceObj,cmd):
-        cmd = cmd or ""
-        cmd = "bash -c \"%s\"" % (cmd.replace('"', '\"'))
-        j.tools.docker.run("$(instance.param.name)", cmd)
+    def execute(self, service_obj, cmd):
+        ssh = j.tools.docker.getSSH("$(instance.param.name)", stdout=True)
+        return ssh.run(cmd)
 
-    def upload(self, serviceObj,source,dest):
+    def upload(self, service_obj, source, dest):
         j.tools.docker.uploadFile("$(instance.param.name)", source, dest)
 
-    def download(self, serviceObj, source, dest):
+    def download(self, service_obj, source, dest):
         j.tools.docker.downloadFile('$(instance.param.name)', source, dest)
 
-    def start(self,serviceObj):
+    def start(self, service_obj):
         j.tools.docker.restart('$(instance.param.name)')
 
-    def stop(self,serviceObj):
+    def stop(self, service_obj):
         j.tools.docker.stop('$(instance.param.name)')

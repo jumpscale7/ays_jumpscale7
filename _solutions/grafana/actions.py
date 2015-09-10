@@ -41,15 +41,15 @@ class Actions(ActionsBase):
         serviceObj.start()
 
         # check if the datasource already exists
-        grafanaAPI = 'http://admin:admin@localhost:%s/api/datasources' % serviceObj.hrd.get('instance.param.port')
+        configured_password = serviceObj.hrd.get('instance.param.password')
+        grafanaclient = j.clients.grafana.get(username='admin', password='admin')
+        if not grafanaclient.isAuthenticated():
+            grafanaclient = j.clients.grafana.get(username='admin', password=configured_password)
+        else:
+            grafanaclient.changePassword(configured_password)
 
-        try:
-            resp = requests.get(grafanaAPI)
-        except Exception as e:
-            from ipdb import set_trace;set_trace()
-            j.events.opserror_critical(e.message)
 
-        datasources = json.loads(resp.content)
+        datasources = grafanaclient.listDataSources()
         present = False
         for ds in datasources:
             if ds['url'] == data['url'] and ds['user'] == data['user'] and \
@@ -57,10 +57,8 @@ class Actions(ActionsBase):
                present = True
 
         if not present:
-
             # create the datasource for influxdb
             try:
-                resp = requests.post(grafanaAPI, json=data,
-                                     headers={'content-type': 'application/json'})
+                grafanaclient.addDataSource(data)
             except Exception as e:
                 j.events.opserror_critical(e.message)
