@@ -17,7 +17,7 @@ class Actions(ActionsBase):
                 info = {}
                 info['path'] = j.console.askString("Path of the folder to expose", '/mnt/storage/')
                 info['host'] = j.console.askString("Host allow to mount the folder")
-                info['options'] = j.console.askString("options")
+                info['options'] = j.console.askString("options", 'root_no_squash, no_subtree_check')
             return info
 
         nbr = serviceObj.hrd.getInt('instance.nfs.nbrshares')
