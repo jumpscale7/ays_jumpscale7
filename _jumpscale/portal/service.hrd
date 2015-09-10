@@ -28,6 +28,12 @@ git.export.3                   =
     source:'apps/portalbase/wiki/*',
     url:'https://github.com/Jumpscale/jumpscale_portal/',
 
+git.export.4                   =
+    dest:'$(system.paths.base)/apps/portals/portalbase/templates/',
+    link:'True',
+    source:'apps/portalbase/templates/*',
+    url:'https://github.com/Jumpscale/jumpscale_portal/',
+
 git.export.5                   =
     dest:'$(system.paths.base)/apps/portals/$(service.instance)/portal_start.py',
     link:'True',
@@ -43,7 +49,7 @@ git.export.6                   =
 git.url                        = 'https://github.com/Jumpscale/jumpscale_portal/'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
-instances.maxnr                = 10
+instances.maxnr                = '10'
 
 platform.supported             =
     'linux64',
