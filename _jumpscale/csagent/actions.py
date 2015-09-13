@@ -13,7 +13,7 @@ class Actions(ActionsBase):
 
     def build(self,serviceObj):
     
-        # JPackage is responsible for pulling the source code and putting it here
+        # ays is responsible for pulling the source code and putting it here
         BUILD_BASE = '/opt/build/github.com/Jumpscale/csagent/'
 
         LUAROCKS_COMMAND = '/opt/luajit/bin/luarocks --server=http://rocks.moonscript.org/manifests/amrhassan'
@@ -25,7 +25,7 @@ class Actions(ActionsBase):
             return deps
             
         def install_lunix():
-            LUNIX_BUILD_BASE = '/opt/build/github.com/wahern/lunix'  # It is put there by jpackage before doing the build 
+            LUNIX_BUILD_BASE = '/opt/build/github.com/wahern/lunix'  # It is put there by ays before doing the build 
             LUA_PREFIX = '/opt/luajit'
             command = 'cd %(build_base)s ; make all prefix=%(prefix)s ; make install prefix=%(dest_prefix)s' %{'build_base': LUNIX_BUILD_BASE, 'prefix': LUA_PREFIX, 'dest_prefix': os.path.join(BUILD_BASE, 'deps')}
             log('Installing lunix')

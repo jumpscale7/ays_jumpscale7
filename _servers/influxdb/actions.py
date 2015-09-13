@@ -136,7 +136,7 @@ class Actions(ActionsBase):
 
     def build(self,serviceObj):
 
-        #to reset the state use jpackage reset -n ...
+        #to reset the state use ays reset -n ...
 
         j.system.platform.ubuntu.check()
         #@todo
