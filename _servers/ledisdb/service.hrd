@@ -1,5 +1,5 @@
 process.1=
-    name:'$(jp.instance)_$(jp.name)',
+    name:'$(service.instance)_$(service.name)',
     cmd:'$(system.paths.base)/apps/ledisdb/bin/ledis-server,
     args:,
     env:,

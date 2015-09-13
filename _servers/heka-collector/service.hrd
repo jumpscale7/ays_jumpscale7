@@ -10,7 +10,7 @@ git.export.3= url:$(bin.git.url), source:'collector-configs', dest:'$(param.base
 git.export.4= url:$(bin.git.url), source:'testing.toml', dest:'$(param.base)/testing.toml', link:False,
 
 process.1= 
-    name:'$(jp.instance)_$(jp.name)', 
+    name:'$(service.instance)_$(service.name)', 
     cmd:'$(param.base)/bin/hekad -config="$(param.base)/configs"', 
     filterstr:'$(param.base)',
 

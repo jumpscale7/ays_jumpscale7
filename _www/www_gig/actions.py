@@ -1,6 +1,6 @@
 from JumpScale import j
 import time
-ActionsBase=j.packages.getActionsBaseClass()
+ActionsBase = j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
     """
@@ -29,8 +29,8 @@ class Actions(ActionsBase):
         if j.system.fs.isLink(path):
             j.system.fs.unlink(path)
 
-        jp2=j.packages.findNewest("jumpscale","portal")
-        if not jp2.isInstalled(instance=instance):
+        ays = j.atyourservice.findServices("jumpscale","portal")
+        if not ays.isInstalled(instance=instance):
             j.events.inputerror_critical("Could not find portal instance with name: %s, please install"%instance)
 
 #        if j.system.net.tcpPortConnectionTest("localhost",9999)==False:
