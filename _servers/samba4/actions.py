@@ -29,7 +29,7 @@ class Actions(ActionsBase):
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
-        after this step the system will try to start the jpackage if anything needs to be started
+        after this step the system will try to start the ays if anything needs to be started
         """
         base = j.application.config.get('system.paths.base')
         base = base + '/apps/samba4'
