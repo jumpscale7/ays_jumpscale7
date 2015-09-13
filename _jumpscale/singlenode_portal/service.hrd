@@ -8,7 +8,7 @@ dep.args.influxdbclient        =
 dep.args.mailclient            =
     smtp.login:,
     smtp.passwd:,
-    smtp.port:'8025',
+    smtp.port:'25',
     smtp.sender:'info@jumpscale.com',
     smtp.server:'localhost',
 
