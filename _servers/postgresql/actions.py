@@ -89,21 +89,6 @@ class Actions(ActionsBase):
 
         return True
 
-    # def start(self,serviceObj):
-    # start postgresql in background
-    #     if j.system.net.tcpPortConnectionTest("localhost",3306):
-    #         return
-
-    #     import JumpScale.baselib.screen
-
-    #     cmd="/opt/mariadb/bin/postgresqld --basedir=/opt/mariadb --datadir=/opt/mariadb/data --plugin-dir=/opt/mariadb/lib/plugin/ --user=root --console --verbose"
-    #     j.system.platform.screen.createSession("servers",["mariadb"])
-    #     j.system.platform.screen.executeInScreen(sessionname="servers", screenname="mariadb", cmd=cmd, wait=0, cwd=None, env=None, user='root', tmuxuser=None)
-
-    # now wait till we can access the port
-    #     res=j.system.net.waitConnectionTest("localhost",3306,2)
-    #     if res==False:
-    #         j.events.inputerror_critical("mariadb did not become active, check in byobu","ays.install.mariadb.startup")
 
     def stop(self, serviceObj):
         """
@@ -126,9 +111,4 @@ class Actions(ActionsBase):
                     cmd, dieOnNonZeroExitCode=False, outputStdout=False, outputStderr=True, timeout=5)
             else:
                 raise RuntimeError("could not stop %s" % serviceObj)
-
-        # if self.check_down_local(hrd):
-        #     return True
-        # else:
-        #     j.events.opserror_critical("Cannot stop %s."%self.jp,"ays.stop")
 
