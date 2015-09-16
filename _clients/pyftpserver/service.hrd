@@ -1,7 +1,7 @@
 param.base=/opt/pyftpserver
 
 process.1=
-    name:'$(jp.name)__$(jp.instance)',
+    name:'$(service.name)__$(service.instance)',
     cmd:'python ftpstart.py',
     args:,
     prio:10,

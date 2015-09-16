@@ -68,10 +68,3 @@ class Actions(ActionsBaseNode):
             cloudCl = self.getCoudClient()
             spacesecret = self._getSpaceSecret(serviceObj)
             cloudCl.stopMachine(spacesecret, serviceObj.hrd.getStr('instance.name'))
-
-    def addDisk(self, serviceObj, name, size, description=None, type='D'):
-        if serviceObj.hrd.exists('instance.machine.id') != '':
-            vmName = serviceObj.hrd.getStr('instance.name')
-            cloudCl = self.getCoudClient()
-            spacesecret = self._getSpaceSecret(serviceObj)
-            cloudCl.addDisk(spacesecret, vmName, name, size=size, description=description, type=type)

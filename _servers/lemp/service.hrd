@@ -1,9 +1,9 @@
 
-base='/opt/lemp/$(jp.instance)'
+base='/opt/lemp/$(service.instance)'
 
 #is prio between 0 and 10, 0 is not urgent , 10 is most urgent, so first all packages with prio 10 are installed then going down to 0
 process.1=
-    name:'$(jp.instance)_nginx',
+    name:'$(service.instance)_nginx',
     cmd:'$(param.base)/bin/nginx -c $(param.base)/cfg/nginx/nginx.conf',
     args:,
     prio:10,
@@ -17,7 +17,7 @@ process.1=
 env.process.1=
 
 process.2=
-    name:'$(jp.instance)_pphp5fpm',
+    name:'$(service.instance)_pphp5fpm',
     cmd:'$(param.base)/bin/php5-fpm -c $(param.base)/cfg/php5/fpm -y $(param.base)/cfg/php5/fpm/php-fpm.conf -F',
     args:,
     prio:11,

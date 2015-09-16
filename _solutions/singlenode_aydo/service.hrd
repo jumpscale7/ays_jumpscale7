@@ -18,7 +18,7 @@ dependencies.6                 =
 
 
 process.1=
-    name:'$(jp.instance)_$(jp.name)',
+    name:'$(service.instance)_$(service.name)',
     cmd:'$(system.paths.base)/apps/ledisdb/bin/ledis-server,
     args:,
     env:,
@@ -31,7 +31,7 @@ process.1=
     filterstr:'ledis-server',
 
 process.2=
-    name:'$(jp.name)_master',
+    name:'$(service.name)_master',
     cmd:'./weed master -defaultReplication="002" -whiteList="127.0.0.1"  -mdir="/var/weedfs" -ip.bind="127.0.0.1"',
     args:,
     prio:10,
@@ -54,12 +54,12 @@ process.3=
     filterstr:'elasticsearch.yml org.elasticsearch.bootstrap.ElasticSearch'
 
 process.4=
-    name:'$(jp.name)',
+    name:'$(service.name)',
     cmd:./blobstor,
     args:,
     env:,
     prio:1,
-    cwd:'/opt/aydo/blobstor/$(jp.instance),
+    cwd:'/opt/aydo/blobstor/$(service.instance),
     timeout_start:10,
     timeout_stop:10,
     ports:[$(param.server.port)],
@@ -67,12 +67,12 @@ process.4=
     filterstr:'./blobstor',
 
 process.5=
-    name:'$(jp.name)',
+    name:'$(service.name)',
     cmd:./mdserver,
     args:,
     env:,
     prio:1,
-    cwd:'/opt/aydo/mdserver/$(jp.instance),
+    cwd:'/opt/aydo/mdserver/$(service.instance),
     timeout_start:10,
     timeout_stop:10,
     ports:[$(param.server.port)],
@@ -80,12 +80,12 @@ process.5=
     filterstr:'./mdserver',
 
 process.6=
-    name:'$(jp.name)',
+    name:'$(service.name)',
     cmd:./clientdaemon,
     args:,
     env:,
     prio:1,
-    cwd:'/opt/aydo/clientdaemon/$(jp.instance),
+    cwd:'/opt/aydo/clientdaemon/$(service.instance),
     timeout_start:10,
     timeout_stop:10,
     ports:[$(param.server.port)],

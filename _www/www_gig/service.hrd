@@ -1,9 +1,9 @@
 base='/opt/jumpscale7/'
 
 process.1=
-    name:'$(jp.name)__$(jp.instance)',
+    name:'$(service.name)__$(service.instance)',
     cmd:'jspython',
-    args:'portal_start.py $(jp.instance)',
+    args:'portal_start.py $(service.instance)',
     prio:10,
     cwd:'$(system.paths.base)/apps/portals/$(portal.name)',
     timeout_start:10,
