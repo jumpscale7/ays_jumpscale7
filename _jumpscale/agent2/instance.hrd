@@ -1,3 +1,4 @@
 agentcontroller=@ASK type:str default:'http://127.0.0.1:8966/'
 gid=@ASK type:str default:'1'
 nid=@ASK type:str default:'1'
+roles=@ASK type:str descr:'Agent2: comma-separated roles this node subscribes to' default:''
