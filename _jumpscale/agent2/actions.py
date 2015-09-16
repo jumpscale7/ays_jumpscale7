@@ -42,5 +42,5 @@ class Actions(ActionsBase):
         cfg['controllers']['main']['url'] = agentcontroller
         cfg['main']['gid'] = int(service_obj.hrd.get('instance.gid'))
         cfg['main']['nid'] = int(service_obj.hrd.get('instance.nid'))
-
+        cfg['main']['roles'] = service_obj.hrd.getList('instance.roles')
         cfg.dump(cfg_path)
