@@ -17,5 +17,6 @@ class Actions(ActionsBase):
 
         nodes = serviceObj.hrd.getList('instance.cluster')
         for node in nodes:
-            info = askNodeInfo(node)
-            serviceObj.hrd.set('instance.%s' % node, info)
+            if not serviceObj.hrd.exists('instance.%s' % node):
+                info = askNodeInfo(node)
+                serviceObj.hrd.set('instance.%s' % node, info)
