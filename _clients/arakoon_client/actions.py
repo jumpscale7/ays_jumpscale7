@@ -14,9 +14,8 @@ class Actions(ActionsBase):
             nodeinfo['messaging_port'] = j.console.askInteger("Enter messaging port", 10000)
             nodeinfo['home'] = j.console.askString("Enter node home dir", "/opt/arakoon/data/")
             return nodeinfo
-
         nodes = serviceObj.hrd.getList('instance.cluster')
         for node in nodes:
-            if not serviceObj.hrd.exists('instance.%s' % node):
+            if len(serviceObj.hrd.getDictFromPrefix('instance.master')) == 0:
                 info = askNodeInfo(node)
                 serviceObj.hrd.set('instance.%s' % node, info)
