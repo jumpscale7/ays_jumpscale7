@@ -28,3 +28,4 @@ instances.maxnr=1
 
 dependencies.1                 =
     name:'java',
+
