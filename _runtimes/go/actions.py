@@ -93,6 +93,7 @@ class Actions(ActionsBase):
         })
 
         cmds = [
+            '%s get github.com/tools/godep' % gobin,
             'git clone %s %s' % (package, dest),
             'cd %s && %s restore' % (dest, godepbin),
             'cd %s && %s install' % (dest, gobin),
