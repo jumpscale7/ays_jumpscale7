@@ -1,7 +1,9 @@
 from JumpScale import j
+from urllib2 import urlparse
 import os
 
-ActionsBase=j.atyourservice.getActionsBaseClass()
+ActionsBase = j.atyourservice.getActionsBaseClass()
+
 
 class Actions(ActionsBase):
     """
@@ -66,6 +68,44 @@ class Actions(ActionsBase):
         except Exception as e:
             print e.msg
 
+    def buildProjetGodep(self, serviceObj, package=None):
+        """
+        you can call this method from another service action.py file to build a go project
+        :param package: URL to package to build (https://github.com/...)
+        """
+        if package is None:
+            j.events.inputerror_critical(msg="package can't be none", category="go build", msgpub='')
+
+        url = urlparse.urlparse(package)
+
+        gopath = serviceObj.hrd.get('instance.gopath')
+        goroot = serviceObj.hrd.get('instance.goroot')
+        gobin = j.system.fs.joinPaths(goroot, 'bin/go')
+        godepbin = j.system.fs.joinPaths(gopath, 'bin/godep')
+
+        dest = '%s/src/%s' % (gopath, url.hostname + url.path)
+        j.system.fs.removeDirTree(dest)
+
+        env = os.environ
+        env.update({
+            'GOPATH': gopath,
+            'GOROOT': goroot
+        })
+
+        cmds = [
+            'git clone %s %s' % (package, dest),
+            'cd %s && %s restore' % (dest, godepbin),
+            'cd %s && %s install' % (dest, gobin),
+        ]
+
+        for cmd in cmds:
+            try:
+                print "%s: start" % cmd
+                re, out, err = j.system.process.run(cmd, env=env, maxSeconds=60, showOutput=True, captureOutput=False)
+                print "%s: succeed" % cmd if re == 0 else "%s: error" % cmd
+            except Exception as e:
+                print out, err
+                print e.msg
 
     def removedata(self, serviceObj):
         j.system.fs.removeDirTree("/opt/go")
