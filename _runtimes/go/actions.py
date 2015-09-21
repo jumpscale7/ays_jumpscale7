@@ -89,7 +89,8 @@ class Actions(ActionsBase):
         env = os.environ
         env.update({
             'GOPATH': gopath,
-            'GOROOT': goroot
+            'GOROOT': goroot,
+            'PATH': '%s:%s/bin' % (env['PATH'], goroot)
         })
 
         cmds = [

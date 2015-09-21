@@ -3,9 +3,6 @@ dependencies.1                 =
     type:'build',
 
 git.build.1                    =
-    url:'https://github.com/Jumpscale/agent2.git',
-
-git.build.2                    =
     url:'https://git.aydo.com/binary/syncthing.git',
 
 git.export.1                   =
