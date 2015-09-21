@@ -6,6 +6,10 @@ dependencies.1                 =
     instance:'controller',
     name:'syncthing',
 
+dependencies.2                 =
+    name:'go',
+    type:'build',
+
 git.build.1                    =
     url:'https://github.com/Jumpscale/agentcontroller2.git',
 
