@@ -1,6 +1,10 @@
 dep.args.syncthing             =
     param.port:'18384',
 
+git.build.1                    =
+    url:'https://github.com/Jumpscale/agentcontroller2.git',
+
+
 dependencies.1                 =
     args:'dep.args.syncthing',
     instance:'controller',
