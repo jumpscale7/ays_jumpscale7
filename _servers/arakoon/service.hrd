@@ -1,3 +1,5 @@
+git.url                        = 'https://git.aydo.com/binary/arakoon.git'
+
 platform.supported             =
     'linux64',
 
@@ -9,4 +11,3 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'10',
     timeout_stop:'10',
-

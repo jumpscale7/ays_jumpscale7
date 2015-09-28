@@ -65,6 +65,6 @@ class Actions(ActionsBase):
         config.write()
 
         if j.do.TYPE.lower().startswith("ubuntu64"):
-            j.system.platform.ubuntu.downloadInstallDebPkg("http://apt-ovs.cloudfounders.com/alpha/arakoon_1.8.6_amd64.deb",minspeed=50)
+            j.system.platform.ubuntu.downloadInstallDebPkg("https://git.aydo.com/binary/arakoon/raw/master/deb/arakoon_1.8.9_amd64.deb", minspeed=50)
 
         return True
