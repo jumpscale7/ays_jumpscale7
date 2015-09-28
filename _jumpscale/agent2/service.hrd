@@ -23,6 +23,12 @@ git.export.3                   =
     source:'extensions',
     url:'https://git.aydo.com/binary/agent2',
 
+git.export.4                   =
+    dest:'$(system.paths.base)/apps/agent2/conf',
+    link:'False',
+    source:'conf',
+    url:'https://git.aydo.com/binary/agent2',
+
 instances.maxnr                = 1
 
 platform.supported             =
