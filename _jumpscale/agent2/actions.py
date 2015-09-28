@@ -10,7 +10,8 @@ class Actions(ActionsBase):
         j.system.platform.ubuntu.install('mercurial')
 
         package = 'github.com/Jumpscale/agent2'
-        syncthing = j.system.fs.joinPaths(j.dirs.codeDir, 'git', 'binary', 'syncthing', 'syncthing')
+
+        syncthing = '/opt/build/git.aydo.com/binary/syncthing/syncthing'
 
         # build package
         go = j.atyourservice.get(name='go', parent=None)
