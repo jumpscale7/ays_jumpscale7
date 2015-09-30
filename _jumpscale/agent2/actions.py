@@ -26,8 +26,11 @@ class Actions(ActionsBase):
 
         # move bin to the binary repo
         bin_repo = '/opt/code/git/binary/agent2/'
-        for f in j.system.fs.listFilesInDir(bin_repo):
-            j.system.fs.remove(f)
+        for f in j.system.fs.listFilesAndDirsInDir(bin_repo):
+            if f.endswith('/.git'):
+                continue
+            j.system.fs.removeDirTree(f)
+
         j.system.fs.copyFile(bin_path, bin_repo)
         j.system.fs.copyFile(cfg_path, j.system.fs.joinPaths(bin_repo, 'agent2.toml'))
         j.system.fs.copyDirTree(ext_path, j.system.fs.joinPaths(bin_repo, 'extensions'))
