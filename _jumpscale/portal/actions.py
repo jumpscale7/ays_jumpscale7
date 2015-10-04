@@ -33,17 +33,6 @@ class Actions(ActionsBase):
         this step is used to do configuration steps to the platform
         after this step the system will try to start the ays if anything needs to be started
         """
-        links = {
-                'System': '/system',
-                'End User': '%s:external' % serviceObj.hrd.get('instance.param.portal.url'),
-                'Storage': '%s:external' % serviceObj.hrd.get('instance.param.ovs.url'),
-                'WhatsInsight': '%s:external' % serviceObj.hrd.get('instance.param.dcpm.url'),
-                'At Your Service': '/AYS',
-                'Grid': '/grid',
-                }
-        serviceObj.hrd.set('instance.navigationlinks.Portals', links)
-        serviceObj.restart()
-
         cmd = 'jsuser list'
         res = j.do.execute(cmd, dieOnNonZeroExitCode=False)[1]
         for line in res.splitlines():
