@@ -13,7 +13,3 @@ param.cfg.gitlab.connection=@ASK default:main descr:'PORTAL: GITLAB connection i
 param.cfg.force_oauth_instance=@ASK default:'' descr:'PORTAL: ONLY USE/FORCE THIS OAUTH INSTANCE FOR LOGIN'
 
 param.cfg.contentdirs = @ASK default:'' type:str descr:'PORTAL comma-seperated additional content directories'
-
-param.dcpm.url = @ASK type:str default:'https://dcpmcustomer.demo.greenitglobe.com'  descr:'url DCPM is hosted on'
-param.ovs.url = @ASK type:str default:'https://ovscustomer.demo.greenitglobe.com'  descr:'url OpenvStorage is hosted on'
-param.portal.url = @ASK type:str default:'https://customer.demo.greenitglobe.com'  descr:'url the gridportal is hosted on'
