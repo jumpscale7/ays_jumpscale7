@@ -73,11 +73,8 @@ class Actions(ActionsBase):
         cfg.dump(toml)
 
         # Start script syncing (syncthing)
-        legacy = j.system.fs.joinPaths(base, 'legacy')
         jumpscripts = j.system.fs.joinPaths(base, 'jumpscripts')
 
-        j.system.fs.createDir(legacy)
         j.system.fs.createDir(jumpscripts)
 
-        syncthing.actions.add_folder(syncthing, 'legacy', legacy)
         syncthing.actions.add_folder(syncthing, 'jumpscripts', jumpscripts)
