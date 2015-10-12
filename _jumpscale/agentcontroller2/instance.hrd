@@ -1,3 +1,2 @@
-param.webservice.host = @ASK default:':8966' type:str descr:'acc: webservice listen address:port'
 param.redis.host = @ASK default:'localhost:9999' type:str descr:'acc: redis host'
 param.redis.password = @ASK default:'' type:str descr:'acc: redis password'

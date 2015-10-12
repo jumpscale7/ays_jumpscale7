@@ -59,7 +59,6 @@ class Actions(ActionsBase):
 
         toml = '/opt/jumpscale7/apps/agentcontroller2/agentcontroller2.toml'
         cfg = contoml.load(toml)
-        cfg['main']['listen'] = service_obj.hrd.get('instance.param.webservice.host')
         redis = service_obj.hrd.get('instance.param.redis.host')
         cfg['main']['redis_host'] = redis
         cfg['main']['redis_password'] = service_obj.hrd.get('instance.param.redis.password')
