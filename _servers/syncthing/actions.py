@@ -72,7 +72,7 @@ class Actions(ActionsBase):
                 'order': 'random',
                 'path': path,
                 'pullers': 16,
-                'readOnly': False,
+                'readOnly': True,
                 'rescanIntervalS': 60,
                 'versioning': {'params': {}, 'type': ''}
             }
