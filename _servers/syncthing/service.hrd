@@ -5,7 +5,7 @@ git.export.1                   =
     dest:'/opt/syncthing',
     link:'False',
     platform:'ubuntu64',
-    source:'*',
+    source:'syncthing/*',
     url:'http://git.aydo.com/binary/syncthing',
 
 platform.supported             =
