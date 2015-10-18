@@ -3,7 +3,7 @@
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
     dest:'/opt/syncthing',
-    link:'True',
+    link:'False',
     platform:'ubuntu64',
     source:'*',
     url:'http://git.aydo.com/binary/syncthing',
