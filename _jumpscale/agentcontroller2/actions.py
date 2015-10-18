@@ -1,3 +1,4 @@
+import hashlib
 from JumpScale import j
 
 ActionsBase = j.atyourservice.getActionsBaseClass()
@@ -78,4 +79,6 @@ class Actions(ActionsBase):
 
         j.system.fs.createDir(jumpscripts)
 
-        syncthing.actions.add_folder(syncthing, 'jumpscripts', jumpscripts)
+        syncthing_id = syncthing.actions.get_syncthing_id(syncthing)
+        folderid = 'jumpscripts-%s' % hashlib.md5(syncthing_id).hexdigest()
+        syncthing.actions.add_folder(syncthing, folderid, jumpscripts)

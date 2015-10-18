@@ -22,12 +22,8 @@ class Actions(ActionsBase):
             endpoint=endpoint
         )
 
-    def add_folder(self, service_obj, folder_id, path):
+    def get_config(self, service_obj):
         sessions = requests.Session()
-
-        headers = {
-            'content-type': 'application/json'
-        }
 
         config_url = self.get_url(service_obj, self.ENDPOINT_CONFIG)
 
@@ -48,8 +44,23 @@ class Actions(ActionsBase):
                 time.sleep(seconds)
 
         config = response.json()
+        device_id = response.headers['x-syncthing-id']
 
-        local_device_id = response.headers['x-syncthing-id']
+        return device_id, config
+
+    def get_syncthing_id(self, service_obj):
+        device_id, _ = self.get_config(service_obj)
+        return device_id
+
+    def add_folder(self, service_obj, folder_id, path):
+        sessions = requests.Session()
+
+        headers = {
+            'content-type': 'application/json'
+        }
+
+        local_device_id, config = self.get_config(service_obj)
+        # local_device_id = response.headers['x-syncthing-id']
         # Get API key for future use
         api_key = config['gui']['apiKey']
         headers['X-API-Key'] = api_key
@@ -88,6 +99,7 @@ class Actions(ActionsBase):
         if not dirty:
             return
 
+        config_url = self.get_url(service_obj, self.ENDPOINT_CONFIG)
         response = sessions.post(config_url, data=json.dumps(config), headers=headers)
         if not response.ok:
             raise Exception('Failed to set syncthing configuration', response.reason)
