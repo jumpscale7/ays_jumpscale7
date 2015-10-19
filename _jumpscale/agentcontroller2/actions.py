@@ -21,12 +21,14 @@ class Actions(ActionsBase):
         client_path = j.system.fs.joinPaths(gopath, 'src', package, 'client')
 
         # move bin to the binary repo
-        bin_repo = '/opt/code/git/binary/agentcontroller2/'
-        for f in j.system.fs.listFilesAndDirsInDir(bin_repo):
+        bin_repo = '/opt/code/git/binary/agentcontroller2/agentcontroller2/'
+
+        for f in j.system.fs.listFilesAndDirsInDir('/opt/code/git/binary/agentcontroller2'):
             if f.endswith('/.git'):
                 continue
             j.system.fs.removeDirTree(f)
 
+        j.system.fs.createDir(bin_repo)
         j.system.fs.copyFile(bin_path, bin_repo)
         j.system.fs.copyFile(
             cfg_path,
