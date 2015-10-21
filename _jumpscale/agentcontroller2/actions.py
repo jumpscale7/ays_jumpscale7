@@ -1,3 +1,4 @@
+import hashlib
 from JumpScale import j
 
 ActionsBase = j.atyourservice.getActionsBaseClass()
@@ -20,12 +21,14 @@ class Actions(ActionsBase):
         client_path = j.system.fs.joinPaths(gopath, 'src', package, 'client')
 
         # move bin to the binary repo
-        bin_repo = '/opt/code/git/binary/agentcontroller2/'
-        for f in j.system.fs.listFilesAndDirsInDir(bin_repo):
+        bin_repo = '/opt/code/git/binary/agentcontroller2/agentcontroller2/'
+
+        for f in j.system.fs.listFilesAndDirsInDir('/opt/code/git/binary/agentcontroller2'):
             if f.endswith('/.git'):
                 continue
             j.system.fs.removeDirTree(f)
 
+        j.system.fs.createDir(bin_repo)
         j.system.fs.copyFile(bin_path, bin_repo)
         j.system.fs.copyFile(
             cfg_path,
@@ -59,7 +62,6 @@ class Actions(ActionsBase):
 
         toml = '/opt/jumpscale7/apps/agentcontroller2/agentcontroller2.toml'
         cfg = contoml.load(toml)
-        cfg['main']['listen'] = service_obj.hrd.get('instance.param.webservice.host')
         redis = service_obj.hrd.get('instance.param.redis.host')
         cfg['main']['redis_host'] = redis
         cfg['main']['redis_password'] = service_obj.hrd.get('instance.param.redis.password')
@@ -79,4 +81,6 @@ class Actions(ActionsBase):
 
         j.system.fs.createDir(jumpscripts)
 
-        syncthing.actions.add_folder(syncthing, 'jumpscripts', jumpscripts)
+        syncthing_id = syncthing.actions.get_syncthing_id(syncthing)
+        folderid = 'jumpscripts-%s' % hashlib.md5(syncthing_id).hexdigest()
+        syncthing.actions.add_folder(syncthing, folderid, jumpscripts)

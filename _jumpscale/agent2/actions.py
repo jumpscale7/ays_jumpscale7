@@ -11,7 +11,7 @@ class Actions(ActionsBase):
 
         package = 'github.com/Jumpscale/agent2'
 
-        syncthing = '/opt/build/git.aydo.com/binary/syncthing/syncthing'
+        syncthing = '/opt/build/git.aydo.com/binary/syncthing/syncthing/syncthing'
 
         # build package
         go = j.atyourservice.get(name='go', parent=None)
