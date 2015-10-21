@@ -13,4 +13,3 @@ instances.maxnr                = '100'
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 platform.supported             =
     'linux',
-

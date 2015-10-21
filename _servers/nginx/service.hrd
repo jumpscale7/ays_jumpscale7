@@ -14,7 +14,7 @@ git.export.1                   =
 git.url                        = 'https://git.aydo.com/binary/nginx.git'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
-instances.maxnr                = 1
+instances.maxnr                = '1'
 
 param.base                     = '/opt/nginx'
 
@@ -31,4 +31,3 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'10',
     timeout_stop:'10',
-

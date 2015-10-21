@@ -1,29 +1,31 @@
-dependencies.1=
-    name: go,
-    type: build,
+dependencies.1                 =
+    name:'go',
+    type:'build',
 
-git.url='http://git.aydo.com/binary/hubble'
+git.build.1                    =
+    url:'https://git.aydo.com/0-complexity/hubble.git',
 
-git.build.1=
-    url: 'https://git.aydo.com/0-complexity/hubble.git',
+git.export.1                   =
+    dest:'/opt/hubble/bin',
+    link:'True',
+    source:'.',
+    url:'http://git.aydo.com/binary/hubble',
 
-git.export.1=
-    url: $(git.url),
-    source: '.',
-    dest: '/opt/hubble/bin',
-    link: True,
+git.url                        = 'http://git.aydo.com/binary/hubble'
 
-process.1=
-    cmd: '/opt/hubble/bin/proxy -listen $(instance.listen)',
-    cwd: '/opt/hubble/bin',
-    args:'',
-    prio:5,
+instances.maxnr                = '1'
+
+platform.supported             =
+    'linux64',
+
+process.1                      =
+    args:,
+    cmd:'/opt/hubble/bin/proxy -listen $(instance.listen)',
+    cwd:'/opt/hubble/bin',
     env:,
-    timeout_start:60,
-    timeout_stop:10,
+    filterstr:'bin/proxy',
     ports:,
-    startupmanager:tmux,
-    filterstr:'bin/proxy'
-
-platform.supported=linux64,
-instances.maxnr=1
+    prio:'5',
+    startupmanager:'tmux',
+    timeout_start:'60',
+    timeout_stop:'10',

@@ -1,62 +1,65 @@
-process.1 = 
-    args:'',
-    cmd:'$(system.paths.base)/bin/rabbitmq-server',
-    cwd:'$(system.paths.base)/bin/',
-    filterstr:'',
-    ports:'6572',
-    prio:1,
-    startupmanager:'tmux',
-    timeout_start:20,
-    timeout_stop:10,
-    
 
 #dict where key is source in repo, 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
-base = '/opt/jumpscale7/'
-git.url = 'https://git.aydo.com/binary/erlang'
-git.urlmq = 'https://git.aydo.com/binary/rabbitmq_server.git'
+base                           = '/opt/jumpscale7/'
 
-git.export.1 = 
-    url:'$(git.url)',
-    source:'lib/*',
+git.export.1                   =
     dest:'$(system.paths.base)/lib/',
     link:'False',
+    source:'lib/*',
+    url:'https://git.aydo.com/binary/erlang',
 
-git.export.3 = 
-    url:'$(git.urlmq)',
-    source:'ebin/',
+git.export.3                   =
     dest:'$(system.paths.base)/ebin/',
-    link:False,
+    link:'False',
+    source:'ebin/',
+    url:'https://git.aydo.com/binary/rabbitmq_server.git',
 
-git.export.4 = 
-    url:'$(git.urlmq)',
-    source:'etc/*',
+git.export.4                   =
     dest:'$(system.paths.base)/etc/',
-    link:False,
+    link:'False',
+    source:'etc/*',
+    url:'https://git.aydo.com/binary/rabbitmq_server.git',
 
-git.export.5 = 
-    url:'$(git.urlmq)',
-    source:'include/*',
+git.export.5                   =
     dest:'$(system.paths.base)/include/',
     link:'False',
+    source:'include/*',
+    url:'https://git.aydo.com/binary/rabbitmq_server.git',
 
-git.export.6 = 
-    url:'$(git.urlmq)',
-    source:'plugins/*',
+git.export.6                   =
     dest:'$(system.paths.base)/plugins/',
-    link:False,
+    link:'False',
+    source:'plugins/*',
+    url:'https://git.aydo.com/binary/rabbitmq_server.git',
 
-git.export.7 = 
-    url:'$(git.urlmq)',
-    source:'sbin/*',
+git.export.7                   =
     dest:'$(system.paths.base)/bin',
-    link:False,
+    link:'False',
+    source:'sbin/*',
+    url:'https://git.aydo.com/binary/rabbitmq_server.git',
 
-git.export.8 = 
-    url:'$(git.urlmq)',
-    source:'var/*',
+git.export.8                   =
     dest:'$(system.paths.base)/var/',
-    link:False,
+    link:'False',
+    source:'var/*',
+    url:'https://git.aydo.com/binary/rabbitmq_server.git',
 
-platform.supported = 'linux64',
-instances.maxnr = 1
+git.url                        = 'https://git.aydo.com/binary/erlang'
+git.urlmq                      = 'https://git.aydo.com/binary/rabbitmq_server.git'
+
+instances.maxnr                = '1'
+
+platform.supported             =
+    'linux64',
+
+process.1                      =
+    args:,
+    cmd:'$(system.paths.base)/bin/rabbitmq-server',
+    cwd:'$(system.paths.base)/bin/',
+    filterstr:,
+    ports:'6572',
+    prio:'1',
+    startupmanager:'tmux',
+    timeout_start:'20',
+    timeout_stop:'10',

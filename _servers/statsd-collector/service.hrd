@@ -1,28 +1,29 @@
-param.base='/opt/statsd-collector/'
-
-process.1=
-    name:'$(service.name)__$(service.instance)',
-    cmd:'/opt/nodejs/bin/node  stats.js statsd.collector.conf.js',
-    args:,
-    prio:5,
-    cwd:'$(param.base)/',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:8126,
-    startupmanager:tmux,
-    filterstr:'statsd.collector.conf.js',
-
 dependencies.1                 =
     name:'nodejs',
 
-git.url='http://git.aydo.com/binary/statsd'
-
-git.export.1=
-    url:$(git.url),
+git.export.1                   =
+    dest:'/opt/statsd-collector/',
+    link:'False',
     source:,
-    dest:'$(param.base)',
-    link:False,
+    url:'http://git.aydo.com/binary/statsd',
 
+git.url                        = 'http://git.aydo.com/binary/statsd'
 
-platform.supported=linux64,
-instances.maxnr=1
+instances.maxnr                = '1'
+
+param.base                     = '/opt/statsd-collector/'
+
+platform.supported             =
+    'linux64',
+
+process.1                      =
+    args:,
+    cmd:'/opt/nodejs/bin/node  stats.js statsd.collector.conf.js',
+    cwd:'/opt/statsd-collector//',
+    filterstr:'statsd.collector.conf.js',
+    name:'$(service.name)__$(service.instance)',
+    ports:'8126',
+    prio:'5',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',

@@ -1,7 +1,5 @@
-description='docker container running linux os'
 
 #optional category of service, default = app
-category=node
+category                       = 'node'
 
-#optional parent on wich this service is deployed e.g. app on top of node, portforward rule on top of firewall
-parent=
+description                    = 'docker container running linux os'

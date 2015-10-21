@@ -1,30 +1,29 @@
-git.url='http://git.aydo.com/binary/openfire'
-git.export.1=
-    url:$(git.url),
-    source:'openfire',
-    dest:'$(system.paths.base)/apps/openfire/',
-    link:False,
-
-process.1=
-    name:'openfire',
-    cmd:'export JAVA_HOME=/opt/openjdk/jre && export INSTALL4J_JAVA_HOME=/opt/openjdk7/jre/ && ./openfire',
-    args:'start',
-    prio:10,
-    cwd:'$(system.paths.base)/apps/openfire/bin,
-    timeout_start:30,
-    timeout_stop:30,
-    ports:9090,
-    startupmanager:,
-    filterstr:'openfire',
-
-
-
-dependencies.1=
+dependencies.1                 =
+    domain:,
+    instance:,
     name:'java',
-    domain:,
-    instance:,
 
-dependencies.2=
-    name:'mariadb',
+dependencies.2                 =
     domain:,
     instance:,
+    name:'mariadb',
+
+git.export.1                   =
+    dest:'$(system.paths.base)/apps/openfire/',
+    link:'False',
+    source:'openfire',
+    url:'http://git.aydo.com/binary/openfire',
+
+git.url                        = 'http://git.aydo.com/binary/openfire'
+
+process.1                      =
+    args:'start',
+    cmd:'export JAVA_HOME=/opt/openjdk/jre && export INSTALL4J_JAVA_HOME=/opt/openjdk7/jre/ && ./openfire',
+    cwd:'$(system.paths.base)/apps/openfire/bin',
+    filterstr:'openfire',
+    name:'openfire',
+    ports:'9090',
+    prio:'10',
+    startupmanager:,
+    timeout_start:'30',
+    timeout_stop:'30',

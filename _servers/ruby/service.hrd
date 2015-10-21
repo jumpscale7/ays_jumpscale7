@@ -1,33 +1,35 @@
 
-
 #dict where key is source in repo, 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
-base = '/opt/jumpscale7/'
-git.url = 'https://git.aydo.com/binary/ruby.git'
+base                           = '/opt/jumpscale7/'
 
-git.export.1 = 
-    url:'$(git.url)',
-    source:'bin/*',
+git.export.1                   =
     dest:'$(system.paths.base)/bin/',
     link:'False',
+    source:'bin/*',
+    url:'https://git.aydo.com/binary/ruby.git',
 
-git.export.2 = 
-    url:'$(git.url)',
-    source:'include/*',
+git.export.2                   =
     dest:'$(system.paths.base)/include/',
-    link:False,
+    link:'False',
+    source:'include/*',
+    url:'https://git.aydo.com/binary/ruby.git',
 
-git.export.3 = 
-    url:'$(git.url)',
-    source:'lib/*',
+git.export.3                   =
     dest:'$(system.paths.base)/lib/',
-    link:False,
+    link:'False',
+    source:'lib/*',
+    url:'https://git.aydo.com/binary/ruby.git',
 
-git.export.4 = 
-    url:'$(git.url)',
-    source:'share/*',
+git.export.4                   =
     dest:'$(system.paths.base)/share/',
     link:'False',
+    source:'share/*',
+    url:'https://git.aydo.com/binary/ruby.git',
 
-platform.supported = 'linux64',
-instances.maxnr = 1
+git.url                        = 'https://git.aydo.com/binary/ruby.git'
+
+instances.maxnr                = '1'
+
+platform.supported             =
+    'linux64',

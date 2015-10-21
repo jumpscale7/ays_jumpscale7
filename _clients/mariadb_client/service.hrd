@@ -1,5 +1,5 @@
-process.1=
+platform.supported             =
+    'linux',
+
+process.1                      = 
     cmd:
-
-platform.supported=linux,
-

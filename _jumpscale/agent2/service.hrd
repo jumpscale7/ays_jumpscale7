@@ -29,7 +29,7 @@ git.export.4                   =
     source:'conf',
     url:'https://git.aydo.com/binary/agent2',
 
-instances.maxnr                = 1
+instances.maxnr                = '1'
 
 platform.supported             =
     'linux64',
@@ -45,4 +45,3 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'60',
     timeout_stop:'10',
-

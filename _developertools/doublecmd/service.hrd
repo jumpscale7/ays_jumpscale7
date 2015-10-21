@@ -20,4 +20,3 @@ param.base                     = '/opt/doublecmd'
 
 platform.supported             =
     'linux64',
-

@@ -13,4 +13,3 @@ git.export.2                   =
     link:'True',
     source:'acclient_ext/*',
     url:'https://git.aydo.com/binary/agentcontroller2_client/',
-

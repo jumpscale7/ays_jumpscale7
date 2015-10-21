@@ -23,4 +23,3 @@ git.export.3                   =
 git.url                        = 'http://git.aydo.com/binary/web_python'
 
 param.base                     = '$(system.paths.base)/lib'
-

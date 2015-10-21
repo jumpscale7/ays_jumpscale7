@@ -8,7 +8,7 @@ git.export.1                   =
     source:'*',
     url:'http://git.aydo.com/binary/syncthing',
 
-platform.supported             =
+platform.supported             = 
     linux64
 
 process.1                      =
@@ -22,4 +22,3 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'20',
     timeout_stop:'10',
-

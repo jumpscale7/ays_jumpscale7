@@ -1,21 +1,21 @@
-param.base=/opt/pyftpserver
-
-process.1=
-    name:'$(service.name)__$(service.instance)',
-    cmd:'python ftpstart.py',
-    args:,
-    prio:10,
-    cwd:'$(param.base)',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:21,
-    startupmanager:tmux,
-    filterstr:'python ftpstart.py',
-
-git.url='https://github.com/giampaolo/pyftpdlib'
-git.export.1=
-    url:$(git.url),
-    source:'pyftpdlib/',
+git.export.1                   =
     dest:'/opt/pyftpserver/pyftpdlib/',
-    link:False,
-    
+    link:'False',
+    source:'pyftpdlib/',
+    url:'https://github.com/giampaolo/pyftpdlib',
+
+git.url                        = 'https://github.com/giampaolo/pyftpdlib'
+
+param.base                     = '/opt/pyftpserver'
+
+process.1                      =
+    args:,
+    cmd:'python ftpstart.py',
+    cwd:'/opt/pyftpserver',
+    filterstr:'python ftpstart.py',
+    name:'$(service.name)__$(service.instance)',
+    ports:'21',
+    prio:'10',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',

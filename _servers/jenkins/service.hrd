@@ -1,2 +1,4 @@
-param.base='/opt/jenkins'
-platform.supported=linux64,
+param.base                     = '/opt/jenkins'
+
+platform.supported             =
+    'linux64',

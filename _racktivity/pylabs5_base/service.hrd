@@ -1,4 +1,3 @@
-
 env.process.1                  = 
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
@@ -36,6 +35,3 @@ git.export.5                   =
     nodirs:'False',
     source:'bin/*',
     url:'https://git.aydo.com/binary/base_pylabs5',
-
-
-    

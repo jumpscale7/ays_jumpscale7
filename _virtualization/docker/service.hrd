@@ -1,1 +1,3 @@
-ubuntu.packages='apt-transport-https','apparmor'
+ubuntu.packages                =
+    'apt-transport-https',
+    'apparmor',

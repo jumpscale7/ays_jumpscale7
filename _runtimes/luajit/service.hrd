@@ -1,18 +1,20 @@
-param.base=/opt/luajit
-
-git.url='http://git.aydo.com/binary/luajit'
-git.export.1=
-    url:$(git.url),
-    source:'luajit',
-    dest:'$(param.base)',
-    link:False,
-
-git.build.1=
+git.build.1                    =
     url:'https://github.com/torch/luajit-rocks.git',
 
 # mongodb driver - luamongo
-git.build.2=
-    url:'https://github.com/moai/luamongo.git',
+git.build.2                    =
     branch:'luajit',
+    url:'https://github.com/moai/luamongo.git',
 
-platform.supported=linux64,
+git.export.1                   =
+    dest:'/opt/luajit',
+    link:'False',
+    source:'luajit',
+    url:'http://git.aydo.com/binary/luajit',
+
+git.url                        = 'http://git.aydo.com/binary/luajit'
+
+param.base                     = '/opt/luajit'
+
+platform.supported             =
+    'linux64',

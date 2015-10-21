@@ -1,24 +1,24 @@
-base='/opt/gogs'
+base                           = '/opt/gogs'
 
-process.1=
-    cmd:'gogs -web',
-    args:,
-    prio:10,
-    cwd:'$(param.base)',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:9000,,
-    startupmanager:tmux,
-    filterstr:'gogs'
+env.process.1                  = 
 
-env.process.1=
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
+git.export.1                   =
+    dest:'$(param.base)',
+    link:'False',
+    source:'gogs',
+    url:'http://git.aydo.com/binary/gogs',
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
-git.url='http://git.aydo.com/binary/gogs'
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
-git.export.1=
-    url:$(git.url),
-    source:'gogs',
-    dest:'$(param.base)',
-    link:False,
+git.url                        = 'http://git.aydo.com/binary/gogs'
 
+process.1                      =
+    args:,
+    cmd:'gogs -web',
+    cwd:'$(param.base)',
+    filterstr:'gogs',
+    ports:'9000',
+    prio:'10',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',

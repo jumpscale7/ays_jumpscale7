@@ -1,49 +1,46 @@
-process.1=
-    name:'$(service.instance)_$(service.name)',
-    cmd:'$(system.paths.base)/apps/ledisdb/bin/ledis-server,
-    args:,
-    env:,
-    prio:1,
-    cwd:'',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:[6380],
-    startupmanager:tmux,
-    filterstr:'ledis-server',
-
-
-
-git.url='http://git.aydo.com/binary/ledisdb'
-git.export.1=
-    url:$(git.url),
-    source:'bin',
-    dest:'$(system.paths.base)/apps/ledisdb/bin',
-    link:False,
-
-
-git.build.1=
-    url:'http://git.aydo.com/aydo/ledisdb.git',
-
-git.build.2=
-    url:'https://github.com/facebook/rocksdb.git',
-    branch:'3.5.fb',
-
-git.build.3=
-    url:'https://github.com/siddontang/leveldb.git',
-
-git.build.4=
-    url:'https://github.com/siddontang/ledisdb.git',
-
-git.build.5=
-    url:'https://github.com/siddontang/snappy.git',
-
-
-
-platform.supported=linux,
-
 dependencies.1                 =
     name:'lua',
 
 dependencies.2                 =
     name:'go',
-    type: 'build'
+    type:'build',
+
+git.build.1                    =
+    url:'http://git.aydo.com/aydo/ledisdb.git',
+
+git.build.2                    =
+    branch:'3.5.fb',
+    url:'https://github.com/facebook/rocksdb.git',
+
+git.build.3                    =
+    url:'https://github.com/siddontang/leveldb.git',
+
+git.build.4                    =
+    url:'https://github.com/siddontang/ledisdb.git',
+
+git.build.5                    =
+    url:'https://github.com/siddontang/snappy.git',
+
+git.export.1                   =
+    dest:'$(system.paths.base)/apps/ledisdb/bin',
+    link:'False',
+    source:'bin',
+    url:'http://git.aydo.com/binary/ledisdb',
+
+git.url                        = 'http://git.aydo.com/binary/ledisdb'
+
+platform.supported             =
+    'linux',
+
+process.1                      =
+    args:,
+    cmd:'$(system.paths.base)/apps/ledisdb/bin/ledis-server',
+    cwd:,
+    env:,
+    filterstr:'ledis-server',
+    name:'$(service.instance)_$(service.name)',
+    ports:'[6380]',
+    prio:'1',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',

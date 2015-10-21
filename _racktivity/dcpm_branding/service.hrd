@@ -22,4 +22,3 @@ git.export.3                   =
     overwrite:'True',
     source:'index.html',
     url:'https://git.aydo.com/binary/dcpm_branding',
-

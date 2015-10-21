@@ -20,4 +20,3 @@ param.base                     = '/opt/sublimetext'
 
 platform.supported             =
     'linux64',
-

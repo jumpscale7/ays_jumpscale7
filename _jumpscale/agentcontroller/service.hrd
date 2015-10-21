@@ -1,48 +1,47 @@
-#source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
 
-#base of repo where code or files are e.g. http://git.aydo.com/binary/base
-git.url='https://github.com/Jumpscale/jumpscale_core7/'
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
-git.export.1=
-    url:$(git.url),
-    source:'apps/agentcontroller/controller.py',
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
+git.export.1                   =
     dest:'$(system.paths.base)/apps/agentcontroller/controller.py',
-    link:True,
+    link:'True',
+    source:'apps/agentcontroller/controller.py',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
 
-
-git.export.2=
-    url:$(git.url),
-    source:'apps/agentcontroller/jumpscripts/core',
+git.export.2                   =
     dest:'$(system.paths.base)/apps/agentcontroller/jumpscripts/core',
-    link:True,
+    link:'True',
+    source:'apps/agentcontroller/jumpscripts/core',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
 
-
-git.export.3=
-    url:$(git.url),
-    source:'apps/agentcontroller/processmanager',
+git.export.3                   =
     dest:'$(system.paths.base)/apps/agentcontroller/processmanager',
-    link:True,
+    link:'True',
+    source:'apps/agentcontroller/processmanager',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
 
-git.export.4=
-    url:$(git.url),
-    source:'apps/agentcontroller/luajumpscripts/jumpscale',
+git.export.4                   =
     dest:'$(system.paths.base)/apps/agentcontroller/luajumpscripts/jumpscale',
-    link:True,
+    link:'True',
+    source:'apps/agentcontroller/luajumpscripts/jumpscale',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
 
-process.1=
-    cmd:'jspython',
-    args: 'controller.py -i $(service.instance)',
-    prio:20,
-    env:,
-    cwd:'$(system.paths.base)/apps/agentcontroller/',
-    timeout_start:20,
-    timeout_stop:20,
-    ports:4444,
-    startupmanager:tmux,
-    filterstr:'controller.py'
-
-platform.supported=linux64,
+#source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
+#base of repo where code or files are e.g. http://git.aydo.com/binary/base
+git.url                        = 'https://github.com/Jumpscale/jumpscale_core7/'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
-instances.maxnr=10
+instances.maxnr                = '10'
 
+platform.supported             =
+    'linux64',
+
+process.1                      =
+    args:'controller.py -i $(service.instance)',
+    cmd:'jspython',
+    cwd:'$(system.paths.base)/apps/agentcontroller/',
+    env:,
+    filterstr:'controller.py',
+    ports:'4444',
+    prio:'20',
+    startupmanager:'tmux',
+    timeout_start:'20',
+    timeout_stop:'20',

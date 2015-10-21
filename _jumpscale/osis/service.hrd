@@ -2,12 +2,12 @@ dependencies.1                 =
     name:'portal_lib',
 
 dependencies.2                 =
+    instance:'$(instance.param.osis.connection.influxdb)',
     name:'influxdb_client',
-    instance:$('instance.param.osis.connection.influxdb'),
 
 dependencies.3                 =
+    instance:'$(instance.param.osis.connection.mongodb)',
     name:'mongodb_client',
-    instance:$('instance.param.osis.connection.mongodb'),
 
 env.process.1                  = 
 
@@ -35,7 +35,7 @@ git.export.3                   =
 git.url                        = 'https://github.com/Jumpscale/jumpscale_core7/'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
-instances.maxnr                = 10
+instances.maxnr                = '10'
 
 param.base                     = '$(system.paths.base)/apps/osis'
 
@@ -44,13 +44,13 @@ platform.supported             =
     'linux64',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
-process.1=
-    cmd:'$(system.paths.base)/bin/jspython',
+process.1                      =
     args:'osisServerStart.py $(service.instance)',
-    prio:10,
+    cmd:'$(system.paths.base)/bin/jspython',
     cwd:'$(service.param.base)',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:5544,,
-    startupmanager:tmux,
-    filterstr:''
+    filterstr:,
+    ports:'5544',
+    prio:'10',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',

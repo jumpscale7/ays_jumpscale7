@@ -1,19 +1,38 @@
 
 # Installation root of the project
-base=/opt/heka-master
+base                           = '/opt/heka-master'
 
-bin.git.url = 'http://git.aydo.com/binary/heka'
+bin.git.url                    = 'http://git.aydo.com/binary/heka'
 
-git.export.1= url:$(bin.git.url), source:'bin', dest:'$(service.base)/bin', link:True,
-git.export.2= url:$(bin.git.url), source:'share', dest:'$(service.base)/share', link:True,
-git.export.3= url:$(bin.git.url), source:'master-configs', dest:'$(service.base)/master-configs', link:False,
-git.export.4= url:$(bin.git.url), source:'testing.toml', dest:'$(service.base)/testing.toml', link:False,
+dependencies.1                 =
+    name:'influxdb_client',
 
-process.1= 
-    name:'$(service.instance)_$(service.name)', 
-    cmd:'$(service.base)/bin/hekad -config="$(service.base)/master-configs"', 
+git.export.1                   =
+    dest:'$(service.base)/bin',
+    link:'True',
+    source:'bin',
+    url:'http://git.aydo.com/binary/heka',
+
+git.export.2                   =
+    dest:'$(service.base)/share',
+    link:'True',
+    source:'share',
+    url:'http://git.aydo.com/binary/heka',
+
+git.export.3                   =
+    dest:'$(service.base)/master-configs',
+    link:'False',
+    source:'master-configs',
+    url:'http://git.aydo.com/binary/heka',
+
+git.export.4                   =
+    dest:'$(service.base)/testing.toml',
+    link:'False',
+    source:'testing.toml',
+    url:'http://git.aydo.com/binary/heka',
+
+process.1                      =
+    cmd:'$(service.base)/bin/hekad -config="$(service.base)/master-configs"',
     filterstr:'$(service.base)/master-configs',
-    ports:8325,
-
-dependencies.1 = name:'influxdb_client',
-
+    name:'$(service.instance)_$(service.name)',
+    ports:'8325',

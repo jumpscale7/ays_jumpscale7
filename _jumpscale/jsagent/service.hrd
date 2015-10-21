@@ -1,49 +1,46 @@
-#source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
+dep.args.agentcontroller_client =
+    agentcontroller.client.login:'node',
+    agentcontroller.client.passwd:,
 
-#base of repo where code or files are e.g. http://git.aydo.com/binary/base
-git.url='https://github.com/Jumpscale/jumpscale_core7/'
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
-git.export.1=
-    url:$(git.url),
-    source:'apps/jsagent/*',
-    dest:'$(system.paths.base)/apps/jsagent/',
-    link:True,
-
-process.1=
-    cmd:'jspython',
-    args: 'jsagent.py -i $(service.instance)',
-    prio:100,
-    env:,
-    cwd:'$(system.paths.base)/apps/jsagent/',
-    timeout_start:20,
-    timeout_stop:20,
-    ports:4446,
-    startupmanager:tmux,
-    filterstr:'jsagent.py',
-
-platform.supported=linux64,
+dep.args.osis_client           =
+    param.osis.client.login:'node',
+    param.osis.client.passwd:,
 
 dependencies.1                 =
-    name:'agentcontroller_client',
-    instance:'$(instance.agentcontroller.connection)',
     args:'dep.args.agentcontroller_client',
-
-dep.args.agentcontroller_client =
-    agentcontroller.client.login:node,
-    agentcontroller.client.passwd:'',
+    instance:'$(instance.agentcontroller.connection)',
+    name:'agentcontroller_client',
 
 dependencies.2                 =
-    name:'osis_client',
-    instance:'$(instance.osis.connection)',
     args:'dep.args.osis_client',
+    instance:'$(instance.osis.connection)',
+    name:'osis_client',
 
-dep.args.osis_client = 
-    param.osis.client.login:node,
-    param.osis.client.passwd:'',
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
+git.export.1                   =
+    dest:'$(system.paths.base)/apps/jsagent/',
+    link:'True',
+    source:'apps/jsagent/*',
+    url:'https://github.com/Jumpscale/jumpscale_core7/',
+
+#source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
+#base of repo where code or files are e.g. http://git.aydo.com/binary/base
+git.url                        = 'https://github.com/Jumpscale/jumpscale_core7/'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
-instances.maxnr=10
+instances.maxnr                = '10'
 
-#a way to describe where to backup to
-#backup.location=
+platform.supported             =
+    'linux64',
 
+process.1                      =
+    args:'jsagent.py -i $(service.instance)',
+    cmd:'jspython',
+    cwd:'$(system.paths.base)/apps/jsagent/',
+    env:,
+    filterstr:'jsagent.py',
+    ports:'4446',
+    prio:'100',
+    startupmanager:'tmux',
+    timeout_start:'20',
+    timeout_stop:'20',

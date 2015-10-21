@@ -1,24 +1,22 @@
-
-param.base='/opt/weedfs'
-
-process.1=
-    name:'$(service.name)_master',
-    cmd:'./weed master -defaultReplication="002" -whiteList="127.0.0.1"  -mdir="/var/weedfs" -ip.bind="127.0.0.1"',
-    args:,
-    prio:10,
-    cwd:'$(param.base)',
-    timeout_start:10,
-    timeout_stop:10,
-    ports:[9333],
-    startupmanager:tmux,
-    filterstr:,
-
-
-git.export.1=
-    url:'http://git.aydo.com/binary/weedfs',
-    source:'weedfs/',
-    dest:'$(param.base)/',
-    link:True,
-
 dependencies.1                 =
     name:'go',
+
+git.export.1                   =
+    dest:'/opt/weedfs/',
+    link:'True',
+    source:'weedfs/',
+    url:'http://git.aydo.com/binary/weedfs',
+
+param.base                     = '/opt/weedfs'
+
+process.1                      =
+    args:,
+    cmd:'./weed master -defaultReplication="002" -whiteList="127.0.0.1"  -mdir="/var/weedfs" -ip.bind="127.0.0.1"',
+    cwd:'/opt/weedfs',
+    filterstr:,
+    name:'$(service.name)_master',
+    ports:'[9333]',
+    prio:'10',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',

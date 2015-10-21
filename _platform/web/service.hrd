@@ -1,16 +1,16 @@
-
-git.url='http://git.aydo.com/binary/web_python'
-git.export.1=
-    url:$(git.url),
-    source:'root/jslib/',
+git.export.1                   =
     dest:'/opt/jumpscale7/jslib/',
-    link:False,
+    link:'False',
+    source:'root/jslib/',
+    url:'http://git.aydo.com/binary/web_python',
 
-git.export.2=
-    url:$(git.url),
-    source:'root/lib/',
+git.export.2                   =
     dest:'/opt/jumpscale7/lib/',
-    link:False,
+    link:'False',
+    source:'root/lib/',
+    url:'http://git.aydo.com/binary/web_python',
 
-platform.supported=linux64,
+git.url                        = 'http://git.aydo.com/binary/web_python'
 
+platform.supported             =
+    'linux64',

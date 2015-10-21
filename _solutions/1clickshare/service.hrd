@@ -1,33 +1,32 @@
+
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
-
-
-dependencies.1                =
+dependencies.1                 =
     name:'web',
 
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
+git.export.1                   =
+    dest:'$(system.paths.base)/libext/',
+    link:'True',
+    source:'lib/*',
+    url:'https://git.aydo.com/aydo/1clickshare',
+
+git.export.2                   =
+    dest:'$(system.paths.base)/apps/portals/$(instance.portal.instance)/base/',
+    link:'True',
+    source:'base/*',
+    url:'https://git.aydo.com/aydo/1clickshare',
+
+git.export.3                   =
+    dest:'$(system.paths.base)/apps/osis/logic/',
+    link:'True',
+    source:'osis*',
+    url:'https://git.aydo.com/aydo/1clickshare',
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
-git.url='https://git.aydo.com/aydo/1clickshare'
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib  
-git.export.1=
-    url:$(git.url),
-    source:'lib/*',
-    dest:'$(system.paths.base)/libext/',
-    link:True,
-
-git.export.2=
-    url:$(git.url),
-    source:'base/*',
-    dest:'$(system.paths.base)/apps/portals/$(instance.portal.instance)/base/',
-    link:True,
-
-git.export.3=
-    url:$(git.url),
-    source:'osis*',
-    dest:'$(system.paths.base)/apps/osis/logic/',
-    link:True,
-
-platform.supported=linux64,
+git.url                        = 'https://git.aydo.com/aydo/1clickshare'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
-instances.maxnr=10
+instances.maxnr                = '10'
 
+platform.supported             =
+    'linux64',

@@ -1,14 +1,22 @@
-
-param.base=/opt/kvm
-
-git.build.1=
+git.build.1                    =
     url:'http://git.aydo.com/aydo/qemu-ledis',
 
-git.export.1=
-    url:'http://git.aydo.com/binary/kvm',
-    source:'root/apps/kvm',
+git.export.1                   =
+    dest:'$(system.paths.base)/apps/kvm',
+    link:'False',
     revision:,
-    dest:'$(system.paths.base)'/apps/kvm,
-    link:False
+    source:'root/apps/kvm',
+    url:'http://git.aydo.com/binary/kvm',
 
-ubuntu.packages='qemu-kvm','qemu','python-libvirt','virt-viewer', 'lrzip', 'python-libvirt', 'libvirt-bin', 'bridge-utils','curlftpfs'
+param.base                     = '/opt/kvm'
+
+ubuntu.packages                =
+    'qemu-kvm',
+    'qemu',
+    'python-libvirt',
+    'virt-viewer',
+    'lrzip',
+    'python-libvirt',
+    'libvirt-bin',
+    'bridge-utils',
+    'curlftpfs',
