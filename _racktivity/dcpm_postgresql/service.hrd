@@ -1,0 +1,8 @@
+dep.args.postgresql            =
+    param.port:'5432',
+    param.rootpasswd:'rooter',
+
+dependencies.1                 =
+    args:'dep.args.postgresql',
+    name:'postgresql',
+

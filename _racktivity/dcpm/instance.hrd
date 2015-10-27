@@ -1,0 +1,2 @@
+param.postgresql.host = @ASK
+param.dcpm.password = @ASK default:1234
