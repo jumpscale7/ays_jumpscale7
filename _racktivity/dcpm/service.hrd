@@ -67,6 +67,12 @@ git.export.6                   =
     source:'lib/python/site-packages/*',
     url:'https://git.aydo.com/racktivity/dcpm',
 
+git.export.7                   =
+    dest:'/tmp/dcpm-nooauthconfig',
+    link:'False',
+    source:'*',
+    url:'https://git.aydo.com/binary/dcpm-nooauthconfig',
+
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '1'
 
