@@ -11,5 +11,5 @@ class Actions(ActionsBase):
             if not j.system.fs.exists(path="/etc/samba/smb.conf"):
                 j.system.fs.createEmptyFile("/etc/samba/smb.conf")
             smb = j.ssh.samba.get(j.ssh.connect())
-            smb.addUser('$(instance.ad.username)', '$(instance.ad.passwd)')
+            smb.addUser('$(instance.user.username)', '$(instance.user.passwd)')
         j.actions.start(description='add user to Active directory', action=createUser, category='samba', name='createUser', serviceObj=serviceObj)
