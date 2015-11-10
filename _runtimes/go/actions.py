@@ -44,7 +44,7 @@ class Actions(ActionsBase):
 
         j.actions.start(name="create GOPATH", description='create GOPATH', action=createGOPATH,  die=True, stdOutput=True, serviceObj=serviceObj)
 
-    def buildProjet(self, serviceObj, package=None):
+    def buildProject(self, serviceObj, package=None):
         """
         you can call this method from another service action.py file to build a go project
         """
@@ -68,7 +68,7 @@ class Actions(ActionsBase):
         except Exception as e:
             print e.msg
 
-    def buildProjetGodep(self, serviceObj, package=None):
+    def buildProjectGodep(self, serviceObj, package=None, build_dir=None):
         """
         you can call this method from another service action.py file to build a go project
         :param package: URL to package to build (https://github.com/...)
@@ -93,11 +93,15 @@ class Actions(ActionsBase):
             'PATH': '%s:%s/bin' % (env['PATH'], goroot)
         })
 
+        build_dest = dest
+        if build_dir is not None:
+            build_dest = j.system.fs.joinPaths(dest, build_dir)
+
         cmds = [
             '%s get github.com/tools/godep' % gobin,
             'git clone %s %s' % (package, dest),
-            'cd %s && %s restore' % (dest, godepbin),
-            'cd %s && %s install' % (dest, gobin),
+            'cd %s && %s restore' % (build_dest, godepbin),
+            'cd %s && %s install' % (build_dest, gobin),
         ]
 
         for cmd in cmds:

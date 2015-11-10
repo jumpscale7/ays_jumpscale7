@@ -15,7 +15,7 @@ class Actions(ActionsBase):
 
         # build package
         go = j.atyourservice.get(name='go', parent=None)
-        go.actions.buildProjetGodep(go, package='https://%s' % package)
+        go.actions.buildProjectGodep(go, package='https://%s' % package)
 
         # path to bin and config
         gopath = go.hrd.getStr('instance.gopath')

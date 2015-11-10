@@ -3,7 +3,7 @@ dependencies.1                 =
     type:'build',
 
 git.build.1                    =
-    url:'https://git.aydo.com/0-complexity/hubble.git',
+    url:'https://github.com/Jumpscale/hubble.git',
 
 git.export.1                   =
     dest:'/opt/hubble/bin',
