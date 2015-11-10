@@ -17,12 +17,12 @@ class Actions(ActionsBase):
         # @todo can't we change the binary to agentcontroller2
         bin_path = j.system.fs.joinPaths(gopath, 'bin', 'agentcontroller2')
         cfg_path = j.system.fs.joinPaths(gopath, 'src', package, 'agentcontroller.toml')
-        handlers_path = j.system.fs.joinPaths(gopath, 'src', package, 'handlers')
-        client_path = j.system.fs.joinPaths(gopath, 'src', package, 'client')
+        handlers_path = j.system.fs.joinPaths(gopath, 'src', package, 'extensions')
 
         # move bin to the binary repo
         bin_repo = '/opt/code/git/binary/agentcontroller2/agentcontroller2/'
 
+        j.do.pullGitRepo('https://git.aydo.com/binary/agentcontroller2.git')
         for f in j.system.fs.listFilesAndDirsInDir('/opt/code/git/binary/agentcontroller2'):
             if f.endswith('/.git'):
                 continue
@@ -34,8 +34,7 @@ class Actions(ActionsBase):
             cfg_path,
             j.system.fs.joinPaths(bin_repo, 'agentcontroller2.toml')
         )
-        j.system.fs.copyDirTree(handlers_path, j.system.fs.joinPaths(bin_repo, 'handlers'))
-        j.system.fs.copyDirTree(client_path, j.system.fs.joinPaths(bin_repo, 'client'))
+        j.system.fs.copyDirTree(handlers_path, j.system.fs.joinPaths(bin_repo, 'extensions'))
 
         # upload bin to gitlab
         j.do.pushGitRepos(
