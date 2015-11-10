@@ -68,7 +68,7 @@ class Actions(ActionsBase):
         except Exception as e:
             print e.msg
 
-    def buildProjectGodep(self, serviceObj, package=None, build_dir=None):
+    def buildProjectGodep(self, serviceObj, package=None, build_dir=None, branch='master'):
         """
         you can call this method from another service action.py file to build a go project
         :param package: URL to package to build (https://github.com/...)
@@ -100,6 +100,7 @@ class Actions(ActionsBase):
         cmds = [
             '%s get github.com/tools/godep' % gobin,
             'git clone %s %s' % (package, dest),
+            'cd %s && git checkout "%s"' % (dest, branch),
             'cd %s && %s restore' % (build_dest, godepbin),
             'cd %s && %s install' % (build_dest, gobin),
         ]

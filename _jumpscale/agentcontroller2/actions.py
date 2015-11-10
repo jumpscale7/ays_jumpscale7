@@ -10,7 +10,7 @@ class Actions(ActionsBase):
         package = 'github.com/Jumpscale/agentcontroller2'
         # build package
         go = j.atyourservice.get(name='go', parent=None)
-        go.actions.buildProjectGodep(go, package='https://%s' % package)
+        go.actions.buildProjectGodep(go, package='https://%s' % package, branch='production')
 
         # path to bin and config
         gopath = go.hrd.getStr('instance.gopath')

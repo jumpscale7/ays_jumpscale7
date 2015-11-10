@@ -23,13 +23,13 @@ class Actions(ActionsBase):
         gopath = go.hrd.getStr('instance.gopath')
 
         # building proxy
-        go.actions.buildProjectGodep(go, package='https://%s' % package, build_dir='proxy/main')
+        go.actions.buildProjectGodep(go, package='https://%s' % package, build_dir='proxy/main', branch='production')
 
         bin_path = j.system.fs.joinPaths(gopath, 'bin', 'main')
         j.system.fs.copyFile(bin_path, j.system.fs.joinPaths(bin_repo, 'proxy'))
 
         # building agent
-        go.actions.buildProjectGodep(go, package='https://%s' % package, build_dir='agent/main')
+        go.actions.buildProjectGodep(go, package='https://%s' % package, build_dir='agent/main', branch='production')
         j.system.fs.copyFile(bin_path, j.system.fs.joinPaths(bin_repo, 'agent'))
 
         # upload bin to gitlab
