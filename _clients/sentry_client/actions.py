@@ -9,5 +9,5 @@ class Actions(ActionsBase):
         # do not use framework to install python-pip
         # PYTHONPATH environment need to be cleared otherwise setup
         # will fail
-        j.do.execute('PYTHONPATH="" apt-get install python-pip')
+        j.do.execute('PYTHONPATH="" apt-get -y install python-pip')
         j.do.execute('pip install raven')
