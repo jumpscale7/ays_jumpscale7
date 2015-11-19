@@ -44,7 +44,7 @@ class Actions(ActionsBase):
         )
 
     def configure(self, service_obj):
-        import contoml
+        import pytoml
         """
         this gets executed when files are installed
         this step is used to do configuration steps to the platform
@@ -53,27 +53,24 @@ class Actions(ActionsBase):
 
         # for backwards compatibility
         base = '/opt/jumpscale7/apps/agentcontroller2'
-        try:
-            j.system.fs.renameFile("/opt/jumpscale7/apps/agentcontroller2/jsagentcontroller",
-                                   j.system.fs.joinPaths(base, 'agentcontroller2'))
-        except:
-            pass
 
         toml = '/opt/jumpscale7/apps/agentcontroller2/agentcontroller2.toml'
-        cfg = contoml.load(toml)
+        cfg = pytoml.load(open(toml))
         redis = service_obj.hrd.get('instance.param.redis.host')
         cfg['main']['redis_host'] = redis
         cfg['main']['redis_password'] = service_obj.hrd.get('instance.param.redis.password')
 
-        # configure env var for handlers
+        # configure env var for events handlers
         redis_host, _, redis_port = redis.partition(':')
-        cfg['handlers']['env']['REDIS_ADDRESS'] = redis_host
-        cfg['handlers']['env']['REDIS_PORT'] = redis_port
-        cfg['handlers']['env']['REDIS_PASSWORD'] = service_obj.hrd.get('instance.param.redis.password')
+        cfg['events']['settings']['redis_address'] = redis_host
+        cfg['events']['settings']['redis_port'] = redis_port
+        cfg['events']['settings']['redis_password'] = service_obj.hrd.get('instance.param.redis.password')
 
-        syncthing = j.atyourservice.get(name='syncthing', instance='controller')
-        cfg['handlers']['env']['SYNCTHING_URL'] = 'http://localhost:%s/' % syncthing.hrd.get('instance.param.port')
-        cfg.dump(toml)
+        syncthing = j.atyourservice.get(name='syncthing')
+        cfg['events']['settings']['syncthing_url'] = 'http://localhost:%s/' % syncthing.hrd.get('instance.param.port')
+
+        content = pytoml.dumps(cfg)
+        j.system.fs.writeFile(filename=toml, contents=content)
 
         # Start script syncing (syncthing)
         jumpscripts = j.system.fs.joinPaths(base, 'jumpscripts')
