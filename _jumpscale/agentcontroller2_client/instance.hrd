@@ -1,3 +1,0 @@
-param.redis.address = @ASK default:'localhost' type:string descr:'acc: redis host'
-param.redis.port = @ASK default:'9999' type:int descr:'acc: redis port'
-param.redis.password = @ASK default:'' type:string descr:'acc: redis password'
