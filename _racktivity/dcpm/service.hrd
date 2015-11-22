@@ -17,7 +17,7 @@ dependencies.3                 =
     args:'dep.args.nginx',
     name:'nginx',
 
-env.process.1                  = 
+env.process.1                  =
 
 git.export.1                   =
     branch:'js7',
@@ -83,7 +83,7 @@ platform.supported             =
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
 process.1                      =
     args:,
-    cmd:'export PYTHONPATH=/opt/postgres/lib:/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "q.manage.applicationserver.restart(\dcpm\)"',
+    cmd:'export PYTHONPATH=/opt/postgres/lib:/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "p.application.start(\"dcpm\")"',
     cwd:'/opt/qbase5',
     filterstr:'dcpm',
     ports:,
