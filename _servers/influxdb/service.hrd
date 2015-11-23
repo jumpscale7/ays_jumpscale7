@@ -6,9 +6,9 @@ platform.supported             =
 
 process.1                      =
     args:,
-    cmd:'./influxd -config=cfg/config.toml',
+    cmd:'influxd -config=cfg/config.toml',
     cwd:'/opt/influxdb/',
-    filterstr:'./influxd -config=cfg/config.toml',
+    filterstr:'influxd -config=cfg/config.toml',
     name:'$(service.name)__$(service.instance)',
     platform:'ubuntu',
     ports:'8086;8083',

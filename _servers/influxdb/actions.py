@@ -2,7 +2,7 @@ from JumpScale import j
 
 ActionsBase = j.atyourservice.getActionsBaseClass()
 
-CONFIG="""
+CONFIG = """
 reporting-disabled = false
 
 [meta]
@@ -14,23 +14,49 @@ reporting-disabled = false
   heartbeat-timeout = "1s"
   leader-lease-timeout = "500ms"
   commit-timeout = "50ms"
+  cluster-tracing = false
+  raft-promotion-enabled = true
 
 [data]
   dir = "$vardir/influxdb/data"
+  engine = "bz1"
   max-wal-size = 104857600
   wal-flush-interval = "10m0s"
   wal-partition-flush-delay = "2s"
+  wal-dir = "$vardir/influxdb/wal"
+  wal-logging-enabled = true
+  wal-ready-series-size = 30720
+  wal-compaction-threshold = 0.5
+  wal-max-series-size = 1048576
+  wal-flush-cold-interval = "5s"
+  wal-partition-size-threshold = 52428800
+  wal-flush-memory-size-threshold = 5242880
+  wal-max-memory-size-threshold = 104857600
+  index-compaction-age = 60000000000
+  index-min-compaction-interval = 60000000000
+  index-compaction-min-file-count = 5
+  index-compaction-full-age = 300000000000
+  query-log-enabled = true
   retention-auto-create = true
   retention-check-enabled = true
   retention-check-period = "10m0s"
   retention-create-period = "45m0s"
 
 [cluster]
+  force-remote-mapping = false
+  write-timeout = "5s"
   shard-writer-timeout = "5s"
+  shard-mapper-timeout = "5s"
 
 [retention]
   enabled = true
   check-interval = "10m0s"
+
+[registration]
+  enabled = false
+  url = "https://enterprise.influxdata.com"
+  token = ""
+  stats-interval = "1m0s"
 
 [shard-precreation]
   enabled = true
@@ -40,6 +66,14 @@ reporting-disabled = false
 [admin]
   enabled = true
   bind-address = ":8083"
+
+[monitor]
+  store-enabled = false
+  store-database = "_internal"
+  store-interval = "10s"
+
+[subscriber]
+  enabled = true
 
 [http]
   enabled = true
@@ -65,7 +99,9 @@ reporting-disabled = false
   database = "collectd"
   retention-policy = ""
   batch-size = 5000
+  batch-pending = 10
   batch-timeout = "10s"
+  read-buffer = 0
   typesdb = "$vardir/influxdb/types.db"
 
 [opentsdb]
@@ -74,19 +110,14 @@ reporting-disabled = false
   database = "opentsdb"
   retention-policy = ""
   consistency-level = "one"
-
-[udp]
-  enabled = false
-  bind-address = ""
-  database = ""
-  batch-size = 0
-  batch-timeout = "0"
-
-[monitoring]
-  enabled = false
-  write-interval = "1m0s"
+  tls-enabled = false
+  certificate = "/etc/ssl/influxdb.pem"
+  batch-size = 1000
+  batch-pending = 5
+  batch-timeout = "1s"
 
 [continuous_queries]
+  log-enabled = true
   enabled = true
   recompute-previous-n = 2
   recompute-no-older-than = "10m0s"
@@ -100,33 +131,24 @@ reporting-disabled = false
   max-age = "168h0m0s"
   retry-rate-limit = 0
   retry-interval = "1s"
+  retry-max-interval = "1m0s"
+  purge-interval = "1h0m0s"
+
 
 """
+
+
 class Actions(ActionsBase):
 
-    def prepare(self,serviceObj):
+    def prepare(self, serviceObj):
         """
         this gets executed before the files are downloaded & installed on approprate spots
         """
 
-        if j.do.TYPE.lower().startswith("osx"):
-            res=j.do.execute("brew install influxdb")
-            res=j.do.execute("brew list influxdb")
-            for line in res[1].split("\n"):
-                if line.strip()=="":
-                    continue
-                if j.do.exists(line.strip()) and line.find("bin/")!=-1:
-                    destpart=line.split("bin/")[-1]
-                    dest="$(service.param.base)/%s"%destpart
-                    j.system.fs.createDir(j.system.fs.getDirName(dest))
-                    j.do.copyFile(line,dest)
-                    j.do.chmod(dest, 0o770) 
-
+        j.system.fs.createDir('$(service.param.base)')
         if j.do.TYPE.lower().startswith("ubuntu64"):
-            j.system.platform.ubuntu.downloadInstallDebPkg("https://s3.amazonaws.com/influxdb/influxdb_0.9.2-rc1_amd64.deb",minspeed=50)
-            for path in j.system.platform.ubuntu.listFilesPkg("influxdb",regex=".*\/versions\/.*\/infl.*"):
-                #find the files which have been installed
-                j.do.copyFile(path,"$(service.param.base)",skipIfExists=True)            
+            j.system.platform.ubuntu.downloadInstallDebPkg(
+                "https://s3.amazonaws.com/influxdb/influxdb_0.9.5_amd64.deb", minspeed=50)
 
         return True
 
@@ -134,9 +156,9 @@ class Actions(ActionsBase):
         cfg = j.dirs.replaceTxtDirVars(CONFIG, additionalArgs={})
         j.do.writeFile("$(service.param.base)/cfg/config.toml", cfg)
 
-    def build(self,serviceObj):
+    def build(self, serviceObj):
 
-        #to reset the state use ays reset -n ...
+        # to reset the state use ays reset -n ...
 
         j.system.platform.ubuntu.check()
-        #@todo
+        # @todo
