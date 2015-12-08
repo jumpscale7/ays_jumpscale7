@@ -1,11 +1,3 @@
-dep.args.nginx                 =
-    param.basedir:'/etc/nginx',
-    param.vardir:'/opt/qbase5/var/',
-
-dep.args.postgresql            =
-    param.port:'5432',
-    param.rootpasswd:'rooter',
-
 dependencies.1                 =
     name:'pylabs5',
 
@@ -17,7 +9,19 @@ dependencies.3                 =
     args:'dep.args.nginx',
     name:'nginx',
 
+dep.args.nginx                 =
+    param.basedir:'/etc/nginx',
+    param.vardir:'/opt/qbase5/var/',
+
+dep.args.postgresql            =
+    param.port:'5432',
+    param.rootpasswd:'rooter',
+
+
 env.process.1                  =
+
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
+url                            = 'https://git.aydo.com/racktivity/dcpm'
 
 git.export.1                   =
     branch:'js7',
@@ -25,7 +29,7 @@ git.export.1                   =
     link:'False',
     nodirs:'False',
     source:'pyapps/dcpm/*',
-    url:'https://git.aydo.com/racktivity/dcpm',
+    url: $(url),
 
 git.export.2                   =
     branch:'js7',
@@ -33,7 +37,7 @@ git.export.2                   =
     link:'False',
     nodirs:'False',
     source:'pyapps/upgrademanager/interface/action/*',
-    url:'https://git.aydo.com/racktivity/dcpm',
+    url: $(url),
 
 git.export.3                   =
     branch:'js7',
@@ -41,14 +45,14 @@ git.export.3                   =
     link:'False',
     nodirs:'False',
     source:'pyapps/upgrademanager/interface/model/*',
-    url:'https://git.aydo.com/racktivity/dcpm',
+    url: $(url),
 
 git.export.4                   =
     branch:'js7',
     dest:'/opt/qbase5/lib/pylabs/extensions/',
     link:'False',
     source:'lib/pylabs/extensions/*',
-    url:'https://git.aydo.com/racktivity/dcpm',
+    url: $(url),
 
 git.export.5                   =
     branch:'js7',
@@ -56,7 +60,7 @@ git.export.5                   =
     link:'False',
     nodirs:'False',
     source:'bin/*',
-    url:'https://git.aydo.com/racktivity/dcpm',
+    url: $(url),
 
 git.export.6                   =
     branch:'js7',
@@ -65,13 +69,8 @@ git.export.6                   =
     nodirs:'False',
     overwrite:'True',
     source:'lib/python/site-packages/*',
-    url:'https://git.aydo.com/racktivity/dcpm',
+    url: $(url),
 
-git.export.7                   =
-    dest:'/tmp/dcpm-nooauthconfig',
-    link:'False',
-    source:'*',
-    url:'https://git.aydo.com/binary/dcpm-nooauthconfig',
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '1'
@@ -81,16 +80,13 @@ platform.supported             =
     'linux64',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
-process.1                      =
-    args:,
+process.1=
     cmd:'export PYTHONPATH=/opt/postgres/lib:/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "p.application.start(\"dcpm\")"',
+    args:'',
+    prio:10,
     cwd:'/opt/qbase5',
-    filterstr:'dcpm',
+    timeout_start:10,
+    timeout_stop:10,
     ports:,
-    prio:'10',
-    startupmanager:'tmux',
-    timeout_start:'10',
-    timeout_stop:'10',
-
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
-url                            = 'https://git.aydo.com/racktivity/dcpm'
+    startupmanager:tmux,
+    filterstr:'dcpm'

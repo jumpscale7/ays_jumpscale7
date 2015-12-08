@@ -88,7 +88,7 @@ dpkg-reconfigure locales
         for cmd in cmds:
             j.system.process.execute(cmd)
 
-	j.system.fs.copyFile(os.path.join(DCPM_NOAUTH_CONFIG_PATH, 'oauth.js'), '/opt/qbase5/pyapps/dcpm/portal/static/js/oauth.js')
+	    j.system.fs.copyFile(os.path.join(DCPM_NOAUTH_CONFIG_PATH, 'oauth.js'), '/opt/qbase5/pyapps/dcpm/portal/static/js/oauth.js')
         j.system.process.execute('/opt/qbase5/qshell -c "p.application.restart(\'dcpm\')"')
 
         # print "Please install DCPM app in qbase by executing:\n/opt/qbase5/qshell -c \"p.application.install('dcpm')\""
