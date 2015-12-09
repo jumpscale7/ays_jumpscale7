@@ -92,3 +92,9 @@ dpkg-reconfigure locales
         j.system.process.execute('/opt/qbase5/qshell -c "p.application.restart(\'dcpm\')"')
 
         # print "Please install DCPM app in qbase by executing:\n/opt/qbase5/qshell -c \"p.application.install('dcpm')\""
+
+    def start(self, serviceObj):
+	j.system.process.execute('/opt/qbase5/qshell -c "p.application.start(\'dcpm\')"')
+
+    def stop(self, serviceObj):
+	j.system.process.execute('/opt/qbase5/qshell -c "p.application.stop(\'dcpm\')"')
