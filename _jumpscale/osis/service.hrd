@@ -51,6 +51,6 @@ process.1                      =
     filterstr:,
     ports:'5544',
     prio:'10',
-    startupmanager:'tmux',
+    startupmanager:'upstart',
     timeout_start:'10',
     timeout_stop:'10',
