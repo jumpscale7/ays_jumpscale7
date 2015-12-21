@@ -1,0 +1,4 @@
+remote.host=@ASK descr:'remote docker host'
+remote.port=@ASK descr:'remote docker port'
+public.address=@ASK descr:'docker public ip address'
+image.base=@ASK descr:'docker base image'
