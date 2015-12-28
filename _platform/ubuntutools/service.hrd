@@ -12,3 +12,4 @@ git.url                        = 'http://git.aydo.com/binary/ubuntutools'
 
 platform.supported             =
     'ubuntu',
+

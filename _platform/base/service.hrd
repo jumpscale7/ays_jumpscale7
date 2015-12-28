@@ -25,3 +25,4 @@ git.url                        = 'http://git.aydo.com/binary/base_python'
 
 platform.supported             =
     'linux64',
+

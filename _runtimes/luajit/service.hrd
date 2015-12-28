@@ -18,3 +18,4 @@ param.base                     = '/opt/luajit'
 
 platform.supported             =
     'linux64',
+

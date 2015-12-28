@@ -30,3 +30,4 @@ instances.maxnr                = '10'
 
 platform.supported             =
     'linux64',
+

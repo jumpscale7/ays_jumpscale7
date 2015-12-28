@@ -55,3 +55,4 @@ ubuntu.apt.upgrade             = 'True'
 ubuntu.packages                =
     'mc',
     'pydio',
+

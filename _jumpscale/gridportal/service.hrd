@@ -12,6 +12,7 @@ dependencies.4                 =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
+    branch:'7.0',
     dest:'$(system.paths.base)/apps/portals/$(instance.portal.instance)/base/',
     link:'True',
     source:'apps/gridportal/base/*',
@@ -26,3 +27,4 @@ instances.maxnr                = '10'
 
 platform.supported             =
     'linux64',
+

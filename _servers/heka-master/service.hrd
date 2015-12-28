@@ -36,3 +36,4 @@ process.1                      =
     filterstr:'$(service.base)/master-configs',
     name:'$(service.instance)_$(service.name)',
     ports:'8325',
+

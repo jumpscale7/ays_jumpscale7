@@ -18,6 +18,7 @@ dependencies.2                 =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
+    branch:'7.0',
     dest:'$(system.paths.base)/apps/jsagent/',
     link:'True',
     source:'apps/jsagent/*',
@@ -44,3 +45,4 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'20',
     timeout_stop:'20',
+
