@@ -4,6 +4,6 @@ git.export.1                   =
     dest:'$(service.base)/',
     link:'True',
     source:'go/',
-    url:'$(service.git.url)',
+    url:'http://git.aydo.com/binary/go',
 
 git.url                        = 'http://git.aydo.com/binary/go'
