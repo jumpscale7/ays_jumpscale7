@@ -1,2 +1,3 @@
 param.rootpasswd=rooter
 param.osis.client.addr=localhost
+param.grid.id=@ASK type:str descr:'grid id'
