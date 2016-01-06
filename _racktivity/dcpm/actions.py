@@ -97,10 +97,10 @@ dpkg-reconfigure locales
 	try:
 	    j.system.process.execute('/opt/qbase5/qshell -c "p.application.start(\'dcpm\')"')
 	except Exception, e:
-	    print "Could not start DCPM - %s" % e.msg
+	    print "Could not start DCPM - %s" % e
 
     def stop(self, serviceObj):
 	try:
 	    j.system.process.execute('/opt/qbase5/qshell -c "p.application.stop(\'dcpm\')"')
 	except Exception, e:
-	    print "Could not stop DCPM - %s" % e.msg
+	    print "Could not stop DCPM - %s" % e
