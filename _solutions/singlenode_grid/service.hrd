@@ -21,7 +21,7 @@ dep.args.gridportal            =
 
 dep.args.jsagent               =
     agentcontroller.connection:'main',
-    grid.id:'1',
+    grid.id:$(instance.param.grid.id),
     grid.node.roles:'node',
     osis.connection:'main',
 
