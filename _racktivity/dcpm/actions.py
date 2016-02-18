@@ -3,6 +3,8 @@ from JumpScale import j
 ActionsBase = j.atyourservice.getActionsBaseClass()
 import os.path
 
+_VERSION = "2.0.0"  # Todo: Make this value non-hardcoded
+
 
 class Actions(ActionsBase):
 
@@ -89,7 +91,9 @@ dpkg-reconfigure locales
             j.system.process.execute(cmd)
 
 	j.system.fs.copyFile(os.path.join(DCPM_NOAUTH_CONFIG_PATH, 'oauth.js'), '/opt/qbase5/pyapps/dcpm/portal/static/js/oauth.js')
+	j.system.process.execute('/opt/qbase5/qshell -c "from racktivity import settings; settings.setValue(\'software.version\', \'' + _VERSION + '\')"')
         j.system.process.execute('/opt/qbase5/qshell -c "p.application.restart(\'dcpm\')"')
+	j.system.process.execute('/opt/qbase5/qshell -c "from racktivity import generator; generator.generateSettings()"')
 
         # print "Please install DCPM app in qbase by executing:\n/opt/qbase5/qshell -c \"p.application.install('dcpm')\""
 
