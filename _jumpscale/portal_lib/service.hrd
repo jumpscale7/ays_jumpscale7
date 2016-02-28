@@ -18,7 +18,7 @@ git.export.3                   =
     dest:'$(system.paths.python.lib.js)/portal',
     link:'True',
     source:'lib/portal',
-    url:'https://github.com/Jumpscale7/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
 git.url                        = 'http://git.aydo.com/binary/web_python'
