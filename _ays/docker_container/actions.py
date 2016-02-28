@@ -22,7 +22,7 @@ class Actions(ActionsBase):
                         serviceObj=serviceObj)
 
         def installJumpscale():
-            self.execute(self, "curl https://raw.githubusercontent.com/Jumpscale\
+            self.execute(self, "curl https://raw.githubusercontent.com/jumpscale7\
                                 /jumpscale_core7/master/install/install_python_web.sh\
                                 >/tmp/js7.sh && bash /tmp/js7.sh")
 
