@@ -7,9 +7,9 @@ git.export.1                   =
     dest:'$(system.paths.python.lib.js)/portal',
     link:'True',
     source:'lib/portal',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/Jumpscale7/jumpscale_portal/',
 
-git.url                        = 'https://github.com/Jumpscale/jumpscale_portal/'
+git.url                        = 'https://github.com/Jumpscale7/jumpscale_portal/'
 
 instances.maxnr                = '1'
 
