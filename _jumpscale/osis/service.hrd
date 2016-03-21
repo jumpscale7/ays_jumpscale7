@@ -13,25 +13,25 @@ env.process.1                  =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
-    branch:'7.0',
     dest:'$(system.paths.base)/apps/osis/',
     link:'True',
     nodirs:'True',
     source:'apps/osis/*',
+    tag:'7.0.4rc2',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.2                   =
-    branch:'7.0',
     dest:'$(system.paths.base)/apps/osis/logic/',
     link:'True',
     source:'apps/osis/logic/*',
+    tag:'7.0.4rc2',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.3                   =
-    branch:'7.0',
     dest:'$(system.paths.base)/apps/osis/tests/',
     link:'True',
     source:'apps/osis/tests/*',
+    tag:'7.0.4rc2',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
