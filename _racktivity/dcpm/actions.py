@@ -83,7 +83,8 @@ dpkg-reconfigure locales
 
         cmds = ['rm -rf /opt/qbase5/lib/python/site-packages/pytz*',
                 'apt-get install python-pip -y',
-                'pip install --target=/opt/qbase5/lib/python/site-packages/ pytz',
+                'mkdir -p /root/.pip/.cache',
+                'pip install --target=/opt/qbase5/lib/python/site-packages/ --find-links=/root/.pip/.cache pytz',
                 '/opt/qbase5/qshell -c "p.application.install(\'dcpm\')"',
                 'chown -R syslog:adm /opt/qbase5/var/log/dcpm/']
 
