@@ -21,7 +21,7 @@ dep.args.postgresql            =
 env.process.1                  =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
-url                            = 'https://git.aydo.com/racktivity/dcpm'
+url                            = 'https://github.com/racktivity/dcpm'
 
 git.export.1                   =
     branch:'2.0.0',

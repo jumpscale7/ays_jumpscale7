@@ -9,7 +9,7 @@ git.export.1                   =
     merge:'True',
     nodirs:'False',
     source:'qbase5/*',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-core',
+    url:'https://github.com/racktivity/ext-pylabs-core',
 
 git.export.10                  =
     branch:'master',
@@ -25,14 +25,14 @@ git.export.15                  =
     link:'False',
     nodirs:'False',
     source:'code/osis',
-    url:'https://git.aydo.com/racktivity/ext-OSIS',
+    url:'https://github.com/racktivity/ext-OSIS',
 
 git.export.16                  =
     dest:'/opt/qbase5/lib/pylabs/extensions/api_generator/defaults',
     link:'False',
     nodirs:'False',
     source:'pyapp',
-    url:'https://git.aydo.com/racktivity/ext-OSIS',
+    url:'https://github.com/racktivity/ext-OSIS',
 
 git.export.17                  =
     branch:'0.5',
@@ -40,7 +40,7 @@ git.export.17                  =
     link:'False',
     nodirs:'False',
     source:'osis_connection_config',
-    url:'https://git.aydo.com/racktivity/ext-OSIS',
+    url:'https://github.com/racktivity/ext-OSIS',
 
 git.export.18                  =
     branch:'js7',
@@ -48,7 +48,7 @@ git.export.18                  =
     link:'False',
     nodirs:'False',
     source:'htdocs',
-    url:'https://git.aydo.com/racktivity/ext-lfw',
+    url:'https://github.com/racktivity/ext-lfw',
 
 git.export.19                  =
     branch:'js7',
@@ -56,14 +56,14 @@ git.export.19                  =
     link:'False',
     nodirs:'False',
     source:'services/lfw',
-    url:'https://git.aydo.com/racktivity/ext-lfw',
+    url:'https://github.com/racktivity/ext-lfw',
 
 git.export.2                   =
     dest:'/opt/qbase5/apps/applicationserver/',
     link:'False',
     nodirs:'False',
     source:'apps/applicationserver/*',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-core',
+    url:'https://github.com/racktivity/ext-pylabs-core',
 
 git.export.20                  =
     branch:'js7',
@@ -71,7 +71,7 @@ git.export.20                  =
     link:'False',
     nodirs:'False',
     source:'pylabsmacro',
-    url:'https://git.aydo.com/racktivity/ext-lfw',
+    url:'https://github.com/racktivity/ext-lfw',
 
 git.export.21                  =
     branch:'js7',
@@ -79,7 +79,7 @@ git.export.21                  =
     link:'False',
     nodirs:'False',
     source:'client',
-    url:'https://git.aydo.com/racktivity/ext-lfw',
+    url:'https://github.com/racktivity/ext-lfw',
 
 git.export.22                  =
     branch:'js7',
@@ -87,7 +87,7 @@ git.export.22                  =
     link:'False',
     nodirs:'False',
     source:'services/oauth_service/lib/oauth2',
-    url:'https://git.aydo.com/racktivity/ext-lfw',
+    url:'https://github.com/racktivity/ext-lfw',
 
 git.export.23                  =
     branch:'js7',
@@ -95,7 +95,7 @@ git.export.23                  =
     link:'False',
     nodirs:'False',
     source:'pyapp/*',
-    url:'https://git.aydo.com/racktivity/ext-lfw',
+    url:'https://github.com/racktivity/ext-lfw',
 
 git.export.24                  =
     branch:'js7',
@@ -103,7 +103,7 @@ git.export.24                  =
     link:'False',
     nodirs:'False',
     source:'services/oauth_service/lib/httplib2',
-    url:'https://git.aydo.com/racktivity/ext-lfw',
+    url:'https://github.com/racktivity/ext-lfw',
 
 git.export.25                  =
     branch:'pylabs5',
@@ -111,7 +111,7 @@ git.export.25                  =
     link:'False',
     nodirs:'False',
     source:'apps/cloud_api_generator/*',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-core',
+    url:'https://github.com/racktivity/ext-pylabs-core',
 
 git.export.26                  =
     branch:'pylabs5',
@@ -119,7 +119,7 @@ git.export.26                  =
     link:'False',
     nodirs:'False',
     source:'workflowengine/lib',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+    url:'https://github.com/racktivity/ext-pylabs-workflowengine',
 
 git.export.27                  =
     branch:'pylabs5',
@@ -127,7 +127,7 @@ git.export.27                  =
     link:'False',
     nodirs:'False',
     source:'workflowengine/manage',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+    url:'https://github.com/racktivity/ext-pylabs-workflowengine',
 
 git.export.28                  =
     branch:'pylabs5',
@@ -135,7 +135,7 @@ git.export.28                  =
     link:'False',
     nodirs:'False',
     source:'workflowengine/bin',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+    url:'https://github.com/racktivity/ext-pylabs-workflowengine',
 
 git.export.29                  =
     branch:'pylabs5',
@@ -143,14 +143,14 @@ git.export.29                  =
     link:'False',
     nodirs:'False',
     source:'workflowengine/debug_service',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+    url:'https://github.com/racktivity/ext-pylabs-workflowengine',
 
 git.export.3                   =
     dest:'/opt/qbase5/lib/pylabs/core/pylabs/',
     link:'False',
     nodirs:'False',
     source:'core/*',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-core',
+    url:'https://github.com/racktivity/ext-pylabs-core',
 
 git.export.30                  =
     branch:'pylabs5',
@@ -158,28 +158,28 @@ git.export.30                  =
     link:'False',
     nodirs:'False',
     source:'workflowengine/pyapp',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-workflowengine',
+    url:'https://github.com/racktivity/ext-pylabs-workflowengine',
 
 git.export.4                   =
     dest:'/opt/qbase5/lib/pylabs/extensions/',
     link:'False',
     nodirs:'False',
     source:'extensions',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-core',
+    url:'https://github.com/racktivity/ext-pylabs-core',
 
 git.export.5                   =
     dest:'/opt/qbase5/lib/python/site-packages/',
     link:'False',
     nodirs:'False',
     source:'lib/*',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-core',
+    url:'https://github.com/racktivity/ext-pylabs-core',
 
 git.export.6                   =
     dest:'/opt/qbase5/utils/',
     link:'False',
     nodirs:'False',
     source:'utils/*',
-    url:'https://git.aydo.com/racktivity/ext-pylabs-core',
+    url:'https://github.com/racktivity/ext-pylabs-core',
 
 git.export.7                   =
     branch:'pylabs5',
@@ -187,7 +187,7 @@ git.export.7                   =
     link:'False',
     nodirs:'False',
     source:'agent/',
-    url:'https://git.aydo.com/racktivity/ext-pylabs_agent',
+    url:'https://github.com/racktivity/ext-pylabs_agent',
 
 git.export.8                   =
     branch:'pylabs5',
@@ -195,7 +195,7 @@ git.export.8                   =
     link:'False',
     nodirs:'False',
     source:'agent_service/',
-    url:'https://git.aydo.com/racktivity/ext-pylabs_agent',
+    url:'https://github.com/racktivity/ext-pylabs_agent',
 
 git.export.9                   =
     branch:'coffee',
@@ -203,9 +203,9 @@ git.export.9                   =
     link:'False',
     nodirs:'False',
     source:,
-    url:'https://git.aydo.com/racktivity/ext-jswizards',
+    url:'https://github.com/racktivity/ext-jswizards',
 
-git.url                        = 'https://git.aydo.com/racktivity/ext-pylabs-core'
+git.url                        = 'https://github.com/racktivity/ext-pylabs-core'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '1'

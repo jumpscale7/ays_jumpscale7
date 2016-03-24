@@ -34,7 +34,7 @@ class Actions(ActionsBase):
             
     def build(self, serviceObj):
         bashrc = os.environ['HOME'] + "/" + ".bashrc"
-        if not os.path.exists('/opt/build/git.aydo.com/racktivity/rtpoller/src'):
-            j.do.execute('mkdir /opt/build/git.aydo.com/racktivity/rtpoller/src')
-        j.do.execute(". %s && GOPATH=$GOPATH:/opt/build/git.aydo.com/racktivity/rtpoller/ && cp -r /opt/build/git.aydo.com/racktivity/rtpoller/gorest/ /opt/build/git.aydo.com/racktivity/rtpoller/src && cd /opt/build/git.aydo.com/racktivity/rtpoller/src/gorest && godep restore && go build && cp /opt/build/git.aydo.com/racktivity/rtpoller/src/gorest/gorest /opt/code/git/binary/rtpoller/rtpoller/rtrelay" % bashrc)
+        if not os.path.exists('/opt/build/github.com/racktivity/rtpoller/src'):
+            j.do.execute('mkdir /opt/build/github.com/racktivity/rtpoller/src')
+        j.do.execute(". %s && GOPATH=$GOPATH:/opt/build/github.com/racktivity/rtpoller/ && cp -r /opt/build/github.com/racktivity/rtpoller/gorest/ /opt/build/github.com/racktivity/rtpoller/src && cd /opt/build/github.com/racktivity/rtpoller/src/gorest && godep restore && go build && cp /opt/build/github.com/racktivity/rtpoller/src/gorest/gorest /opt/code/git/binary/rtpoller/rtpoller/rtrelay" % bashrc)
         j.do.pushGitRepos(message="rtrelay new build", name='rtpoller', account='binary')
