@@ -9,7 +9,7 @@ dependencies.1                 =
 env.process.1                  = 
 
 git.build.1                    =
-    url:'https://git.aydo.com/racktivity/rtpoller.git',
+    url:'https://github.com/racktivity/rtpoller.git',
 
 git.export.1                   =
     branch:'master',
@@ -38,4 +38,4 @@ process.1                      =
     timeout_start:'10',
     timeout_stop:'10',
 
-sourceurl                      = 'https://git.aydo.com/racktivity/rtpoller'
+sourceurl                      = 'https://github.com/racktivity/rtpoller'
