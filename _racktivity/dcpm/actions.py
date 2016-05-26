@@ -3,7 +3,7 @@ from JumpScale import j
 ActionsBase = j.atyourservice.getActionsBaseClass()
 import os.path
 
-_VERSION = "2.0.0"  # Todo: Make this value non-hardcoded
+_VERSION = "2.0.1"  # Todo: Make this value non-hardcoded
 
 
 class Actions(ActionsBase):
