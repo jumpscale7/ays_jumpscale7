@@ -1,31 +1,31 @@
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
-    branch:'7.1',
     dest:'$(system.paths.base)/apps/agentcontroller/controller.py',
     link:'True',
     source:'apps/agentcontroller/controller.py',
+    tag:'7.1.0b9',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.2                   =
-    branch:'7.1',
     dest:'$(system.paths.base)/apps/agentcontroller/jumpscripts/core',
     link:'True',
     source:'apps/agentcontroller/jumpscripts/core',
+    tag:'7.1.0b9',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.3                   =
-    branch:'7.1',
     dest:'$(system.paths.base)/apps/agentcontroller/processmanager',
     link:'True',
     source:'apps/agentcontroller/processmanager',
+    tag:'7.1.0b9',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.4                   =
-    branch:'7.1',
     dest:'$(system.paths.base)/apps/agentcontroller/luajumpscripts/jumpscale',
     link:'True',
     source:'apps/agentcontroller/luajumpscripts/jumpscale',
+    tag:'7.1.0b9',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
