@@ -20,7 +20,7 @@ dependencies.3                 =
 env.process.1                  = 
 
 git.export.1                   =
-    branch:'2.0.0',
+    branch:'2.0.2',
     dest:'/opt/qbase5/pyapps/dcpm/',
     link:'False',
     nodirs:'False',
@@ -28,7 +28,7 @@ git.export.1                   =
     url:'https://github.com/racktivity/dcpm',
 
 git.export.2                   =
-    branch:'2.0.0',
+    branch:'2.0.2',
     dest:'/opt/qbase5/pyapps/dcpm/interface/action/',
     link:'False',
     nodirs:'False',
@@ -36,7 +36,7 @@ git.export.2                   =
     url:'https://github.com/racktivity/dcpm',
 
 git.export.3                   =
-    branch:'2.0.0',
+    branch:'2.0.2',
     dest:'/opt/qbase5/pyapps/dcpm/interface/model/',
     link:'False',
     nodirs:'False',
@@ -44,14 +44,14 @@ git.export.3                   =
     url:'https://github.com/racktivity/dcpm',
 
 git.export.4                   =
-    branch:'2.0.0',
+    branch:'2.0.2',
     dest:'/opt/qbase5/lib/pylabs/extensions/',
     link:'False',
     source:'lib/pylabs/extensions/*',
     url:'https://github.com/racktivity/dcpm',
 
 git.export.5                   =
-    branch:'2.0.0',
+    branch:'2.0.2',
     dest:'/opt/qbase5/bin/',
     link:'False',
     nodirs:'False',
@@ -59,7 +59,7 @@ git.export.5                   =
     url:'https://github.com/racktivity/dcpm',
 
 git.export.6                   =
-    branch:'2.0.0',
+    branch:'2.0.2',
     dest:'/opt/qbase5/lib/python/site-packages/',
     link:'False',
     nodirs:'False',
