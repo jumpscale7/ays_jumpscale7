@@ -24,7 +24,7 @@ env.process.1                  =
 url                            = 'https://github.com/racktivity/dcpm'
 
 git.export.1                   =
-    branch:'2.0.2',
+    branch:'sqlalchemy_fixes',
     dest:'/opt/qbase5/pyapps/dcpm/',
     link:'False',
     nodirs:'False',
@@ -32,7 +32,7 @@ git.export.1                   =
     url: $(url),
 
 git.export.2                   =
-    branch:'2.0.2',
+    branch:'sqlalchemy_fixes',
     dest:'/opt/qbase5/pyapps/dcpm/interface/action/',
     link:'False',
     nodirs:'False',
@@ -40,7 +40,7 @@ git.export.2                   =
     url: $(url),
 
 git.export.3                   =
-    branch:'2.0.2',
+    branch:'sqlalchemy_fixes',
     dest:'/opt/qbase5/pyapps/dcpm/interface/model/',
     link:'False',
     nodirs:'False',
@@ -48,14 +48,14 @@ git.export.3                   =
     url: $(url),
 
 git.export.4                   =
-    branch:'2.0.2',
+    branch:'sqlalchemy_fixes',
     dest:'/opt/qbase5/lib/pylabs/extensions/',
     link:'False',
     source:'lib/pylabs/extensions/*',
     url: $(url),
 
 git.export.5                   =
-    branch:'2.0.2',
+    branch:'sqlalchemy_fixes',
     dest:'/opt/qbase5/bin/',
     link:'False',
     nodirs:'False',
@@ -63,7 +63,7 @@ git.export.5                   =
     url: $(url),
 
 git.export.6                   =
-    branch:'2.0.2',
+    branch:'sqlalchemy_fixes',
     dest:'/opt/qbase5/lib/python/site-packages/',
     link:'False',
     nodirs:'False',
