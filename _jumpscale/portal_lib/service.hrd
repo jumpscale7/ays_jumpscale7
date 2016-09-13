@@ -14,7 +14,7 @@ git.export.2                   =
     url:'http://git.aydo.com/binary/web_python',
 
 git.export.3                   =
-    branch:'7.1',
+    branch:'7.1.5',
     dest:'$(system.paths.python.lib.js)/portal',
     link:'True',
     source:'lib/portal',

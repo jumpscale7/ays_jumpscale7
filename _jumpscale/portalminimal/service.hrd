@@ -4,21 +4,21 @@ dependencies.1                 =
 env.process.1                  = 
 
 git.export.1                   =
-    branch:'7.1',
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/portalminimal/$(service.instance)/portal_start.py',
     link:'True',
     source:'apps/portalminimal/portal_start.py',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.2                   =
-    branch:'7.1',
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/portalminimal/$(service.instance)/base/home/',
     link:'True',
     source:'apps/portalminimal/home/',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.3                   =
-    branch:'7.1',
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/portalminimal/macros/',
     link:'True',
     source:'apps/portalminimal/macros/*',
