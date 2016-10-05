@@ -26,9 +26,9 @@ git.export.2                   =
 
 git.export.3                   =
     branch:'7.1.5',
-    dest:'$(system.paths.base)/apps/portals/portalbase/wiki/',
+    dest:'$(system.paths.base)/apps/portals/portalbase/wiki/System',
     link:'True',
-    source:'apps/portalbase/wiki/*',
+    source:'apps/portalbase/wiki/System',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.4                   =
@@ -71,4 +71,3 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'10',
     timeout_stop:'10',
-
