@@ -1,0 +1,13 @@
+git.export.1                   =
+    dest:'/usr/local/lib/python2.7/site-packages/',
+    link:'True',
+    overwrite:'False platform:linux64',
+    source:'*',
+    url:'http://git.aydo.com/binary/pycapnp',
+
+git.url                        = 'https://github.com/binary/pycapnp/'
+
+instances.maxnr                = '1'
+
+platform.supported             =
+    'linux64',
