@@ -38,23 +38,9 @@ dep.args.osis_eve              =
 dep.args.singlenode_portal     =
     param.rootpasswd:'$(instance.param.rootpasswd)',
 
-dep.args.statsd-collector      =
-    statsd.master.host:'localhost',
-
-dep.args.statsd-master         =
-    param.influxdb.connection:'main',
-
 dependencies.1                 =
     args:'dep.args.singlenode_portal',
     name:'singlenode_portal',
-
-dependencies.10                =
-    args:'dep.args.statsd-master',
-    name:'statsd-master',
-
-dependencies.11                =
-    args:'dep.args.statsd-collector',
-    name:'statsd-collector',
 
 dependencies.12                =
     args:'dep.args.grafanaclient',
@@ -92,4 +78,3 @@ dependencies.8                 =
 dependencies.9                 =
     args:'dep.args.gridportal',
     name:'gridportal',
-
