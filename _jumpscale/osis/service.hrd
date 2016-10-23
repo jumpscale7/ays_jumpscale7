@@ -13,26 +13,29 @@ env.process.1                  =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis/',
     link:'True',
     nodirs:'True',
     source:'apps/osis/*',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.2                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis/logic/',
     link:'True',
     source:'apps/osis/logic/*',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.3                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis/tests/',
     link:'True',
     source:'apps/osis/tests/*',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
-git.url                        = 'https://github.com/Jumpscale/jumpscale_core7/'
+git.url                        = 'https://github.com/jumpscale7/jumpscale_core7/'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '10'
@@ -54,3 +57,4 @@ process.1                      =
     startupmanager:'upstart',
     timeout_start:'10',
     timeout_stop:'10',
+

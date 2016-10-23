@@ -14,3 +14,4 @@ git.url                        = 'http://git.aydo.com/binary/web_python'
 
 platform.supported             =
     'linux64',
+

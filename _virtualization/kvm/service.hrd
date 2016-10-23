@@ -20,3 +20,4 @@ ubuntu.packages                =
     'libvirt-bin',
     'bridge-utils',
     'curlftpfs',
+

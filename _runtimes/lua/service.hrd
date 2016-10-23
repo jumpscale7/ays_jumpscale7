@@ -11,3 +11,4 @@ git.url                        = 'http://git.aydo.com/binary/lua'
 
 platform.supported             =
     'linux64',
+

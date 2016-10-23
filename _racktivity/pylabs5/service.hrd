@@ -213,3 +213,4 @@ instances.maxnr                = '1'
 #name of packages which need to be installed locally
 platform.supported             =
     'linux64',
+

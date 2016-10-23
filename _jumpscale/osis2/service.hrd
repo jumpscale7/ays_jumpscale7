@@ -5,34 +5,39 @@ dependencies.2                 =
     name:'web',
 
 git.export.1                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis2/app',
     link:'True',
     source:'apps/osis2/app',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.2                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis2/tests',
     link:'True',
     source:'apps/osis2/tests',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.3                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis2/models/',
     link:'False',
     source:'apps/osis2/models/',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.4                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis2/osis2play.py',
     link:'False',
     source:'apps/osis2/osis2play.py',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.5                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/osis2/osis2.py',
     link:'True',
     source:'apps/osis2/osis2.py',
-    url:'https://github.com/Jumpscale/jumpscale_core7/',
+    url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '10'
@@ -50,3 +55,4 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'10',
     timeout_stop:'10',
+

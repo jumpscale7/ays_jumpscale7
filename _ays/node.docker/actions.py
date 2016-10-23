@@ -20,7 +20,7 @@ class Actions(ActionsBase):
             self.execute(
                 self,
                 ("cd /tmp;rm -f install.sh;curl " +
-                 "-k https://raw.githubusercontent.com/Jumpscale/jumpscale_core7/master/install/install.sh > " +
+                 "-k https://raw.githubusercontent.com/jumpscale7/jumpscale_core7/master/install/install.sh > " +
                  "install.sh;bash install.sh")
             )
         j.actions.start(name="install jumpscale", description='install Jumpscale',

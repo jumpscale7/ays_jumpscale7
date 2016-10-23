@@ -11,42 +11,48 @@ dependencies.3                 =
 env.process.1                  = 
 
 git.export.1                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/portalbase/macros/',
     link:'True',
     source:'apps/portalbase/macros/*',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.2                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/portalbase/system/',
     link:'True',
     source:'apps/portalbase/system/*',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.3                   =
-    dest:'$(system.paths.base)/apps/portals/portalbase/wiki/',
+    branch:'7.1.5',
+    dest:'$(system.paths.base)/apps/portals/portalbase/wiki/System',
     link:'True',
-    source:'apps/portalbase/wiki/*',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    source:'apps/portalbase/wiki/System',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.4                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/portalbase/templates/',
     link:'True',
     source:'apps/portalbase/templates/*',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.5                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/$(service.instance)/portal_start.py',
     link:'True',
     source:'apps/portalbase/portal_start.py',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.6                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/portals/$(service.instance)/base/home/',
     link:'True',
     source:'apps/portalbase/home/',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
-git.url                        = 'https://github.com/Jumpscale/jumpscale_portal/'
+git.url                        = 'https://github.com/jumpscale7/jumpscale_portal/'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '10'

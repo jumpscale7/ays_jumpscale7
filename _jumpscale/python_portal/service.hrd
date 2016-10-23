@@ -3,14 +3,16 @@ dependencies.1                 =
     name:'portal_lib',
 
 git.export.1                   =
+    branch:'7.1.5',
     dest:'$(system.paths.python.lib.js)/portal',
     link:'True',
     source:'lib/portal',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
-git.url                        = 'https://github.com/Jumpscale/jumpscale_portal/'
+git.url                        = 'https://github.com/jumpscale7/jumpscale_portal/'
 
 instances.maxnr                = '1'
 
 platform.supported             =
     'linux64',
+

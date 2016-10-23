@@ -1,0 +1,14 @@
+git.export.1                   =
+    dest:'/opt/jumpscale7/lib/',
+    link:'True',
+    overwrite:'False',
+    platform:'linux64',
+    source:'*',
+    url:'http://git.aydo.com/binary/pycapnp',
+
+git.url                        = 'https://github.com/binary/pycapnp/'
+
+instances.maxnr                = '1'
+
+platform.supported             =
+    'linux64',

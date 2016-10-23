@@ -1,0 +1,2 @@
+jwt.secret = @ASK type:multiline
+jwt.algo = @ASK type:string

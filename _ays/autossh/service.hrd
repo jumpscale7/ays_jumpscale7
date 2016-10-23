@@ -1,6 +1,6 @@
 process.1                      =
     args:,
-    cmd:'autossh -o "StrictHostKeyChecking no" -NR $(instance.remote.bind):$(instance.remote.port):$(instance.local.address):$(instance.local.port) $(instance.remote.login)@$(instance.remote.address) -p $(instance.remote.connection.port)',
+    cmd:'/usr/bin/autossh -o "StrictHostKeyChecking no" -NR $(instance.remote.bind):$(instance.remote.port):$(instance.local.address):$(instance.local.port) $(instance.remote.login)@$(instance.remote.address) -p $(instance.remote.connection.port)',
     cwd:,
     filterstr:'$(instance.remote.bind):$(instance.remote.port):$(instance.local.address):$(instance.local.port) $(instance.remote.login)@$(instance.remote.address)',
     ports:,
@@ -11,3 +11,4 @@ process.1                      =
 
 ubuntu.packages                =
     'autossh',
+

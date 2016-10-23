@@ -3,13 +3,14 @@ dependencies.1                 =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
+    branch:'7.1.5',
     dest:'$(system.paths.base)/apps/eve',
     link:'True',
     source:'apps/eve/',
-    url:'https://github.com/Jumpscale/jumpscale_portal/',
+    url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
-git.url                        = 'https://github.com/Jumpscale/jumpscale_portal/'
+git.url                        = 'https://github.com/jumpscale7/jumpscale_portal/'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '10'
@@ -27,3 +28,4 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'10',
     timeout_stop:'10',
+

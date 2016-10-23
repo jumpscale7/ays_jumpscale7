@@ -38,4 +38,8 @@ process.1                      =
     timeout_start:'10',
     timeout_stop:'10',
 
+<<<<<<< HEAD
 sourceurl                      = 'https://github.com/racktivity/rtpoller'
+=======
+sourceurl                      = 'https://git.aydo.com/racktivity/rtpoller'
+>>>>>>> 7.1.5

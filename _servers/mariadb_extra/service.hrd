@@ -7,9 +7,9 @@ files.link                     = 'false'
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
     dest:'/',
-    git:'http://git.aydo.com/binary/mariadb_extra_linux64',
     link:'false',
     source:'root',
+    url:'http://git.aydo.com/binary/mariadb_extra_linux64',
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
 git.url                        = 'http://git.aydo.com/binary/mariadb_extra_linux64'
@@ -30,3 +30,4 @@ process.1                      =
     startupmanager:'upstart',
     timeout_start:'10',
     timeout_stop:'10',
+
