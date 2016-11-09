@@ -21,6 +21,11 @@ param.base                     = '/opt/nginx'
 platform.supported             =
     'linux64',
 
+ubuntu.packages                = 
+    'libgeoip1',
+    'libxslt1.1',
+    'libxml2',
+
 process.1                      =
     args:,
     cmd:'./nginx -c /opt/nginx/cfg/nginx.conf',

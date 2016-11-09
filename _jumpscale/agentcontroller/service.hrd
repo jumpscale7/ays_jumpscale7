@@ -38,6 +38,8 @@ instances.maxnr                = '10'
 platform.supported             =
     'linux64',
 
+ubuntu.packages                = 'libmhash2'
+
 process.1                      =
     args:'controller.py -i $(service.instance)',
     cmd:'jspython',
