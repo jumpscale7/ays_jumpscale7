@@ -4,6 +4,7 @@ git.export.1                   =
     link:'False',
     overwrite:'False',
     source:'root/bin/',
+    branch:'nosandbox',
     url:'http://git.aydo.com/binary/base_python',
 
 git.export.2                   =
