@@ -1,10 +1,10 @@
 git.export.1                   =
+    branch:'nosandbox',
     depth:'1',
     dest:'/opt/jumpscale7/bin/',
     link:'False',
     overwrite:'False',
     source:'root/bin/',
-    branch:'nosandbox',
     url:'http://git.aydo.com/binary/base_python',
 
 git.export.2                   =

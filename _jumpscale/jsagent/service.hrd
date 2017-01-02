@@ -18,7 +18,7 @@ dependencies.2                 =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
-    branch:'master',
+    branch:'7.1.7',
     dest:'$(system.paths.base)/apps/jsagent/',
     link:'True',
     source:'apps/jsagent/*',
@@ -34,8 +34,6 @@ instances.maxnr                = '10'
 platform.supported             =
     'linux64',
 
-ubuntu.packages                = 'libmhash2'
-
 process.1                      =
     args:'jsagent.py -i $(service.instance)',
     cmd:'jspython',
@@ -48,3 +46,4 @@ process.1                      =
     timeout_start:'20',
     timeout_stop:'20',
 
+ubuntu.packages                = 'libmhash2'

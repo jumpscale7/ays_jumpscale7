@@ -13,7 +13,7 @@ env.process.1                  =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
-    branch:'master',
+    branch:'7.1.7',
     dest:'$(system.paths.base)/apps/osis/',
     link:'True',
     nodirs:'True',
@@ -21,14 +21,14 @@ git.export.1                   =
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.2                   =
-    branch:'master',
+    branch:'7.1.7',
     dest:'$(system.paths.base)/apps/osis/logic/',
     link:'True',
     source:'apps/osis/logic/*',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 git.export.3                   =
-    branch:'master',
+    branch:'7.1.7',
     dest:'$(system.paths.base)/apps/osis/tests/',
     link:'True',
     source:'apps/osis/tests/*',

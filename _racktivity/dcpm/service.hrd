@@ -1,3 +1,11 @@
+dep.args.nginx                 =
+    param.basedir:'/etc/nginx',
+    param.vardir:'/opt/qbase5/var/',
+
+dep.args.postgresql            =
+    param.port:'5432',
+    param.rootpasswd:'rooter',
+
 dependencies.1                 =
     name:'pylabs5',
 
@@ -9,19 +17,7 @@ dependencies.3                 =
     args:'dep.args.nginx',
     name:'nginx',
 
-dep.args.nginx                 =
-    param.basedir:'/etc/nginx',
-    param.vardir:'/opt/qbase5/var/',
-
-dep.args.postgresql            =
-    param.port:'5432',
-    param.rootpasswd:'rooter',
-
-
-env.process.1                  =
-
-#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
-url                            = 'https://github.com/racktivity/dcpm'
+env.process.1                  = 
 
 git.export.1                   =
     branch:'2.0.0',
@@ -29,7 +25,7 @@ git.export.1                   =
     link:'False',
     nodirs:'False',
     source:'pyapps/dcpm/*',
-    url: $(url),
+    url:'https://github.com/racktivity/dcpm',
 
 git.export.2                   =
     branch:'2.0.0',
@@ -37,7 +33,7 @@ git.export.2                   =
     link:'False',
     nodirs:'False',
     source:'pyapps/upgrademanager/interface/action/*',
-    url: $(url),
+    url:'https://github.com/racktivity/dcpm',
 
 git.export.3                   =
     branch:'2.0.0',
@@ -45,14 +41,14 @@ git.export.3                   =
     link:'False',
     nodirs:'False',
     source:'pyapps/upgrademanager/interface/model/*',
-    url: $(url),
+    url:'https://github.com/racktivity/dcpm',
 
 git.export.4                   =
     branch:'2.0.0',
     dest:'/opt/qbase5/lib/pylabs/extensions/',
     link:'False',
     source:'lib/pylabs/extensions/*',
-    url: $(url),
+    url:'https://github.com/racktivity/dcpm',
 
 git.export.5                   =
     branch:'2.0.0',
@@ -60,7 +56,7 @@ git.export.5                   =
     link:'False',
     nodirs:'False',
     source:'bin/*',
-    url: $(url),
+    url:'https://github.com/racktivity/dcpm',
 
 git.export.6                   =
     branch:'2.0.0',
@@ -69,7 +65,7 @@ git.export.6                   =
     nodirs:'False',
     overwrite:'True',
     source:'lib/python/site-packages/*',
-    url: $(url),
+    url:'https://github.com/racktivity/dcpm',
 
 git.export.7                   =
     dest:'/tmp/dcpm-nooauthconfig',
@@ -85,13 +81,16 @@ platform.supported             =
     'linux64',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
-process.1=
+process.1                      =
+    args:,
     cmd:'export PYTHONPATH=/opt/postgres/lib:/opt/qbase5/lib/python/site-packages:/opt/qbase5/:/opt/qbase5/lib/pylabs/core;/opt/qbase5/qshell -c "p.application.start(\"dcpm\")"',
-    args:'',
-    prio:10,
     cwd:'/opt/qbase5',
-    timeout_start:10,
-    timeout_stop:10,
+    filterstr:'dcpm',
     ports:,
-    startupmanager:tmux,
-    filterstr:'dcpm'
+    prio:'10',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',
+
+#known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
+url                            = 'https://github.com/racktivity/dcpm'
