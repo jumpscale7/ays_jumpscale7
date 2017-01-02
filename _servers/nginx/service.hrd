@@ -21,11 +21,6 @@ param.base                     = '/opt/nginx'
 platform.supported             =
     'linux64',
 
-ubuntu.packages                = 
-    'libgeoip1',
-    'libxslt1.1',
-    'libxml2',
-
 process.1                      =
     args:,
     cmd:'./nginx -c /opt/nginx/cfg/nginx.conf',
@@ -36,4 +31,9 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'10',
     timeout_stop:'10',
+
+ubuntu.packages                =
+    'libgeoip1',
+    'libxslt1.1',
+    'libxml2',
 

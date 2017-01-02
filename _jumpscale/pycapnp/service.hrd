@@ -12,3 +12,4 @@ instances.maxnr                = '1'
 
 platform.supported             =
     'linux64',
+
