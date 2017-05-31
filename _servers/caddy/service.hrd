@@ -1,0 +1,17 @@
+#how many instances can be installed of this package, if 1 the instance name is always 'main'
+instances.maxnr                = '1'
+
+param.base                     = '/opt/caddy'
+
+platform.supported             =
+    'linux64',
+
+process.1                      =
+    args:,
+    cmd:'./caddy',
+    cwd:'/opt/caddy',
+    name:'$(service.name)__$(service.instance)',
+    prio:'50',
+    startupmanager:'tmux',
+    timeout_start:'10',
+    timeout_stop:'10',
