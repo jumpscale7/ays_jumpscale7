@@ -12,3 +12,6 @@ class Actions(ActionsBase):
         j.do.createDir('/tmp/caddy')
         j.system.fs.targzUncompress(dest, '/tmp/caddy')
         j.system.fs.copyFile('/tmp/caddy/caddy', '/opt/caddy')
+        j.system.fs.writeFile('/opt/caddy/Caddyfile', '''localhost:80 {
+    proxy / localhost:82
+}''')
