@@ -9,4 +9,6 @@ class Actions(ActionsBase):
         dest = '/tmp/caddy_linux_amd64.tar.gz'
         j.do.createDir('/opt/caddy')
         j.system.net.downloadIfNonExistent(caddy_url, dest)
-        j.system.fs.targzUncompress(dest, '/opt/caddy')
+        j.do.createDir('/tmp/caddy')
+        j.system.fs.targzUncompress(dest, '/tmp/caddy')
+        j.system.fs.copyFile('/tmp/caddy/caddy', '/opt/caddy')
