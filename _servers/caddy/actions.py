@@ -4,9 +4,9 @@ ActionsBase = j.atyourservice.getActionsBaseClass()
 
 class Actions(ActionsBase):
 
-    def install(self, serviceObj):
+    def prepare(self, serviceObj):
         caddy_url = 'https://caddyserver.com/download/linux/amd64'
-        dest = '/opt/caddy/caddy_linux_amd64.tar.gz'
+        dest = '/tmp/caddy_linux_amd64.tar.gz'
         j.do.createDir('/opt/caddy')
-        j.do.execute('wget {} -O {}'.format(caddy_url, dest))
-        j.do.execute('tar -xvf {}'.format(dest))
+        j.system.net.downloadIfNonExistent(caddy_url, dest)
+        j.system.fs.targzUncompress(dest, '/opt/caddy')
