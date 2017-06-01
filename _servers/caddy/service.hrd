@@ -11,6 +11,7 @@ process.1                      =
     cmd:'./caddy',
     cwd:'/opt/caddy',
     name:'$(service.name)__$(service.instance)',
+    filterstr:'/opt/caddy',
     prio:'50',
     startupmanager:'tmux',
     timeout_start:'10',
