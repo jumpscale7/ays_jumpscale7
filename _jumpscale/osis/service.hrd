@@ -57,4 +57,3 @@ process.1                      =
     startupmanager:'upstart',
     timeout_start:'10',
     timeout_stop:'10',
-

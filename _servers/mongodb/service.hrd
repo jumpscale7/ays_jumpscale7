@@ -29,4 +29,3 @@ process.1                      =
     startupmanager:'tmux',
     timeout_start:'60',
     timeout_stop:'10',
-
