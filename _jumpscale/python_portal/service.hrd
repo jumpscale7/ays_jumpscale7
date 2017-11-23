@@ -3,7 +3,7 @@ dependencies.1                 =
     name:'portal_lib',
 
 git.export.1                   =
-    branch:'7.2.1',
+    branch:'master',
     dest:'$(system.paths.python.lib.js)/portal',
     link:'True',
     source:'lib/portal',
