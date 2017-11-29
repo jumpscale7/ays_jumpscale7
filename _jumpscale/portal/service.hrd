@@ -11,45 +11,45 @@ dependencies.3                 =
 env.process.1                  = 
 
 git.export.1                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/portals/portalbase/macros/',
     link:'True',
     source:'apps/portalbase/macros/*',
+    tag:'v7.2.2',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.2                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/portals/portalbase/system/',
     link:'True',
     source:'apps/portalbase/system/*',
+    tag:'v7.2.2',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.3                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/portals/portalbase/wiki/System',
     link:'True',
     source:'apps/portalbase/wiki/System',
+    tag:'v7.2.2',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.4                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/portals/portalbase/templates/',
     link:'True',
     source:'apps/portalbase/templates/*',
+    tag:'v7.2.2',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.5                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/portals/$(service.instance)/portal_start.py',
     link:'True',
     source:'apps/portalbase/portal_start.py',
+    tag:'v7.2.2',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.export.6                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/portals/$(service.instance)/base/home/',
     link:'True',
     source:'apps/portalbase/home/',
+    tag:'v7.2.2',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 git.url                        = 'https://github.com/jumpscale7/jumpscale_portal/'
