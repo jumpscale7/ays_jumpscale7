@@ -36,13 +36,13 @@ platform.supported             =
 
 process.1                      =
     args:'jsagent.py -i $(service.instance)',
-    cmd:'jspython',
+    cmd:'/usr/local/bin/jspython',
     cwd:'$(system.paths.base)/apps/jsagent/',
     env:,
     filterstr:'jsagent.py',
     ports:'4446',
     prio:'100',
-    startupmanager:'tmux',
+    startupmanager:'upstart',
     timeout_start:'20',
     timeout_stop:'20',
 
