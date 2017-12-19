@@ -3,10 +3,10 @@ dependencies.1                 =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/eve',
     link:'True',
     source:'apps/eve/',
+    tag:'v7.2.3',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 #base of repo where code or files are e.g. http://git.aydo.com/binary/base
