@@ -18,10 +18,10 @@ dependencies.2                 =
 
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
-    branch:'staging',
     dest:'$(system.paths.base)/apps/jsagent/',
     link:'True',
     source:'apps/jsagent/*',
+    tag:'v7.2.5',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
