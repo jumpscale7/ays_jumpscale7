@@ -1,8 +1,6 @@
 
 #dependencies.1                 =
 #    name:'portal_lib',
-dependencies.1                 =
-    name:'influxdb_client',
 
 git.export.1                   =
     branch:'3.1',

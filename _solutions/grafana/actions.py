@@ -19,6 +19,8 @@ class Actions(ActionsBase):
         after this step the system will try to start the ays if anything needs to be started
         """
         influx_instance = serviceObj.hrd.get('instance.param.influxdb.connection')
+        if not influx_instance:
+            return
         hrd = j.application.getAppInstanceHRD('influxdb_client', influx_instance)
         host = hrd.getStr('instance.param.influxdb.client.address')
         port = hrd.getInt('instance.param.influxdb.client.port')

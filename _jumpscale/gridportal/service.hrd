@@ -4,12 +4,6 @@ dependencies.1                 =
 dependencies.2                 =
     name:'agentcontroller_client',
 
-dependencies.3                 =
-    name:'osis_eve',
-
-dependencies.4                 =
-    name:'influxdb_client',
-
 #known var's are: $root,$base,$cfg,$jslib,$pylib,$lib
 git.export.1                   =
     branch:'master',

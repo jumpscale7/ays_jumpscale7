@@ -1,10 +1,3 @@
-dep.args.influxdbclient        =
-    param.influxdb.client.address:'localhost',
-    param.influxdb.client.dbname:'main',
-    param.influxdb.client.login:'root',
-    param.influxdb.client.passwd:'root',
-    param.influxdb.client.port:'8086',
-
 dep.args.mailclient            =
     smtp.login:,
     smtp.passwd:,
@@ -25,7 +18,6 @@ dep.args.mongodbclient         =
     param.replicaSet:,
 
 dep.args.osis                  =
-    param.osis.connection.influxdb:'main',
     param.osis.connection.mongodb:'main',
     param.osis.superadmin.passwd:'$(instance.param.rootpasswd)',
 
@@ -86,13 +78,6 @@ dependencies.3                 =
 dependencies.4                 =
     args:'dep.args.mongodbclient',
     name:'mongodb_client',
-
-dependencies.5                 =
-    name:'influxdb',
-
-dependencies.6                 =
-    args:'dep.args.influxdbclient',
-    name:'influxdb_client',
 
 dependencies.7                 =
     args:'dep.args.osis',

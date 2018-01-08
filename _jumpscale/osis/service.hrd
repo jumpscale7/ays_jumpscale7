@@ -1,10 +1,6 @@
 dependencies.1                 =
     name:'portal_lib',
 
-dependencies.2                 =
-    instance:'$(instance.param.osis.connection.influxdb)',
-    name:'influxdb_client',
-
 dependencies.3                 =
     instance:'$(instance.param.osis.connection.mongodb)',
     name:'mongodb_client',
