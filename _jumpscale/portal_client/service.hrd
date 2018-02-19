@@ -1,3 +1,7 @@
+dependencies.1                 =
+    domain:'jumpscale',
+    name:'python_portal',
+
 platform.supported             =
     'generic',
 
