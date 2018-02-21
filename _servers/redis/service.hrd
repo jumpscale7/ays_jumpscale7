@@ -6,7 +6,7 @@ git.export.1                   =
     link:'True',
     platform:'ubuntu64',
     source:'redis',
-    url:'http://git.aydo.com/binary/redis',
+    url:'https://docs.greenitglobe.com/binary/redis',
 
 platform.supported             =
     'linux64',

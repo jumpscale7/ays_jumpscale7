@@ -7,23 +7,23 @@ git.export.1                   =
     dest:'/opt/grafana',
     link:'False',
     source:'bin/grafana-server',
-    url:'http://git.aydo.com/binary/grafana',
+    url:'https://docs.greenitglobe.com/binary/grafana',
 
 git.export.2                   =
     branch:'3.1',
     dest:'/opt/grafana/conf',
     link:'False',
     source:'conf/defaults.ini',
-    url:'http://git.aydo.com/binary/grafana',
+    url:'https://docs.greenitglobe.com/binary/grafana',
 
 git.export.3                   =
     branch:'3.1',
     dest:'/opt/grafana/public',
     link:'False',
     source:'public/',
-    url:'http://git.aydo.com/binary/grafana',
+    url:'https://docs.greenitglobe.com/binary/grafana',
 
-git.url                        = 'http://git.aydo.com/binary/grafana'
+git.url                        = 'https://docs.greenitglobe.com/binary/grafana'
 
 instances.maxnr                = '1'
 

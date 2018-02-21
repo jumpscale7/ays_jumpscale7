@@ -4,14 +4,14 @@ git.export.1                   =
     overwrite:'False',
     platform:'linux64',
     source:'root/lib/*',
-    url:'http://git.aydo.com/binary/web_python',
+    url:'https://docs.greenitglobe.com/binary/web_python',
 
 git.export.2                   =
     dest:'$(system.paths.base)/apps/portals/jslib/',
     link:'False',
     platform:'linux64',
     source:'root/jslib/*',
-    url:'http://git.aydo.com/binary/web_python',
+    url:'https://docs.greenitglobe.com/binary/web_python',
 
 git.export.3                   =
     branch:'master',
@@ -21,6 +21,6 @@ git.export.3                   =
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
-git.url                        = 'http://git.aydo.com/binary/web_python'
+git.url                        = 'https://docs.greenitglobe.com/binary/web_python'
 
 param.base                     = '$(system.paths.base)/lib'

@@ -6,10 +6,10 @@ git.export.1                   =
     link:'True',
     platform:'linux64',
     source:'mongodb/bin',
-    url:'http://git.aydo.com/binary/mongodb',
+    url:'https://docs.greenitglobe.com/binary/mongodb',
 
-#base of repo where code or files are e.g. http://git.aydo.com/binary/base
-git.url                        = 'http://git.aydo.com/binary/mongodb'
+#base of repo where code or files are e.g. http://docs.greenitglobe.com/binary/base
+git.url                        = 'https://docs.greenitglobe.com/binary/mongodb'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '1'
