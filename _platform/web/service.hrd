@@ -8,7 +8,7 @@ git.export.2                   =
     dest:'/opt/jumpscale7/lib/',
     link:'False',
     source:'root/lib/',
-    url:'http://docs.greenitglobe.com/binary/web_python',
+    url:'https://docs.greenitglobe.com/binary/web_python',
 
 git.url                        = 'https://docs.greenitglobe.com/binary/web_python'
 
