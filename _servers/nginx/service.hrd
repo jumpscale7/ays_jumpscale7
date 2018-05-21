@@ -9,9 +9,8 @@ git.export.1                   =
     dest:'/opt/nginx',
     link:'False',
     source:,
-    url:'https://git.aydo.com/binary/nginx.git',
+    url:'https://docs.greenitglobe.com/binary/nginx',
 
-git.url                        = 'https://git.aydo.com/binary/nginx.git'
 
 #how many instances can be installed of this package, if 1 the instance name is always 'main'
 instances.maxnr                = '1'
