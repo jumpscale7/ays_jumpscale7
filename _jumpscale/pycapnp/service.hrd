@@ -4,9 +4,8 @@ git.export.1                   =
     overwrite:'False',
     platform:'linux64',
     source:'*',
-    url:'http://git.aydo.com/binary/pycapnp',
+    url:'https://docs.greenitglobe.com/binary/pycapnp',
 
-git.url                        = 'https://github.com/binary/pycapnp/'
 
 instances.maxnr                = '1'
 
