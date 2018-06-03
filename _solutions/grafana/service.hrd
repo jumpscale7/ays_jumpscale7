@@ -1,7 +1,6 @@
 
 #dependencies.1                 =
 #    name:'portal_lib',
-
 git.export.1                   =
     branch:'3.1',
     dest:'/opt/grafana',
