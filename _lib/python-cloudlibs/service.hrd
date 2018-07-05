@@ -5,7 +5,6 @@ git.export.1                   =
     source:'root/*',
     url:'https://docs.greenitglobe.com/binary/python-cloudlibs',
 
-
 platform.supported             =
     'linux64',
 

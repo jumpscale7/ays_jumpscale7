@@ -6,7 +6,6 @@ git.export.1                   =
     source:'*',
     url:'https://docs.greenitglobe.com/binary/pycapnp',
 
-
 instances.maxnr                = '1'
 
 platform.supported             =
