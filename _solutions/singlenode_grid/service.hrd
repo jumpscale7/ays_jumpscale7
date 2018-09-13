@@ -8,7 +8,7 @@ dep.args.agentcontroller_client =
     agentcontroller.client.port:'4444',
 
 dep.args.grafana               =
-    param.influxdb.connection:'',
+    param.influxdb.connection:,
     param.password:'$(instance.param.rootpasswd)',
 
 dep.args.grafanaclient         =

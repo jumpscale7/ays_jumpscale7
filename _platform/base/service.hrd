@@ -28,3 +28,4 @@ git.url                        = 'https://docs.greenitglobe.com/binary/base_pyth
 
 platform.supported             =
     'linux64',
+
