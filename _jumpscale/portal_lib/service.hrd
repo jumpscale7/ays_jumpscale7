@@ -17,7 +17,7 @@ git.export.3                   =
     dest:'$(system.paths.python.lib.js)/portal',
     link:'True',
     source:'lib/portal',
-    tag:'v7.4.5',
+    tag:'v7.4.5.2',
     url:'https://github.com/jumpscale7/jumpscale_portal/',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/

@@ -21,7 +21,7 @@ git.export.1                   =
     dest:'$(system.paths.base)/apps/jsagent/',
     link:'True',
     source:'apps/jsagent/*',
-    tag:'v7.4.5',
+    tag:'v7.4.5.2',
     url:'https://github.com/jumpscale7/jumpscale_core7/',
 
 #source $(system.paths.base)/env.sh;/$(system.paths.base)/bin/
